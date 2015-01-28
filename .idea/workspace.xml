@@ -1,174 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d446f05-9ffc-459b-87c5-069be3b542f2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/AesException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/AuthResponse.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/BasePojo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/BindGroup.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/CacheKeyUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/CacheServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/CheckPermissions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ClientConstant.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/DBException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/DBUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/DateUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/DeniedAccessException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/EditUser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/EncryptException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/EncryptUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ErrorCodeConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/FileUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/Goods.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GoodsMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/GoodsPhoto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GoodsPhotoMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/Group.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GroupMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GroupServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/HttpServer.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/HttpServer_war.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/HttpServer_war_exploded.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/cache/ICache.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/ICacheService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGoodsMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGoodsPhotoMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGroupMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IGroupService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IIndentGoodsMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IIndentMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IIndentService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IInfoMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IInfoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IMailService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IUserMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/weixin/IWeixinService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/Indent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/IndentGoods.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/IndentGoodsMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/IndentMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/IndentServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/Info.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/InfoMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/InfoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/InvalidParamsException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/JsonUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/LogUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/MD5Util.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/MailInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MailServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_nodep_2_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_baitaner_cloud_server_Common_0_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_baitaner_server_Common_0_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_3_158.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_dbcp_commons_dbcp_1_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_pool_commons_pool_1_5_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_all_5_0_0_Alpha1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_mail_1_4_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jsp_jsp_api_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jsp_jstl_jstl_api_1_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jaxen_jaxen_1_1_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_dep_4_8_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_16.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_17.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_taglibs_taglibs_standard_impl_1_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jackson_jackson_core_asl_1_9_13.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jackson_jackson_core_asl_1_9_8.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jackson_jackson_mapper_asl_1_9_13.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jackson_jackson_mapper_asl_1_9_8.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hsqldb_hsqldb_2_3_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmock_jmock_2_5_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmock_jmock_junit4_2_5_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmock_jmock_legacy_2_5_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20140107.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_2_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_2_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_log4j12_1_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_redis_1_2_1_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_3_2_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_3_2_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_0_1_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_4_0_1_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_0_1_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_3_2_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_0_1_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_0_1_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_4_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/weixin/MsgTypeEnum.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/weixin/MsgVo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MyAuthenticator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/NetworkUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/NoRecordException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/PasswordFind.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/PasswordFindCodeResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/cache/RedisCacheImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/RepeRecordException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/info/RequestCreateInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/info/RequestInfoGoods.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/ResetPassword.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/Result.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ServerErrorCodeConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/ServerException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/SessionUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/StringUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/SystemUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/weixin/TextMsgVo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/TransUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/UpdateCarrier.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception/UserException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/UserLogin.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/UserLoginResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/UserMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/UserRegister.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/UserResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/VerifyParams.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/weixin/WeixinCMDEnum.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/weixin/WeixinConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/weixin/WeixinParserMsg.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/weixin/WeixinService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/weixin/WeixinTools.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_db.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/database/dataload.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/beans/datasource.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/log4j.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/beans/redis.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-    </list>
+    <list default="true" id="8d446f05-9ffc-459b-87c5-069be3b542f2" name="Default" comment="" />
     <ignored path="Cloud-Server.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1585,12 +1418,12 @@
       <workItem from="1422323439872" duration="6312000" />
       <workItem from="1422340243408" duration="9156000" />
       <workItem from="1422408321286" duration="14318000" />
-      <workItem from="1422437720035" duration="1597000" />
+      <workItem from="1422437720035" duration="1641000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38957000" />
+    <option name="totallyTimeSpent" value="39001000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1390" height="799" extended-state="0" />

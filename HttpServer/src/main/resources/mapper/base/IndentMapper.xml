@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       Copyright 2010-2013 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+CREATE TABLE `bt_indent` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `info_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：新增订单  正在进行交易 2：取消订单 3：订单结束 交易完成',
+  `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.baitaner.common.mapper.IIndentMapper">
+  	<cache />
+	<resultMap id="indentResultMapper" type="Indent">
+		<id property="id" column="id" />
+		<result property="infoId" column="info_id" />
+		<result property="userId" column="user_id" />
+		<result property="status" column="status" />
+		<result property="buyTime" column="buy_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+  	<insert id="insert" parameterType="Indent" useGeneratedKeys="true" keyProperty="id">
+  		INSERT INTO bt_indent(
+  			info_id
+  			,user_id
+  			,status
+  			,buy_time
+  			,update_time
+  		) values (
+  			#{infoId}
+  			#{userId}
+  			,#{status}
+  			,#{buyTime}
+  			,#{updateTime}
+  		)
+  	</insert>
+  	
+  	<select id="findById" parameterType="long" resultMap="indentResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_indent where id = #{id}
+	</select>
+
+	<select id="findByUserId" resultMap="indentResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_indent where user_id = ${userId} limit ${limit}
+	</select>
+	<select id="findByInfoId" resultMap="indentResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_indent where info_id = ${infoId} limit ${limit}
+	</select>
+	<update id="update" parameterType="Indent">
+		UPDATE bt_indent
+		SET
+		,status=#{status}
+		,update_time=#{updateTime}
+		where id = #{id};
+	</update>
+	<delete id="delete" parameterType="long">
+		DELETE bt_indent
+		where id = #{id};
+	</delete>
+</mapper>

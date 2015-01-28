@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       Copyright 2010-2013 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+
+CREATE TABLE `bt_info_goods_photo` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `goods_id` bigint(20) NOT NULL,
+  `photo_url` varchar(255) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  PRIMARY KEY (`id`,`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.baitaner.common.mapper.IGoodsPhotoMapper">
+  	<cache />
+	<resultMap id="goodsPhotoResultMapper" type="GoodsPhoto">
+		<id property="id" column="id" />
+		<result property="goodsId" column="goods_id" />
+		<result property="photoUrl" column="photo_url" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+	
+  	<insert id="insert" parameterType="GoodsPhoto" useGeneratedKeys="true" keyProperty="id">
+  		INSERT INTO bt_info_goods_photo(
+  			goods_id
+  			,photo_url
+  			,create_time
+  		) values (
+  			#{goodsId}
+  			,#{photoUrl}
+  			,#{createTime}
+  		)
+  	</insert>
+  	
+  	<select id="findById" parameterType="long" resultMap="goodsPhotoResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_info_goods_photo where id = #{id}
+	</select>
+
+	<select id="findByGoodsId" parameterType="long" resultMap="goodsPhotoResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_info_goods_photo where goods_id = ${goodsId} limit ${limit}
+	</select>
+
+	<update id="update" parameterType="GoodsPhoto">
+		UPDATE bt_info_goods_photo
+		SET
+		goods_id=#{goodsId}
+		,photo_url=#{photoUrl}
+		,create_time=#{createTime}
+		where id = #{id};
+	</update>
+	<delete id="delete" parameterType="long">
+		DELETE bt_info_goods_photo
+		where id = #{id};
+	</delete>
+</mapper>
