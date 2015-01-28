@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd ">
+	<bean id="dataSourceBase" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="url"
+			value="jdbc:mysql://123.56.95.160:3306/baitaner_db?characterEncoding=UTF-8" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="username" value="root" />
+		<property name="password" value="baitaner@2015" />
+		<property name="maxActive" value="10000" /> <!-- 连接池最大的活动连接数 -->
+		<property name="maxIdle" value="10" />    <!-- 最大的可空闲的连接数 -->
+		<property name="maxWait" value="500" />   <!-- 最大可以等待的连接数 -->
+
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+		<property name="minEvictableIdleTimeMillis" value="180000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="3600" />
+		<property name="logAbandoned" value="true" />
+
+		<property name="defaultAutoCommit" value="true" />  <!-- 这里没有涉及到事务，每执行一个数据库，就自动提交，所以设置为true，否则应为false -->
+	</bean>
+
+	<!-- in-memory database and a datasource <jdbc:embedded-database id="dataSource" 
+		type="H2"> <jdbc:script location="classpath:database/schema.sql"/> <jdbc:script 
+		location="classpath:database/baitaner_db.sql"/> <jdbc:script location="classpath:database/silveroak_history_db.sql"/>
+		<jdbc:script location="classpath:database/dataload.sql"/> </jdbc:embedded-database> -->
+
+	<!-- transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceBase" />
+	</bean>
+
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactoryBase" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceBase" />
+		<property name="typeAliasesPackage" value="com.baitaner.common.domain.base" />
+	</bean>
+
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.baitaner.common.mapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBase"/>
+	</bean>
+
+	<!-- enable transaction demarcation with annotations -->
+    <tx:annotation-driven />
+</beans>

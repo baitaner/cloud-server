@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       Copyright 2010-2013 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+
+CREATE TABLE `bt_info_goods` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` TEXT DEFAULT NULL,
+  `total` int(11) NOT NULL DEFAULT '0',
+  `sell_count` int(11) NOT NULL DEFAULT '0',
+  `info_id` BIGINT(20) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.baitaner.common.mapper.IGoodsMapper">
+  	<cache />
+	<resultMap id="goodsResultMapper" type="Goods">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="description" column="description" />
+		<result property="total" column="total" />
+		<result property="sellCount" column="sell_count" />
+		<result property="infoId" column="info_id" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+  	<insert id="insert" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
+  		INSERT INTO bt_info_goods(
+  			title
+  			,description
+  			,total
+  			,sell_count
+  			,info_id
+  			,create_time
+  			,update_time
+  		) values (
+  			#{title}
+  			,#{description}
+  			,#{total}
+  			,#{sellCount}
+  			,#{infoId}
+  			,#{createTime}
+  			,#{updateTime}
+  		)
+  	</insert>
+  	
+  	<select id="findById" parameterType="long" resultMap="goodsResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_info_goods where id = #{id}
+	</select>
+
+	<select id="findByInfoId" parameterType="long" resultMap="goodsResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_info where info_id = ${infoId} limit ${limit}
+	</select>
+	<update id="subGoods">
+		UPDATE bt_info
+		SET
+		sell_count=#{count}
+		where id = #{id};
+	</update>
+	<update id="update" parameterType="Goods">
+		UPDATE bt_info
+		SET
+		title=#{title}
+		,description=#{description}
+		,total=#{total}
+		,sell_count=#{sellCount}
+		,info_id=#{info_id}
+		,update_time=#{updateTime}
+		where id = #{id};
+	</update>
+	<delete id="delete" parameterType="long">
+		DELETE bt_info
+		where id = #{id};
+	</delete>
+</mapper>

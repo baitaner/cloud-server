@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       Copyright 2010-2013 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+CREATE TABLE `bt_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `login_name` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `auth_email` varchar(100) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `is_auth` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1： 邮箱未激活（注册后激活） 2：邮箱激活',
+  `password` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未认证，或未加入任何公司  2：加入某个公司',
+  `role` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：普通用户 2：公司管理员 3：后台管理员',
+  `group_id` bigint(20) DEFAULT NULL,
+  `register_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `login_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.baitaner.common.mapper.IUserMapper">
+  	<cache />
+	<resultMap id="userResultMapper" type="User">
+		<id property="id" column="id" />
+		<result property="loginName" column="login_name" />
+		<result property="userName" column="user_name" />
+		<result property="email" column="email" />
+		<result property="groupEmail" column="group_email" />
+		<result property="icon" column="icon" />
+		<result property="phone" column="phone" />
+		<result property="isAuth" column="is_auth" />
+		<result property="password" column="password" />
+		<result property="status" column="status" />
+		<result property="role" column="role" />
+		<result property="groupId" column="group_id" />
+		<result property="registerTime" column="register_time" />
+		<result property="loginTime" column="login_time" />
+	</resultMap>
+	
+  	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+  		INSERT INTO bt_user(
+  			login_name
+  			,user_name
+  			,email
+  			,group_email
+  			,icon
+  			,phone
+			,is_auth
+  			,password
+			,status
+  			,role
+  			,group_id
+  			,register_time
+  			,login_time
+  		) values (
+  			#{loginName}
+  			,#{userName}
+  			,#{email}
+  			,#{groupEmail}
+  			,#{icon}
+  			,#{phone}
+  			,#{isAuth}
+  			,#{password}
+  			,#{status}
+  			,#{role}
+  			,#{groupId}
+  			,#{registerTime}
+  			,#{loginTime}
+  		)
+  	</insert>
+  	
+  	<select id="findById" parameterType="long" resultMap="userResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_user where id = #{id}
+	</select>
+	<select id="findByLoginName" parameterType="long" resultMap="userResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_user where login_name = #{loginName}
+	</select>
+	<select id="findByEmail" parameterType="string" resultMap="userResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_user where email = #{email}
+	</select>
+    <update id="update" parameterType="User">
+		UPDATE bt_user
+		SET
+  		  login_name=#{loginName},
+  		  user_name=#{userName},
+  		  email=#{email},
+  		  group_email=#{groupEmail},
+  		  icon=#{icon},
+  		  phone=#{phone},
+  		  is_auth=#{isAuth},
+  		  password=#{password},
+  		  status=#{status},
+  		  role=#{role},
+  		  groupId=#{groupId},
+  		  registerTime=#{registerTime},
+  		  loginTime=loginTime
+		where id = #{id};
+	</update>
+
+</mapper>
