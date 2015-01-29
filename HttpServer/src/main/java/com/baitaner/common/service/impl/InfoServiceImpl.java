@@ -1,6 +1,8 @@
 package com.baitaner.common.service.impl;
 
 import com.baitaner.common.domain.request.info.RequestCreateInfo;
+import com.baitaner.common.domain.result.InfoListResult;
+import com.baitaner.common.domain.result.InfoResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.mapper.IGoodsMapper;
 import com.baitaner.common.mapper.IGoodsPhotoMapper;
@@ -45,7 +47,7 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public Result getInfo(Long infoId){
+    public InfoResult getInfo(Long infoId){
         return null;
     }
 
@@ -55,7 +57,24 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public Result findInfo(Long userId){
+    public InfoListResult findInfoFromUser(Long userId,Integer status,Integer isLock,Integer limit){
+        return null;
+    }
+    @Override
+    public InfoListResult findInfoFromGroup(Long groupId,Integer status,Integer isLock,Integer limit){
+        return null;
+    }
+
+    @Override
+    public Result publish(Long infoId){
+        return null;
+    }
+    @Override
+    public Result cancel(Long infoId){
+        return null;
+    }
+    @Override
+    public Result delete(Long infoId){
         return null;
     }
 }

@@ -3,6 +3,8 @@ package com.baitaner.server.httpserver.controller;
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.info.RequestCreateInfo;
+import com.baitaner.common.domain.result.InfoListResult;
+import com.baitaner.common.domain.result.InfoResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.service.IInfoService;
 import com.baitaner.common.service.IUserService;
@@ -89,6 +91,158 @@ public class InfoController {
             User user = new User();
             createInfo.setInfoId(infoId);
             response = infoService.updateInfo(infoId, createInfo);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     * 发布某个信息
+     * @param SESSION_KEY
+     * @param infoId
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/publish/{infoId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String publish(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long infoId
+    ) {
+        Result response = new Result();
+        if(SESSION_KEY==null||infoId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = infoService.publish(infoId);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     * 取消某个信息
+     * @param SESSION_KEY
+     * @param infoId
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/cancel/{infoId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String cancel(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long infoId
+    ) {
+        Result response = new Result();
+        if(SESSION_KEY==null||infoId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = infoService.cancel(infoId);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     * 删除某个信息，注意权限检查， 只有在未发布的时候才允许删除
+     * @param SESSION_KEY
+     * @param infoId
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/delete/{infoId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String delete(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long infoId
+    ) {
+        Result response = new Result();
+        if(SESSION_KEY==null||infoId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = infoService.delete(infoId);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/{infoId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String get(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long infoId
+    ) {
+        InfoResult response = new InfoResult();
+        if(SESSION_KEY==null ||infoId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = infoService.getInfo(infoId);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     * 获取当前用户某个状态的info列表
+     * @param SESSION_KEY
+     * @return
+     */
+
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/user/{userId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String getFromUser(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long userId,
+            @RequestParam Integer limit,
+            @RequestParam Integer infoStatus,
+            @RequestParam Integer isLock
+    ) {
+         InfoListResult response = new InfoListResult();
+        if(SESSION_KEY==null ||limit==null || infoStatus==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = infoService.findInfoFromUser(userId, infoStatus, isLock, limit);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/group/{groupId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String getFromGroup(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long groupId,
+            @RequestParam Integer limit,
+            @RequestParam Integer infoStatus,
+            @RequestParam Integer isLock
+    ) {
+        InfoListResult response = new InfoListResult();
+        if(SESSION_KEY==null ||limit==null || infoStatus==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = infoService.findInfoFromGroup(groupId, infoStatus, isLock, limit);
         }
         return JsonUtil.object2String(response);
     }
