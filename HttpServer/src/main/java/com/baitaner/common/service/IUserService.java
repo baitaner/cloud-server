@@ -4,10 +4,7 @@ import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.BindGroup;
 import com.baitaner.common.domain.request.user.ResetPassword;
 import com.baitaner.common.domain.request.user.UserRegister;
-import com.baitaner.common.domain.result.PasswordFindCodeResult;
-import com.baitaner.common.domain.result.Result;
-import com.baitaner.common.domain.result.UserLoginResult;
-import com.baitaner.common.domain.result.UserResult;
+import com.baitaner.common.domain.result.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,4 +28,5 @@ public interface IUserService {
 
     UserResult getUser(Long userId);
 
+    UserListResult findUserFromGroup(Long groupId, Integer limit);
 }

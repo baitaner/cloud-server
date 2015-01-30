@@ -59,10 +59,10 @@ CREATE TABLE `bt_group` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `bt_info`
+-- Table structure for `bt_goods`
 -- ----------------------------
-DROP TABLE IF EXISTS `bt_info`;
-CREATE TABLE `bt_info` (
+DROP TABLE IF EXISTS `bt_goods`;
+CREATE TABLE `bt_goods` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `description` TEXT DEFAULT NULL,
@@ -71,6 +71,8 @@ CREATE TABLE `bt_info` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未发布（新建）2：发布 3：取消 4：完成 5：结束',
   `previous_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未发布（新建）2：发布 3：取消 4：完成 5：结束',
   `is_lock` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: 未锁定  2：锁定',
+  `total` int(11) NOT NULL DEFAULT '0',
+  `sell_count` int(11) NOT NULL DEFAULT '0',
   `expire_time` timestamp NULL DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -79,34 +81,14 @@ CREATE TABLE `bt_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of bt_info
+-- Records of bt_goods
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `bt_info_goods`
+-- Table structure for `bt_goods_photo`
 -- ----------------------------
-DROP TABLE IF EXISTS `bt_info_goods`;
-CREATE TABLE `bt_info_goods` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `description` TEXT DEFAULT NULL,
-  `total` int(11) NOT NULL DEFAULT '0',
-  `sell_count` int(11) NOT NULL DEFAULT '0',
-  `info_id` BIGINT(20) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of bt_info_goods
--- ----------------------------
-
--- ----------------------------
--- Table structure for `bt_info_goods_photo`
--- ----------------------------
-DROP TABLE IF EXISTS `bt_info_goods_photo`;
-CREATE TABLE `bt_info_goods_photo` (
+DROP TABLE IF EXISTS `bt_goods_photo`;
+CREATE TABLE `bt_goods_photo` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `goods_id` bigint(20) NOT NULL,
   `photo_url` varchar(255) NOT NULL,
@@ -115,7 +97,7 @@ CREATE TABLE `bt_info_goods_photo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of bt_info_goods_photo
+-- Records of bt_goods_photo
 -- ----------------------------
 
 -- ----------------------------
@@ -124,9 +106,10 @@ CREATE TABLE `bt_info_goods_photo` (
 DROP TABLE IF EXISTS `bt_indent`;
 CREATE TABLE `bt_indent` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `info_id` bigint(20) NOT NULL,
+  `goods_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：新增订单  正在进行交易 2：取消订单 3：订单结束 交易完成',
+  `buy_count` int(11) NOT NULL DEFAULT '0',
   `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -134,21 +117,4 @@ CREATE TABLE `bt_indent` (
 
 -- ----------------------------
 -- Records of bt_indent
--- ----------------------------
-
--- ----------------------------
--- Table structure for `bt_indent_goods`
--- ----------------------------
-DROP TABLE IF EXISTS `bt_indent_goods`;
-CREATE TABLE `bt_indent_goods` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `indent_id` bigint(20) NOT NULL,
-  `goods_id` bigint(20) NOT NULL,
-  `buy_count` int(11) NOT NULL DEFAULT '0',
-  `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of bt_indent_goods
 -- ----------------------------

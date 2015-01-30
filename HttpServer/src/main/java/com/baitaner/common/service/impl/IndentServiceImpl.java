@@ -1,9 +1,14 @@
 package com.baitaner.common.service.impl;
 
+import com.baitaner.common.domain.base.User;
+import com.baitaner.common.domain.request.goods.RequestCreateIndent;
+import com.baitaner.common.domain.result.IndentListResult;
+import com.baitaner.common.domain.result.IndentResult;
 import com.baitaner.common.domain.result.Result;
-import com.baitaner.common.domain.base.Indent;
-import com.baitaner.common.domain.base.IndentGoods;
-import com.baitaner.common.mapper.*;
+import com.baitaner.common.mapper.IGoodsMapper;
+import com.baitaner.common.mapper.IGoodsPhotoMapper;
+import com.baitaner.common.mapper.IIndentMapper;
+import com.baitaner.common.mapper.IUserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IIndentService;
 import org.apache.log4j.Logger;
@@ -11,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service("indentService")
 public class IndentServiceImpl implements IIndentService {
@@ -26,10 +29,6 @@ public class IndentServiceImpl implements IIndentService {
     private IIndentMapper indentMapper;
 
     @Autowired
-    private IIndentGoodsMapper indentGoodsMapper;
-
-
-    @Autowired
     private IGoodsMapper goodsMapper;
 
     @Autowired
@@ -40,27 +39,36 @@ public class IndentServiceImpl implements IIndentService {
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result saveIndent(Indent indent, List<IndentGoods> indentGoodses){
+    public Result saveIndent(User user,RequestCreateIndent createIndent){
         return null;
     }
 
     @Override
-    public Result updateIndent(Long indentId, Indent indent, List<IndentGoods> indentGoodses){
+    public Result cancelIndent(Long indentId){
+        return null;
+    }
+    @Override
+    public Result confirmIndent(Long indentId) {
         return null;
     }
 
     @Override
-    public Result operatIndentStatus(Long indentId, int status){
+    public IndentResult getIndent(Long inedntId){
         return null;
     }
 
     @Override
-    public Result getIndent(Long inedntId){
+    public IndentListResult findIndentByUser(Long userId,Integer index,Integer limit){
         return null;
     }
 
     @Override
-    public Result findIndentByUser(Long userId){
+    public IndentListResult findIndentByGoods(Long infoId, Integer index,Integer limit) {
+        return null;
+    }
+
+    @Override
+    public IndentListResult findIndentByGroupAndStatus(Long goodsId, Integer status,Integer index, Integer limit) {
         return null;
     }
 }

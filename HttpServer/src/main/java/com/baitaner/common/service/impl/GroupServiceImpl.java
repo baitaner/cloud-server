@@ -1,5 +1,7 @@
 package com.baitaner.common.service.impl;
 
+import com.baitaner.common.domain.result.GroupListResult;
+import com.baitaner.common.domain.result.GroupResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.domain.base.Group;
 import com.baitaner.common.mapper.IGroupMapper;
@@ -34,7 +36,7 @@ public class GroupServiceImpl implements IGroupService {
 
 
     @Override
-    public Result getGroup(Long id){
+    public GroupResult getGroup(Long id){
         return null;
     }
 
@@ -47,6 +49,11 @@ public class GroupServiceImpl implements IGroupService {
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Result saveGroup(Group group){
+        return null;
+    }
+
+    @Override
+    public GroupListResult find(Integer index, Integer limit){
         return null;
     }
 }

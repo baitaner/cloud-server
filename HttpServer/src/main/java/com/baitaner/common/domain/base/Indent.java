@@ -26,18 +26,27 @@ PRIMARY KEY (`id`)
  */
 public class Indent extends BasePojo {
 	private static final long serialVersionUID = -755818255196445741L;
-	private Long infoId;
+	private Long goodsId;
     private Long userId;
     private Integer status;
+    private Integer buyCount;
     private Timestamp buyTime;
     private Timestamp updateTime;
 
-	public Long getInfoId() {
-		return infoId;
+	public Long getGoodsId() {
+		return goodsId;
 	}
 
-	public void setInfoId(Long infoId) {
-		this.infoId = infoId;
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public Integer getBuyCount() {
+		return buyCount;
+	}
+
+	public void setBuyCount(Integer buyCount) {
+		this.buyCount = buyCount;
 	}
 
 	public Long getUserId() {

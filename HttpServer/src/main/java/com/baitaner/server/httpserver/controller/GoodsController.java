@@ -2,11 +2,11 @@ package com.baitaner.server.httpserver.controller;
 
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.User;
-import com.baitaner.common.domain.request.info.RequestCreateInfo;
-import com.baitaner.common.domain.result.InfoListResult;
-import com.baitaner.common.domain.result.InfoResult;
+import com.baitaner.common.domain.request.goods.RequestCreateGoods;
+import com.baitaner.common.domain.result.GoodsListResult;
+import com.baitaner.common.domain.result.GoodsResult;
 import com.baitaner.common.domain.result.Result;
-import com.baitaner.common.service.IInfoService;
+import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IUserService;
 import com.baitaner.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.*;
  * this template use File | Settings | File Templates.
  */
 @RestController
-@RequestMapping(value = "/info")
-public class InfoController {
-    private static final String TAG = UserController.class.getSimpleName();
+@RequestMapping(value = "/goods")
+public class GoodsController {
+    private static final String TAG = GoodsController.class.getSimpleName();
     @Autowired
     private IUserService userService;
     @Autowired
-    private IInfoService infoService;
+    private IGoodsService goodsService;
 
     /**
      *
      * @param SESSION_KEY
-     * @param createInfo
-     *  private Long infoId;
+     * @param createGoods
+     *  private Long goodsId;
         private String title;
         private String expireDate;
-        private List<RequestInfoGoods> infoGoodsList;
+        private List<RequestGoodsGoods> goodsGoodsList;
             private String goodsId;
             private String title;
             private String description;
@@ -52,15 +52,15 @@ public class InfoController {
     public @ResponseBody
     String create(
             @RequestHeader String SESSION_KEY,
-            @RequestBody RequestCreateInfo createInfo
+            @RequestBody RequestCreateGoods createGoods
     ) {
         Result response = new Result();
-        if(SESSION_KEY==null ||createInfo==null){
+        if(SESSION_KEY==null ||createGoods==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.saveInfo(createInfo);
+            response = goodsService.save(user,createGoods);
         }
         return JsonUtil.object2String(response);
     }
@@ -68,29 +68,29 @@ public class InfoController {
     /**
      *
      * @param SESSION_KEY
-     * @param infoId
-     * @param createInfo
+     * @param goodsId
+     * @param createGoods
      * @return
      */
 
     @RequestMapping(method = RequestMethod.POST,
-            value = "/edit/{infoId}",
+            value = "/edit/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
     String edit(
             @RequestHeader String SESSION_KEY,
-            @PathVariable Long infoId,
-            @RequestBody RequestCreateInfo createInfo
+            @PathVariable Long goodsId,
+            @RequestBody RequestCreateGoods createGoods
     ) {
         Result response = new Result();
-        if(SESSION_KEY==null ||createInfo==null ||infoId==null){
+        if(SESSION_KEY==null ||createGoods==null ||goodsId==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            createInfo.setInfoId(infoId);
-            response = infoService.updateInfo(infoId, createInfo);
+            createGoods.setGoodsId(goodsId);
+            response = goodsService.update(goodsId, createGoods);
         }
         return JsonUtil.object2String(response);
     }
@@ -98,25 +98,25 @@ public class InfoController {
     /**
      * 发布某个信息
      * @param SESSION_KEY
-     * @param infoId
+     * @param goodsId
      * @return
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/publish/{infoId}",
+            value = "/publish/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
     String publish(
             @RequestHeader String SESSION_KEY,
-            @PathVariable Long infoId
+            @PathVariable Long goodsId
     ) {
         Result response = new Result();
-        if(SESSION_KEY==null||infoId==null){
+        if(SESSION_KEY==null||goodsId==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.publish(infoId);
+            response = goodsService.publish(goodsId);
         }
         return JsonUtil.object2String(response);
     }
@@ -124,25 +124,25 @@ public class InfoController {
     /**
      * 取消某个信息
      * @param SESSION_KEY
-     * @param infoId
+     * @param goodsId
      * @return
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/cancel/{infoId}",
+            value = "/cancel/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
     String cancel(
             @RequestHeader String SESSION_KEY,
-            @PathVariable Long infoId
+            @PathVariable Long goodsId
     ) {
         Result response = new Result();
-        if(SESSION_KEY==null||infoId==null){
+        if(SESSION_KEY==null||goodsId==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.cancel(infoId);
+            response = goodsService.cancel(goodsId);
         }
         return JsonUtil.object2String(response);
     }
@@ -150,52 +150,52 @@ public class InfoController {
     /**
      * 删除某个信息，注意权限检查， 只有在未发布的时候才允许删除
      * @param SESSION_KEY
-     * @param infoId
+     * @param goodsId
      * @return
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/delete/{infoId}",
+            value = "/delete/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
     String delete(
             @RequestHeader String SESSION_KEY,
-            @PathVariable Long infoId
+            @PathVariable Long goodsId
     ) {
         Result response = new Result();
-        if(SESSION_KEY==null||infoId==null){
+        if(SESSION_KEY==null||goodsId==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.delete(infoId);
+            response = goodsService.delete(goodsId);
         }
         return JsonUtil.object2String(response);
     }
 
 
     @RequestMapping(method = RequestMethod.GET,
-            value = "/{infoId}",
+            value = "/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
     String get(
             @RequestHeader String SESSION_KEY,
-            @PathVariable Long infoId
+            @PathVariable Long goodsId
     ) {
-        InfoResult response = new InfoResult();
-        if(SESSION_KEY==null ||infoId==null){
+        GoodsResult response = new GoodsResult();
+        if(SESSION_KEY==null ||goodsId==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.getInfo(infoId);
+            response = goodsService.getGoods(goodsId);
         }
         return JsonUtil.object2String(response);
     }
 
     /**
-     * 获取当前用户某个状态的info列表
+     * 获取当前用户某个状态的goods列表
      * @param SESSION_KEY
      * @return
      */
@@ -208,22 +208,32 @@ public class InfoController {
     String getFromUser(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long userId,
+            @RequestParam Integer index,
             @RequestParam Integer limit,
-            @RequestParam Integer infoStatus,
+            @RequestParam Integer status,
             @RequestParam Integer isLock
     ) {
-         InfoListResult response = new InfoListResult();
-        if(SESSION_KEY==null ||limit==null || infoStatus==null){
+         GoodsListResult response = new GoodsListResult();
+        if(SESSION_KEY==null ||limit==null || status==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.findInfoFromUser(userId, infoStatus, isLock, limit);
+            response = goodsService.findGoodsFromUser(userId, status, isLock,index,limit);
         }
         return JsonUtil.object2String(response);
     }
 
 
+    /**
+     * 获取公司的信息， 根据不同状态，和锁状态获取
+     * @param SESSION_KEY
+     * @param groupId
+     * @param limit
+     * @param status
+     * @param isLock
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET,
             value = "/group/{groupId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -232,18 +242,20 @@ public class InfoController {
     String getFromGroup(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long groupId,
+            @RequestParam Integer index,
             @RequestParam Integer limit,
-            @RequestParam Integer infoStatus,
+            @RequestParam Integer status,
             @RequestParam Integer isLock
     ) {
-        InfoListResult response = new InfoListResult();
-        if(SESSION_KEY==null ||limit==null || infoStatus==null){
+        GoodsListResult response = new GoodsListResult();
+        if(SESSION_KEY==null ||limit==null || status==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = infoService.findInfoFromGroup(groupId, infoStatus, isLock, limit);
+            response = goodsService.findGoodsFromGroup(groupId, status, isLock,index, limit);
         }
         return JsonUtil.object2String(response);
     }
+
 }

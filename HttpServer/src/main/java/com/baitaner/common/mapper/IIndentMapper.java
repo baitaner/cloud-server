@@ -19,8 +19,7 @@ public interface IIndentMapper {
 	Indent findById(Long id);
 	List<Indent> findByUserId(
 			@Param("userId") Long userId,
-			@Param("limit") int limit);
-	List<Indent> findByInfoId(
-			@Param("infoId") Long infoId,
-			@Param("limit") int limit);
+			@Param("index") int index,
+			@Param("limit") int limit
+	);
 }

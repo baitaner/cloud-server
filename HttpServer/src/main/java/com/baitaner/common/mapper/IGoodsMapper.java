@@ -18,12 +18,23 @@ import java.util.List;
 public interface IGoodsMapper {
 	Integer delete(Long id);
 	Integer insert(Goods goods);
-	Integer update(Goods goods);
-	Integer subGoods(
-			@Param("id") Long id,
-			@Param("count") int count);
+
 	Goods findById(Long id);
-	List<Goods> findByInfoId(
-			@Param("infoId") Long infoId,
-			@Param("limit") int limit);
+
+	Integer update(Goods goods);
+
+	List<Goods> findByUserIdAndStatus(
+			@Param("userId") Long userId,
+			@Param("status") int status,
+			@Param("index") int index,
+			@Param("limit") int limit
+	);
+
+	List<Goods> findByGroupIdAndStatus(
+			@Param("groupId") Long groupId,
+			@Param("status") int status,
+			@Param("index") int index,
+			@Param("limit") int limit
+	);
+
 }

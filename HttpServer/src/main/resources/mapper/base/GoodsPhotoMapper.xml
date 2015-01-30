@@ -61,7 +61,7 @@ CREATE TABLE `bt_info_goods_photo` (
 		select
 		*
 		from
-		bt_info_goods_photo where goods_id = ${goodsId} limit ${limit}
+		bt_info_goods_photo where goods_id = ${goodsId} limit  #{index},${limit}
 	</select>
 
 	<update id="update" parameterType="GoodsPhoto">

@@ -30,6 +30,7 @@ public class Group extends BasePojo {
 	private String emailPostfix;
 	private Timestamp createTime;
 
+
 	public String getName() {
 		return name;
 	}

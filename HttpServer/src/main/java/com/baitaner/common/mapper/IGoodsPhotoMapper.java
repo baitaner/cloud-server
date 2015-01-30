@@ -19,5 +19,7 @@ public interface IGoodsPhotoMapper {
 	GoodsPhoto findById(Long id);
 	List<GoodsPhoto> findByGoodsId(
 			@Param("goodsId") Long goodsId,
-			@Param("limit") int limit);
+			@Param("index") int index,
+			@Param("limit") int limit
+	);
 }

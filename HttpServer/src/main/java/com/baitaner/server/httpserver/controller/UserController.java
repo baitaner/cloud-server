@@ -4,6 +4,7 @@ import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.*;
 import com.baitaner.common.domain.result.Result;
+import com.baitaner.common.domain.result.UserListResult;
 import com.baitaner.common.domain.result.UserLoginResult;
 import com.baitaner.common.domain.result.UserResult;
 import com.baitaner.common.service.IUserService;
@@ -233,6 +234,34 @@ public class UserController {
         }else{
             User user = new User();
             response = userService.getUser(user.getId());
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     * 获取公司所有人员
+     * @param SESSION_KEY
+     * @param limit
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/group/{groupId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String userOfGroup(
+            @RequestHeader String SESSION_KEY,
+            @RequestParam Long groupId,
+            @RequestParam Integer index,
+            @RequestParam Integer limit
+    ) {
+        UserListResult response = new UserListResult();
+        if(SESSION_KEY==null ||limit==null||groupId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = userService.findUserFromGroup(groupId,limit);
         }
         return JsonUtil.object2String(response);
     }

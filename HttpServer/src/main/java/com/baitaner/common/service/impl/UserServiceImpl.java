@@ -4,10 +4,7 @@ import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.BindGroup;
 import com.baitaner.common.domain.request.user.ResetPassword;
 import com.baitaner.common.domain.request.user.UserRegister;
-import com.baitaner.common.domain.result.PasswordFindCodeResult;
-import com.baitaner.common.domain.result.Result;
-import com.baitaner.common.domain.result.UserLoginResult;
-import com.baitaner.common.domain.result.UserResult;
+import com.baitaner.common.domain.result.*;
 import com.baitaner.common.mapper.IUserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IUserService;
@@ -81,6 +78,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Result findPassword(String rcode, String email) {
+        return null;
+    }
+    @Override
+    public UserListResult findUserFromGroup(Long groupId, Integer limit) {
         return null;
     }
 }

@@ -16,9 +16,10 @@
 
 CREATE TABLE `bt_indent` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `info_id` bigint(20) NOT NULL,
+  `goods_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：新增订单  正在进行交易 2：取消订单 3：订单结束 交易完成',
+  `buy_count` int(11) NOT NULL DEFAULT '0',
   `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -34,24 +35,27 @@ CREATE TABLE `bt_indent` (
   	<cache />
 	<resultMap id="indentResultMapper" type="Indent">
 		<id property="id" column="id" />
-		<result property="infoId" column="info_id" />
+		<result property="goodsId" column="goods_id" />
 		<result property="userId" column="user_id" />
 		<result property="status" column="status" />
+		<result property="buyCount" column="buy_count" />
 		<result property="buyTime" column="buy_time" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 	
   	<insert id="insert" parameterType="Indent" useGeneratedKeys="true" keyProperty="id">
   		INSERT INTO bt_indent(
-  			info_id
+  			goods_id
   			,user_id
   			,status
+  			,buy_count
   			,buy_time
   			,update_time
   		) values (
-  			#{infoId}
+  			#{goodsId}
   			#{userId}
   			,#{status}
+  			,#{buyCount}
   			,#{buyTime}
   			,#{updateTime}
   		)
@@ -68,13 +72,7 @@ CREATE TABLE `bt_indent` (
 		select
 		*
 		from
-		bt_indent where user_id = ${userId} limit ${limit}
-	</select>
-	<select id="findByInfoId" resultMap="indentResultMapper" useCache="false">
-		select
-		*
-		from
-		bt_indent where info_id = ${infoId} limit ${limit}
+		bt_indent where user_id = ${userId} limit  ${index},${limit}
 	</select>
 	<update id="update" parameterType="Indent">
 		UPDATE bt_indent

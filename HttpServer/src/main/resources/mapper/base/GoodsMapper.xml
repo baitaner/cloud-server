@@ -15,17 +15,24 @@
        limitations under the License.
 
 
-CREATE TABLE `bt_info_goods` (
+CREATE TABLE `bt_goods` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `description` TEXT DEFAULT NULL,
+  `user_id` BIGINT(20) NOT NULL,
+  `group_id` BIGINT(20) NOT NULL COMMENT '考虑到更换公司的信息',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未发布（新建）2：发布 3：取消 4：完成 5：结束',
+  `previous_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未发布（新建）2：发布 3：取消 4：完成 5：结束',
+  `is_lock` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: 未锁定  2：锁定',
   `total` int(11) NOT NULL DEFAULT '0',
   `sell_count` int(11) NOT NULL DEFAULT '0',
-  `info_id` BIGINT(20) NOT NULL,
+  `expire_time` timestamp NULL DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `publish_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -39,30 +46,48 @@ CREATE TABLE `bt_info_goods` (
 		<id property="id" column="id" />
 		<result property="title" column="title" />
 		<result property="description" column="description" />
+		<result property="userId" column="user_id" />
+		<result property="groupId" column="group_id" />
+		<result property="status" column="status" />
+		<result property="previousStatus" column="previous_status" />
+		<result property="isLock" column="is_lock" />
 		<result property="total" column="total" />
 		<result property="sellCount" column="sell_count" />
-		<result property="infoId" column="info_id" />
+		<result property="expireTime" column="expire_time" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
+		<result property="publishTime" column="publish_time" />
 	</resultMap>
 	
   	<insert id="insert" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
-  		INSERT INTO bt_info_goods(
+  		INSERT INTO bt_goods(
   			title
   			,description
+  			,user_id
+  			,group_id
+  			,status
+  			,previous_status
+  			,is_lock
   			,total
   			,sell_count
-  			,info_id
+  			,expire_time
   			,create_time
   			,update_time
+  			,publish_time
   		) values (
   			#{title}
   			,#{description}
+  			,#{userId}
+  			,#{groupId}
+  			,#{status}
+  			,#{previousStatus}
+  			,#{isLock}
   			,#{total}
   			,#{sellCount}
-  			,#{infoId}
+  			,#{expireTime}
   			,#{createTime}
   			,#{updateTime}
+  			,#{publishTime}
   		)
   	</insert>
   	
@@ -70,34 +95,41 @@ CREATE TABLE `bt_info_goods` (
 		select
 		*
 		from
-		bt_info_goods where id = #{id}
+		bt_goods where id = #{id}
 	</select>
 
-	<select id="findByInfoId" parameterType="long" resultMap="goodsResultMapper" useCache="false">
+	<select id="findByUserIdAndStatus" resultMap="goodsResultMapper" useCache="false">
+		select
+        *
+		from
+		bt_goods where user_id = #{userId} and status=#{status} limit  #{index},#{limit}
+	</select>
+	<select id="findByGroupIdAndStatus" resultMap="goodsResultMapper" useCache="false">
 		select
 		*
 		from
-		bt_info where info_id = ${infoId} limit ${limit}
+		bt_goods where group_id = #{groupId} and status=#{status} limit #{index},#{limit}
 	</select>
-	<update id="subGoods">
-		UPDATE bt_info
-		SET
-		sell_count=#{count}
-		where id = #{id};
-	</update>
 	<update id="update" parameterType="Goods">
-		UPDATE bt_info
+		UPDATE bt_goods
 		SET
 		title=#{title}
 		,description=#{description}
+		,user_id=#{userId}
+		,group_id=#{groupId}
+		,status=#{status}
+		,previous_status=#{previous_status}
+		,is_lock=#{is_lock}
 		,total=#{total}
 		,sell_count=#{sellCount}
-		,info_id=#{info_id}
+		,expire_time=#{expireTime}
+		,create_time=#{createTime}
 		,update_time=#{updateTime}
+		,publish_time=#{publicTime}
 		where id = #{id};
 	</update>
 	<delete id="delete" parameterType="long">
-		DELETE bt_info
+		DELETE bt_goods
 		where id = #{id};
 	</delete>
 </mapper>

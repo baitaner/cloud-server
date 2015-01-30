@@ -4,7 +4,7 @@ import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.mapper.IGroupMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IIndentService;
-import com.baitaner.common.service.IInfoService;
+import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class ClassLoad {
     @Autowired
     private IGroupMapper groupMapper;
     @Autowired
-    private IInfoService infoService;
+    private IGoodsService infoService;
     @Autowired
     private IIndentService indentService;
 
