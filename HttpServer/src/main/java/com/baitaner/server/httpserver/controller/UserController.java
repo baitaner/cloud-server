@@ -116,6 +116,30 @@ public class UserController {
     /**
      *
      * @param SESSION_KEY
+     * @param verifyBind
+     * @return   Result
+     */
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/bind",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    String bind(
+            @RequestHeader String SESSION_KEY,
+            @RequestBody VerifyBind verifyBind) {
+        Result response = new Result();
+        if(SESSION_KEY==null || verifyBind==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            User user = new User();
+            response = userService.vBind(user, verifyBind);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     *
+     * @param SESSION_KEY
      * @param bindGroup
      * @return
      */
@@ -156,7 +180,7 @@ public class UserController {
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = userService.update(user.getId(),user);
+            response = userService.update(user.getId(),editUser);
         }
         return JsonUtil.object2String(response);
     }
@@ -261,7 +285,7 @@ public class UserController {
             response.setMsg("Invalid params");
         }else{
             User user = new User();
-            response = userService.findUserFromGroup(groupId,limit);
+            response = userService.findUserFromGroup(groupId,index,limit);
         }
         return JsonUtil.object2String(response);
     }

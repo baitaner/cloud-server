@@ -72,6 +72,18 @@ CREATE TABLE `bt_group` (
 		from
 		bt_group where email_postfix = #{email} limit 1;
 	</select>
+	<select id="find" resultMap="groupResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_group limit #{index},#{limit};
+	</select>
+	<select id="findSize" resultType="long" useCache="false">
+		select
+		 count(id)
+		from
+		bt_group
+	</select>
     <update id="update" parameterType="Group">
 		UPDATE bt_group
 		SET

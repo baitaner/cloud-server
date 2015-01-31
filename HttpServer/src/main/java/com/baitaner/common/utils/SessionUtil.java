@@ -83,6 +83,14 @@ public class SessionUtil {
 
 
     }
+    public static String getTmpCode(){
+        Random r = new Random();
+        int bcode = 0;
+        while(bcode<1000){
+            bcode = r.nextInt(9999);
+        }
+        return String.valueOf(bcode);
+    }
 
     public static String getBindCode(){
         Random r = new Random();
@@ -91,5 +99,9 @@ public class SessionUtil {
             bcode = r.nextInt(999999);
         }
         return String.valueOf(bcode);
+    }
+    public static String getTmpPassword(){
+
+        return getBindCode();
     }
 }

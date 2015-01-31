@@ -17,13 +17,16 @@ public class CacheServiceImpl implements ICacheService {
 
     private final int BIND_TIME_OUT = 5 * 60;//sec
 
-    private final int MAX_QUEUE_COUNT = 1;
-
     @Autowired
     private IUserMapper userMapper;
 
     @Autowired
     private ICache cache;
+
+    //每个公司最新的前5条物品ID
+
+
+    //物品缓存
 
 
     /* (non-Javadoc)

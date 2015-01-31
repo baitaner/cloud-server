@@ -1,9 +1,7 @@
 package com.baitaner.common.service;
 
 import com.baitaner.common.domain.base.User;
-import com.baitaner.common.domain.request.user.BindGroup;
-import com.baitaner.common.domain.request.user.ResetPassword;
-import com.baitaner.common.domain.request.user.UserRegister;
+import com.baitaner.common.domain.request.user.*;
 import com.baitaner.common.domain.result.*;
 
 /**
@@ -19,8 +17,11 @@ public interface IUserService {
     Result logoutUser( String session);
 
     Result bind(User user,BindGroup bindGroup);
+
+    Result vBind(User user, VerifyBind vbind);
+
     Result unbind(User user,Long groupId);
-    Result update(Long userId,User user);
+    Result update(Long userId,EditUser user);
 
     PasswordFindCodeResult passwordCode();
     Result findPassword(String rcode, String email);
@@ -28,5 +29,5 @@ public interface IUserService {
 
     UserResult getUser(Long userId);
 
-    UserListResult findUserFromGroup(Long groupId, Integer limit);
+    UserListResult findUserFromGroup(Long groupId, Integer index,Integer limit);
 }

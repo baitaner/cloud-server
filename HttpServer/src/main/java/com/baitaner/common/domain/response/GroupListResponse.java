@@ -12,7 +12,7 @@ public class GroupListResponse implements Serializable{
 
     private static final long serialVersionUID = -3015538171814460841L;
     private List<Group> groupList;
-    private Integer total;
+    private Long total;
 
     @Override
     public String toString() {
@@ -30,11 +30,11 @@ public class GroupListResponse implements Serializable{
         this.groupList = groupList;
     }
 
-    public Integer getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 }

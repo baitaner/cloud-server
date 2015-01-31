@@ -105,6 +105,18 @@ CREATE TABLE `bt_user` (
 		from
 		bt_user where email = #{email}
 	</select>
+	<select id="findByGroup" parameterType="long" resultMap="userResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_user where group_id = #{groupId} and status=2 limit ${index},${limit}
+	</select>
+	<select id="findByGroupSize" parameterType="long" resultType="long" useCache="false">
+		select
+		count(*)
+		from
+		bt_user where group_id = #{groupId} and status=2
+	</select>
     <update id="update" parameterType="User">
 		UPDATE bt_user
 		SET
@@ -118,9 +130,9 @@ CREATE TABLE `bt_user` (
   		  password=#{password},
   		  status=#{status},
   		  role=#{role},
-  		  groupId=#{groupId},
-  		  registerTime=#{registerTime},
-  		  loginTime=loginTime
+  		  group_id=#{groupId},
+  		  register_time=#{registerTime},
+  		  login_time=loginTime
 		where id = #{id};
 	</update>
 

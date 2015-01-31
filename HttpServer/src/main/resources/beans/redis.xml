@@ -18,7 +18,7 @@
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
 		destroy-method="destroy">
 		<property name="poolConfig" ref="jedisPoolConfig"></property>
-		<property name="hostName" value="127.0.0.1"></property>
+		<property name="hostName" value="123.56.95.160"></property>
 		<property name="port" value="6379"></property>
         <!--<property name="password" value="Silver4Ever"></property>-->
 		<property name="timeout" value="15000"></property>
