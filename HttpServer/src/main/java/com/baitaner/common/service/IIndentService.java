@@ -19,7 +19,7 @@ public interface IIndentService {
 
     Result confirmIndent(Long indentId);
 
-    IndentResult getIndent(Long inedntId);
+    IndentResult getIndent(Long indentId);
 
     IndentListResult findIndentByUser(Long userId,Integer index,Integer limit);
     IndentListResult findIndentByGoods(Long goodsId,Integer index,Integer limit);

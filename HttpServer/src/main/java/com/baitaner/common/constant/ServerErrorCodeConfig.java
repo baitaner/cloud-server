@@ -15,5 +15,6 @@ public interface ServerErrorCodeConfig {
 
 
     final int INVALID_PARAMS = 8000501;
+    final int BEYOND_MAX_VALUE = 8000502;
 
 }

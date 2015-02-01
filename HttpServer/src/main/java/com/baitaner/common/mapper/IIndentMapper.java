@@ -22,4 +22,25 @@ public interface IIndentMapper {
 			@Param("index") int index,
 			@Param("limit") int limit
 	);
+	Long findByUserIdSize(
+			@Param("userId") Long userId
+			);
+	List<Indent> findByGoods(
+			@Param("goodsId") Long goodsId,
+			@Param("index") int index,
+			@Param("limit") int limit
+	);
+	Long findByGoodsSize(
+			@Param("goodsId") Long goodsId
+	);
+	List<Indent> findByGoodsAndStatus(
+			@Param("goodsId") Long goodsId,
+			@Param("status") Integer status,
+			@Param("index") int index,
+			@Param("limit") int limit
+	);
+	Long findByGoodsAndStatusSize(
+			@Param("goodsId") Long goodsId,
+			@Param("status") Integer status
+	);
 }

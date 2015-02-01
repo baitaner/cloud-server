@@ -22,5 +22,4 @@ public interface UserErrorCodeConfig {
 
 	int GROUP_EMAIL_ERROR = 300006;
 
-
 }

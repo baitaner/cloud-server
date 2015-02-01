@@ -74,6 +74,36 @@ CREATE TABLE `bt_indent` (
 		from
 		bt_indent where user_id = ${userId} limit  ${index},${limit}
 	</select>
+	<select id="findByUserIdSize" resultType="long" useCache="false">
+		select
+		count(*)
+		from
+		bt_indent where user_id = ${userId}
+	</select>
+	<select id="findByGoods" resultMap="indentResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_indent where goods_id = ${goodsId} limit ${index},${limit}
+	</select>
+	<select id="findByGoodsSize" resultType="long" useCache="false">
+		select
+		count(*)
+		from
+		bt_indent where goods_id = ${goodsId}
+	</select>
+	<select id="findByGoodsAndStatus" resultMap="indentResultMapper" useCache="false">
+		select
+		*
+		from
+		bt_indent where goods_id = ${goodsId} AND status=${status} limit ${index},${limit}
+	</select>
+	<select id="findByGoodsAndStatusSize" resultType="long" useCache="false">
+		select
+		count(*)
+		from
+		bt_indent where goods_id = ${goodsId} AND status=${status}
+	</select>
 	<update id="update" parameterType="Indent">
 		UPDATE bt_indent
 		SET

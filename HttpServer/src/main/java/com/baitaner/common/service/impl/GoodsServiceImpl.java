@@ -110,8 +110,114 @@ public class GoodsServiceImpl implements IGoodsService {
         if(createGoods.getTotal()!=null){
             goods.setTotal(createGoods.getTotal());
         }
+        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
 
+        return ResultUtils.getSuccess();
+    }
+
+
+
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result publish(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //todo 获取缓存信息
+        Goods goods = goodsMapper.findById(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        goods.setStatus(GoodsEnums.STATUS.PUBLISHED);
+        goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
+        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        goodsMapper.update(goods);
+        return ResultUtils.getSuccess();
+    }
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result cancel(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //todo 获取缓存信息
+        Goods goods = goodsMapper.findById(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        goods.setStatus(GoodsEnums.STATUS.CANCELED);
+        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        goodsMapper.update(goods);
+        return ResultUtils.getSuccess();
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result delete(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //todo 清除缓存
+        goodsPhotoMapper.deleteByGoodsId(goodsId);
+        goodsMapper.delete(goodsId);
+        return ResultUtils.getSuccess();
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result lock(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //todo 获取缓存信息
+        Goods goods = goodsMapper.findById(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        goods.setIsLock(GoodsEnums.IS_LOCK.LOCK);
+        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        goodsMapper.update(goods);
+        return ResultUtils.getSuccess();
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result unlock(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //todo 获取缓存信息
+        Goods goods = goodsMapper.findById(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        goods.setIsLock(GoodsEnums.IS_LOCK.UN_LOCK);
+        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        goodsMapper.update(goods);
         return ResultUtils.getSuccess();
     }
 
@@ -200,104 +306,6 @@ public class GoodsServiceImpl implements IGoodsService {
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
         result.setMsg("OK");
         return result;
-    }
-
-    @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result publish(Long goodsId){
-        Result result = new Result();
-        if(goodsId==null ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
-        }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
-        if(goods==null){
-            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
-            result.setMsg("NO EXIST GOODS");
-            return result;
-        }
-        goods.setStatus(GoodsEnums.STATUS.PUBLISHED);
-        goodsMapper.update(goods);
-        return ResultUtils.getSuccess();
-    }
-    @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result cancel(Long goodsId){
-        Result result = new Result();
-        if(goodsId==null ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
-        }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
-        if(goods==null){
-            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
-            result.setMsg("NO EXIST GOODS");
-            return result;
-        }
-        goods.setStatus(GoodsEnums.STATUS.CANCELED);
-        goodsMapper.update(goods);
-        return ResultUtils.getSuccess();
-    }
-
-    @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result delete(Long goodsId){
-        Result result = new Result();
-        if(goodsId==null ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
-        }
-        //todo 清除缓存
-        goodsPhotoMapper.deleteByGoodsId(goodsId);
-        goodsMapper.delete(goodsId);
-        return ResultUtils.getSuccess();
-    }
-
-    @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result lock(Long goodsId){
-        Result result = new Result();
-        if(goodsId==null ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
-        }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
-        if(goods==null){
-            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
-            result.setMsg("NO EXIST GOODS");
-            return result;
-        }
-        goods.setIsLock(GoodsEnums.IS_LOCK.LOCK);
-        goodsMapper.update(goods);
-        return ResultUtils.getSuccess();
-    }
-
-    @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result unlock(Long goodsId){
-        Result result = new Result();
-        if(goodsId==null ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
-        }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
-        if(goods==null){
-            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
-            result.setMsg("NO EXIST GOODS");
-            return result;
-        }
-        goods.setIsLock(GoodsEnums.IS_LOCK.UN_LOCK);
-        goodsMapper.update(goods);
-        return ResultUtils.getSuccess();
     }
 
 }

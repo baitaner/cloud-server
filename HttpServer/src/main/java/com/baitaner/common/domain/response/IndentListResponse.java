@@ -10,7 +10,7 @@ public class IndentListResponse implements Serializable{
 
     private static final long serialVersionUID = 8783702480892218052L;
     private List<IndentResponse> indentList;
-    private Integer total;
+    private Long total;
 
     @Override
     public String toString() {
@@ -28,11 +28,11 @@ public class IndentListResponse implements Serializable{
         this.indentList = indentList;
     }
 
-    public Integer getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 }
