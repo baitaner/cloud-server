@@ -6,9 +6,9 @@ package com.baitaner.common.enums;
 public interface UserEnums {
     public interface AUTH{
         /**
-        1：邮箱未激活（注册后激活）
-        2：邮箱激活
-        */
+         1：邮箱未激活（注册后激活）
+         2：邮箱激活
+         */
         public final static int NO = 1;
         public final static int YES = 2;
     }
@@ -30,4 +30,6 @@ public interface UserEnums {
         public final static int NO_JOIN = 1;
         public final static int JOIN = 2;
     }
+
+
 }

@@ -11,6 +11,8 @@ public class ConstConfig {
 
     public final static int AUTH_TIMEOUT = 6000;//100分钟
 
+    public final static int GOODS_PHOTO_MAX = 1;
+
     public final static String CONFIG_PATH="/opt/baitaner/conf/server.xml";
     public final static String HOME_DIR = "/opt/baitaner";
     public final static String LOGS_DIR = HOME_DIR+"/logs";

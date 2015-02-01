@@ -63,7 +63,12 @@ CREATE TABLE `bt_info_goods_photo` (
 		from
 		bt_info_goods_photo where goods_id = ${goodsId} limit  #{index},${limit}
 	</select>
-
+	<select id="findByGoodsIdSize" resultType="long" useCache="false">
+		select
+		count(id)
+		from
+		bt_info_goods_photo
+	</select>
 	<update id="update" parameterType="GoodsPhoto">
 		UPDATE bt_info_goods_photo
 		SET
@@ -76,4 +81,9 @@ CREATE TABLE `bt_info_goods_photo` (
 		DELETE bt_info_goods_photo
 		where id = #{id};
 	</delete>
+	<delete id="deleteByGoodsId" parameterType="long">
+		DELETE bt_info_goods_photo
+		where goods_id = #{goodsId};
+	</delete>
+
 </mapper>

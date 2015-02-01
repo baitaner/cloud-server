@@ -98,17 +98,29 @@ CREATE TABLE `bt_goods` (
 		bt_goods where id = #{id}
 	</select>
 
-	<select id="findByUserIdAndStatus" resultMap="goodsResultMapper" useCache="false">
+	<select id="findByUserIdAndStatusAndLock" resultMap="goodsResultMapper" useCache="false">
 		select
         *
 		from
-		bt_goods where user_id = #{userId} and status=#{status} limit  #{index},#{limit}
+		bt_goods where user_id = #{userId} and status=#{status} and is_lock=${isLock}  limit  #{index},#{limit}
 	</select>
-	<select id="findByGroupIdAndStatus" resultMap="goodsResultMapper" useCache="false">
+	<select id="findByUserIdAndStatusAndLockSize" resultType="long" useCache="false">
+		select
+		count(id)
+		from
+		bt_goods where user_id = #{userId} and status=#{status} and is_lock=${isLock}
+	</select>
+	<select id="findByGroupIdAndStatusAndLock" resultMap="goodsResultMapper" useCache="false">
 		select
 		*
 		from
-		bt_goods where group_id = #{groupId} and status=#{status} limit #{index},#{limit}
+		bt_goods where group_id = #{groupId} and status=#{status} and is_lock=${isLock} limit #{index},#{limit}
+	</select>
+	<select id="findByGroupIdAndStatusAndLockSize" resultType="long" useCache="false">
+		select
+		count(id)
+		from
+		bt_goods where group_id = #{groupId} and status=#{status} and is_lock=${isLock}
 	</select>
 	<update id="update" parameterType="Goods">
 		UPDATE bt_goods
@@ -118,8 +130,8 @@ CREATE TABLE `bt_goods` (
 		,user_id=#{userId}
 		,group_id=#{groupId}
 		,status=#{status}
-		,previous_status=#{previous_status}
-		,is_lock=#{is_lock}
+		,previous_status=#{previousStatus}
+		,is_lock=#{isLock}
 		,total=#{total}
 		,sell_count=#{sellCount}
 		,expire_time=#{expireTime}

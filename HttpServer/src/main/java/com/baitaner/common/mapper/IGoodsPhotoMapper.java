@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface IGoodsPhotoMapper {
 	Integer delete(Long id);
+	Integer deleteByGoodsId(Long goodsId);
 	Integer insert(GoodsPhoto photo);
 	Integer update(GoodsPhoto photo);
 	GoodsPhoto findById(Long id);
@@ -22,4 +23,6 @@ public interface IGoodsPhotoMapper {
 			@Param("index") int index,
 			@Param("limit") int limit
 	);
+
+	Long findByGoodsIdSize();
 }

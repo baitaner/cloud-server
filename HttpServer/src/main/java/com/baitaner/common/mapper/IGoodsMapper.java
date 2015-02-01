@@ -23,18 +23,29 @@ public interface IGoodsMapper {
 
 	Integer update(Goods goods);
 
-	List<Goods> findByUserIdAndStatus(
+	List<Goods> findByUserIdAndStatusAndLock(
 			@Param("userId") Long userId,
 			@Param("status") int status,
+			@Param("isLock") int isLock,
 			@Param("index") int index,
 			@Param("limit") int limit
 	);
+	Long findByUserIdAndStatusAndLockSize(
+			@Param("userId") Long userId,
+			@Param("status") int status,
+			@Param("isLock") int isLock
+	);
 
-	List<Goods> findByGroupIdAndStatus(
+	List<Goods> findByGroupIdAndStatusAndLock(
 			@Param("groupId") Long groupId,
 			@Param("status") int status,
+			@Param("isLock") int isLock,
 			@Param("index") int index,
 			@Param("limit") int limit
 	);
-
+	Long findByGroupIdAndStatusAndLockSize(
+			@Param("groupId") Long groupId,
+			@Param("status") int status,
+			@Param("isLock") int isLock
+	);
 }

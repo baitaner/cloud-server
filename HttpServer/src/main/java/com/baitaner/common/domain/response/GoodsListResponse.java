@@ -12,7 +12,7 @@ public class GoodsListResponse implements Serializable{
 
     private static final long serialVersionUID = 6199853549631049204L;
     private List<Goods> goodsList;
-    private Integer total;
+    private Long total;
 
     @Override
     public String toString() {
@@ -30,11 +30,11 @@ public class GoodsListResponse implements Serializable{
         this.goodsList = goodsList;
     }
 
-    public Integer getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 }
