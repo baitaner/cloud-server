@@ -79,24 +79,26 @@ public class UserServiceImpl implements IUserService {
         //如果加入公司后则改为JOIN
         user.setStatus(UserEnums.STATUS.NO_JOIN);
         userMapper.insert(user);
+        cacheService.putUser(user);
         return ResultUtils.getSuccess();
     }
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result updatePassword(User user, ResetPassword resetPassword) {
+    public Result updatePassword(Long userId, ResetPassword resetPassword) {
         //判断user是否为空，以及id是否存在
         Result result = new Result();
-        if(user==null || user.getId()==null){
+        if(userId==null){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        user = userMapper.findById(user.getId());
+        User user = getUserOnly(userId);
         if(user!=null){
             if(user.getPassword().equals(resetPassword.getOld())){
                 user.setPassword(resetPassword.getPassword());
                 userMapper.update(user);
+                cacheService.putUser(user);
                 return ResultUtils.getSuccess();
             } else{
                 result.setErrorCode(ErrorCodeConfig.WRONG_USER_PASSWORD);
@@ -112,11 +114,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserResult getUser(Long userId) {
-         //todo 缓存获取
-        //cache.get
-
-        User user = userMapper.findById(userId);
         UserResult userResult = new UserResult();
+        User user = getUserOnly(userId);
         if(user==null) {
             userResult.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             userResult.setMsg("NOT EXIST USER");
@@ -148,12 +147,26 @@ public class UserServiceImpl implements IUserService {
             AuthResponse authResponse = new AuthResponse();
             authResponse.setExpire(DateConstant.ONE_DAY);
             authResponse.setSessionKey(SessionUtil.generateSessionId());
-            //todo 写入缓存
-
+            authResponse.setUserId(user.getId());
+            //写入缓存
+            cacheService.putUserSession(user.getId(),authResponse.getSessionKey());
             result.setPayload(authResponse);
             return result;
         }else {
-            //todo 对比临时缓存密码对不对
+            //对比临时缓存密码对不对
+            if(cacheService.getTempPassword(user.getId()).equals(password)){
+                result.setErrorCode(ErrorCodeConfig.SUCCESS);
+                result.setMsg("ok");
+                AuthResponse authResponse = new AuthResponse();
+                authResponse.setExpire(DateConstant.ONE_DAY);
+                authResponse.setSessionKey(SessionUtil.generateSessionId());
+                authResponse.setUserId(user.getId());
+                //todo 增加提示修改密码
+                //写入缓存
+                cacheService.putUserSession(user.getId(),authResponse.getSessionKey());
+                result.setPayload(authResponse);
+                return result;
+            }
         }
         result.setErrorCode(ErrorCodeConfig.WRONG_USER_PASSWORD);
         result.setMsg("WRONG_USER_PASSWORD");
@@ -162,15 +175,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Result logoutUser(String session) {
-        //todo 删除缓存的session
+        //删除缓存的session
+        cacheService.deleteUserSession(session);
         return ResultUtils.getSuccess();
     }
 
     @Override
-    public Result bind(User user, BindGroup bindGroup){
+    public Result bind(Long userId, BindGroup bindGroup){
         Result result = new Result();
-        if(user==null
-                ||user.getId()==null
+        if(userId==null
                 ||bindGroup==null
                 ||bindGroup.getEmail()==null
                 ||bindGroup.getGroupId()==null){
@@ -178,6 +191,7 @@ public class UserServiceImpl implements IUserService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
+        User user = getUserOnly(userId);
 
         Group group = groupMapper.findById(bindGroup.getGroupId());
         if(group==null){
@@ -191,60 +205,63 @@ public class UserServiceImpl implements IUserService {
             result.setMsg("GROUP_EMAIL_ERROR");
             return result;
         }
-        //todo 把bindGroup写入缓存保留）
-        //todo 产生rcode码写入缓存
+        //产生rcode码写入缓存
+        bindGroup.setUserId(user.getId());
+        String rcode = SessionUtil.getBindCode();
+        cacheService.putGroupAuth(bindGroup,rcode);
         //todo 发送邮件
         return ResultUtils.getSuccess();
     }
 
     /**
      * 确认绑定用户
-     * @param user
      * @param vbind
      * @return
      */
     @Override
-    public Result vBind(User user, VerifyBind vbind){
+    public Result vBind(Long userId, VerifyBind vbind){
         Result result = new Result();
-        if(user==null
-                ||user.getId()==null
+        if(userId==null
                 ||vbind==null
                 ||vbind.getRcode()==null){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 对比rcode是否正确
-        //todo 获取bindGroup
-        BindGroup bindGroup  = new BindGroup();
-
-        //todo 从缓存取user
-        user = userMapper.findById(user.getId());
-        if(user==null){
-            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
-            result.setMsg("NOT EXIST USER");
-            return result;
+        User user = getUserOnly(userId);
+        //对比rcode是否正确
+        BindGroup bindGroup = cacheService.getGroupAuth(vbind.getRcode());
+        if(bindGroup!=null && bindGroup.getUserId()!=null){
+            cacheService.deleteGroupAuth(vbind.getRcode());
+            user = getUserOnly(bindGroup.getUserId());
+            if(user==null){
+                result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+                result.setMsg("NOT EXIST USER");
+                return result;
+            }
+            user.setGroupEmail(bindGroup.getEmail());
+            user.setGroupId(bindGroup.getGroupId());
+            user.setStatus(UserEnums.STATUS.JOIN);
+            userMapper.update(user);
+            //更新缓存
+            cacheService.putUser(user);
+            return ResultUtils.getSuccess();
         }
-        user.setGroupEmail(bindGroup.getEmail());
-        user.setGroupId(bindGroup.getGroupId());
-        user.setStatus(UserEnums.STATUS.JOIN);
-        userMapper.update(user);
-        //todo 更新缓存
-
-        return ResultUtils.getSuccess();
+        result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+        result.setMsg("Auth code error!");
+        return result;
     }
 
     @Override
-    public Result unbind(User user, Long groupId) {
+    public Result unbind(Long userId, Long groupId) {
         Result result = new Result();
-        if(user==null
-                ||user.getId()==null
+        if(userId==null
                 ||groupId==null){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        user = userMapper.findById(user.getId());
+        User user = getUserOnly(userId);
         if(user==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NOT EXIST USER");
@@ -254,6 +271,7 @@ public class UserServiceImpl implements IUserService {
         user.setGroupId(null);
         user.setStatus(UserEnums.STATUS.NO_JOIN);
         userMapper.update(user);
+        cacheService.putUser(user);
         return ResultUtils.getSuccess();
 
     }
@@ -267,7 +285,7 @@ public class UserServiceImpl implements IUserService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        User user = userMapper.findById(userId);
+        User user = getUserOnly(userId);
         if(user==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NOT EXIST USER");
@@ -280,6 +298,7 @@ public class UserServiceImpl implements IUserService {
             user.setIcon(editUser.getIcon());
         }
         userMapper.update(user);
+        cacheService.putUser(user);
         return ResultUtils.getSuccess();
 
     }
@@ -290,7 +309,8 @@ public class UserServiceImpl implements IUserService {
         PasswordFindCodeResult result = new PasswordFindCodeResult();
         // 验证码获取（有效期）
         String rcode = SessionUtil.getTmpCode();
-        //todo 写入缓存
+        // 写入缓存
+        cacheService.putCheckCode(0l,rcode);
         result.setPayload(rcode);
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
         result.setMsg("OK");
@@ -308,10 +328,23 @@ public class UserServiceImpl implements IUserService {
             return result;
         }
 
-        //todo 判断rcode 和缓存对比是否有效
+        // 判断rcode 和缓存对比是否有效
+        Long r = cacheService.getCheckCode(rcode);
+        if(r==null){
+            result.setErrorCode(ErrorCodeConfig.TEMP_CODE_TIMEOUT);
+            result.setMsg("rcode invalid");
+            return result;
+        }
         //获取临时密码
         String password = SessionUtil.getTmpPassword();
-        //todo 临时密码写入缓存（有效期）
+        // 临时密码写入缓存（有效期）
+        User user = userMapper.findByEmail(email);
+        if(user==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NOT EXIST USER");
+            return result;
+        }
+        cacheService.putTempPassword(user.getId(),password);
         //todo 把临时密码发送邮箱
         return ResultUtils.getSuccess();
 
@@ -335,5 +368,24 @@ public class UserServiceImpl implements IUserService {
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
         result.setMsg("OK");
         return result;
+    }
+
+    @Override
+    public Long auth(String session) {
+        return cacheService.getUserSession(session);
+    }
+
+    @Override
+    public User getUserOnly(Long userId){
+        try {
+            User user = cacheService.getUser(userId);
+            if (user == null) {
+                user = userMapper.findById(userId);
+            }
+            return user;
+        }catch (Exception ex){
+
+        }
+        return null;
     }
 }

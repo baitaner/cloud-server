@@ -31,5 +31,13 @@ public interface UserEnums {
         public final static int JOIN = 2;
     }
 
+    public interface MESSAGE_STATUS{
+        /**
+         1：未读
+         2：已读
+         */
+        public final static int UNREAD = 1;
+        public final static int  READ = 2;
+    }
 
 }

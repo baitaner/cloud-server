@@ -21,5 +21,6 @@ public interface UserErrorCodeConfig {
     int USER_AUTH_VALID_ERROR = 300005;
 
 	int GROUP_EMAIL_ERROR = 300006;
+	int TEMP_CODE_TIMEOUT = 300007;
 
 }

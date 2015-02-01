@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d446f05-9ffc-459b-87c5-069be3b542f2" name="Default" comment="" />
+    <list default="true" id="8d446f05-9ffc-459b-87c5-069be3b542f2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/history/Message.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/MessageListResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/MessageListResult.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/MessageResult.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/SyncMessageResult.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_log_db.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/AuthResponse.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/AuthResponse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/BindGroup.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/BindGroup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/CacheKeyUtil.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/CacheKeyUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/CacheServiceImpl.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/CacheServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/ICacheService.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/ICacheService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IGoodsService.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IGoodsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/IndentServiceImpl.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/IndentServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_db.sql" afterPath="$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_db.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="Cloud-Server.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,8 +55,8 @@
       <file leaf-file-name="GoodsServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4076" max-vertical-offset="5389">
-              <caret line="267" column="11" selection-start-line="249" selection-start-column="8" selection-end-line="267" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1556" max-vertical-offset="5576">
+              <caret line="74" column="68" selection-start-line="74" selection-start-column="68" selection-end-line="74" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,108 +64,101 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IIndentService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IIndentService.java">
+      <file leaf-file-name="GroupServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GroupServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
-              <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="189" max-vertical-offset="2040">
+              <caret line="84" column="10" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndentServiceImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="IndentServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/IndentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.8155922" vertical-offset="3328" max-vertical-offset="4658">
-              <caret line="293" column="0" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="4692">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
-                <element signature="e#7175#7191#0" expanded="true" />
-                <element signature="e#8578#8594#0" expanded="true" />
-                <element signature="e#10099#10115#0" expanded="true" />
+                <element signature="e#7280#7296#0" expanded="true" />
+                <element signature="e#8683#8699#0" expanded="true" />
+                <element signature="e#10204#10220#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndentListResponse.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/IndentListResponse.java">
+      <file leaf-file-name="MailServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MailServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="2465">
+              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyAuthenticator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MyAuthenticator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.56726456" vertical-offset="53" max-vertical-offset="544">
+              <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="5364" max-vertical-offset="6358">
+              <caret line="347" column="10" selection-start-line="347" selection-start-column="10" selection-end-line="347" selection-end-column="10" />
               <folding>
-                <element signature="e#817#818#0" expanded="true" />
-                <element signature="e#851#852#0" expanded="true" />
+                <element signature="e#13355#13356#0" expanded="true" />
+                <element signature="e#13414#13415#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IMailService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IMailService.java">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-              <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ErrorCodeConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ErrorCodeConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IIndentMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IIndentMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="799">
-              <caret line="42" column="43" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerErrorCodeConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ServerErrorCodeConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-              <caret line="17" column="30" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IndentMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/IndentMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1288" max-vertical-offset="2091">
-              <caret line="100" column="36" selection-start-line="100" selection-start-column="36" selection-end-line="100" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4106" max-vertical-offset="7106">
+              <caret line="410" column="12" selection-start-line="410" selection-start-column="12" selection-end-line="410" selection-end-column="12" />
               <folding>
-                <marker date="1422751801000" expanded="true" signature="1906:2141" placeholder="INSERT INTO ..." />
-                <marker date="1422751801000" expanded="true" signature="2256:2302" placeholder="select * fro..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="2393:2473" placeholder="select * fro..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="2554:2616" placeholder="select count..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="2705:2786" placeholder="select * fro..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="2866:2930" placeholder="select count..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="3028:3130" placeholder="select * fro..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="3219:3304" placeholder="select count..bt_indent..." />
-                <marker date="1422751801000" expanded="true" signature="3363:3453" placeholder="UPDATE bt_in..." />
+                <element signature="e#7312#7313#0" expanded="true" />
+                <element signature="e#7385#7386#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IGoodsService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IGoodsService.java">
+      <file leaf-file-name="IUserService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-              <caret line="25" column="48" selection-start-line="25" selection-start-column="48" selection-end-line="25" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="230" max-vertical-offset="714">
+              <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserErrorCodeConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="9" max-vertical-offset="510">
+              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserLogin.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/UserLogin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -156,41 +172,24 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/IndentResult.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/goods/RequestCreateGoods.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/goods/RequestCreateIndent.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/IndentListResult.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/IndentResponse.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/group/RequestCreateGroup.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/Group.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/GoodsListResult.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/GroupResult.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/GroupListResult.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/UserListResult.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IGoodsService.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/GoodsController.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/GroupController.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IGroupService.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/IndentController.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/MangerController.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/CacheServiceImpl.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/resources/beans/redis.xml" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/VerifyBind.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/ResultUtils.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/SessionUtil.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/UserMapper.xml" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IUserMapper.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/UserListResponse.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGroupMapper.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GroupMapper.xml" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/GroupListResponse.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GroupServiceImpl.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/GoodsEnums.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGoodsPhotoMapper.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/GoodsResponse.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/GoodsResult.java" />
@@ -199,13 +198,30 @@
         <option value="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GoodsMapper.xml" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/GoodsListResponse.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/IndentEnums.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ServerErrorCodeConfig.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IIndentService.java" />
-        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/IndentListResponse.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/IndentMapper.xml" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IIndentMapper.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_db.sql" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_log_db.sql" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/MessageListResult.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/MessageListResponse.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/history/Message.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/MessageResult.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/SyncMessageResult.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/AuthResponse.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/BindGroup.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/CacheKeyUtil.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/ICacheService.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/CacheServiceImpl.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java" />
         <option value="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/IndentServiceImpl.java" />
       </list>
     </option>
@@ -228,7 +244,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1293" />
-    <option name="height" value="824" />
+    <option name="height" value="817" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -286,8 +302,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1026,7 +1040,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="response" />
+              <option name="myItemId" value="request" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1064,12 +1082,18 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="constant" />
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="request" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1097,21 +1121,25 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.baitaner.common.domain.result" />
       <recent name="com.baitaner.common.enums" />
+      <recent name="com.baitaner.common.domain.history" />
       <recent name="com.baitaner.common.domain.response" />
       <recent name="com.baitaner.common.constant" />
-      <recent name="com.baitaner.common.domain.request.user" />
-      <recent name="com.baitaner.server.httpserver.controller" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/HttpServer/src/main/resources/database" />
       <recent name="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant" />
       <recent name="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils" />
       <recent name="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/exception" />
       <recent name="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common" />
-      <recent name="$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="com.baitaner.common.service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Common/src/main/resources/com/baitaner/common/mapper/history" />
+      <recent name="$PROJECT_DIR$/Common/src/main/resources/com/baitaner/common/mapper/base" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.baitaner.common.domain.request" />
@@ -1119,10 +1147,6 @@
       <recent name="com.baitaner.common.domain.weixin" />
       <recent name="com.baitaner.common.enums.weixin" />
       <recent name="com.baitaner.common" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Common/src/main/resources/com/baitaner/common/mapper/history" />
-      <recent name="$PROJECT_DIR$/Common/src/main/resources/com/baitaner/common/mapper/base" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.jetty:run">
@@ -1401,15 +1425,36 @@
       <workItem from="1422524068355" duration="1420000" />
       <workItem from="1422529076635" duration="17831000" />
       <workItem from="1422716612236" duration="3578000" />
+      <workItem from="1422791993619" duration="6737000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65254000" />
+    <option name="totallyTimeSpent" value="71991000" />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1293" height="824" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="23" width="1293" height="817" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="154" y="-1007" width="128" height="1080" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1417,6 +1462,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1201" y="-954" width="463" height="456" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32344213" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26752505" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
@@ -1427,41 +1473,40 @@
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3236607" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32305196" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32188842" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3421263" sideWeight="0.25641027" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3013589" sideWeight="0.74358976" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3013589" sideWeight="0.74358976" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Maven Repo Search" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23828755" sideWeight="0.35514018" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23837209" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3538682" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26874116" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39381152" sideWeight="0.712908" order="3" side_tool="false" content_ui="tabs" x="188" y="-623" width="1218" height="728" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30837005" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52238804" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="154" y="-1007" width="128" height="1080" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Repo Search" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49339208" sideWeight="0.287092" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49339208" sideWeight="0.287092" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23828755" sideWeight="0.35514018" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3236607" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32305196" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1471,10 +1516,10 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="1201" y="-954" width="463" height="456" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32344213" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3538682" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2693935" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39381152" sideWeight="0.712908" order="3" side_tool="false" content_ui="tabs" x="188" y="-623" width="1218" height="728" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -1482,8 +1527,8 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52238804" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3421263" sideWeight="0.25641027" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1522,200 +1567,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/ResetPassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/PasswordFind.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/UserLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/UserRegister.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/VerifyBind.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/DateConstant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/AuthResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="203" max-vertical-offset="918">
-          <caret line="58" column="16" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.12" vertical-offset="972" max-vertical-offset="2125">
-          <caret line="75" column="14" selection-start-line="75" selection-start-column="3" selection-end-line="75" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/BindGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/ResultUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/EditUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/SessionUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1192" max-vertical-offset="1819">
-          <caret line="85" column="35" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/UserListResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="53" max-vertical-offset="663">
-          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-          <folding>
-            <element signature="e#775#776#0" expanded="true" />
-            <element signature="e#815#816#0" expanded="true" />
-            <element signature="e#849#850#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/GroupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="704" max-vertical-offset="2108">
-          <caret line="70" column="36" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IUserMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="172" max-vertical-offset="663">
-          <caret line="29" column="39" selection-start-line="28" selection-start-column="12" selection-end-line="29" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2668" max-vertical-offset="4828">
-          <caret line="182" column="39" selection-start-line="182" selection-start-column="39" selection-end-line="182" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="109" max-vertical-offset="629">
-          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGroupMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="87" max-vertical-offset="595">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/GoodsEnums.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="38" max-vertical-offset="629">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="852" max-vertical-offset="5474">
-          <caret line="93" column="10" selection-start-line="87" selection-start-column="7" selection-end-line="93" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GroupMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1141" max-vertical-offset="1734">
-          <caret line="85" column="14" selection-start-line="80" selection-start-column="4" selection-end-line="85" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
-          <caret line="13" column="43" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IGoodsPhotoMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/base/Goods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="313" max-vertical-offset="1734">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/GoodsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2982" max-vertical-offset="4522">
@@ -1765,13 +1616,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1598">
           <caret line="70" column="13" selection-start-line="65" selection-start-column="4" selection-end-line="70" selection-end-column="13" />
-          <folding>
-            <marker date="1422748948000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1422748948000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_info_goods_photo..." />
-            <marker date="1422748948000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_info_goods_photo..." />
-            <marker date="1422748948000" expanded="true" signature="-1:-1" placeholder="select count..bt_info_goods_photo..." />
-            <marker date="1422748948000" expanded="true" signature="-1:-1" placeholder="UPDATE bt_in..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1779,15 +1624,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1713" max-vertical-offset="2584">
           <caret line="122" column="43" selection-start-line="122" selection-start-column="43" selection-end-line="122" selection-end-column="43" />
-          <folding>
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_goods..." />
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_goods..." />
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="select count..bt_goods..." />
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_goods..." />
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="select count..bt_goods..." />
-            <marker date="1422748998000" expanded="true" signature="-1:-1" placeholder="UPDATE bt_go..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1811,23 +1648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="884">
           <caret line="25" column="44" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="2465">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MyAuthenticator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="53" max-vertical-offset="544">
-          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1835,14 +1655,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
           <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GroupServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="818" max-vertical-offset="2040">
-          <caret line="84" column="10" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1855,26 +1667,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ErrorCodeConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
           <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ServerErrorCodeConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-          <caret line="17" column="30" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -1895,23 +1691,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4076" max-vertical-offset="5389">
-          <caret line="267" column="11" selection-start-line="249" selection-start-column="8" selection-end-line="267" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/IndentListResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
           <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
           <folding>
-            <element signature="e#817#818#0" expanded="true" />
-            <element signature="e#851#852#0" expanded="true" />
+            <element signature="e#817#818#0" expanded="false" />
+            <element signature="e#851#852#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1929,15 +1715,15 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1288" max-vertical-offset="2091">
           <caret line="100" column="36" selection-start-line="100" selection-start-column="36" selection-end-line="100" selection-end-column="36" />
           <folding>
-            <marker date="1422751801000" expanded="true" signature="1906:2141" placeholder="INSERT INTO ..." />
-            <marker date="1422751801000" expanded="true" signature="2256:2302" placeholder="select * fro..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="2393:2473" placeholder="select * fro..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="2554:2616" placeholder="select count..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="2705:2786" placeholder="select * fro..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="2866:2930" placeholder="select count..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="3028:3130" placeholder="select * fro..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="3219:3304" placeholder="select count..bt_indent..." />
-            <marker date="1422751801000" expanded="true" signature="3363:3453" placeholder="UPDATE bt_in..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select count..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select count..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select * fro..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="select count..bt_indent..." />
+            <marker date="1422751801000" expanded="true" signature="-1:-1" placeholder="UPDATE bt_in..." />
           </folding>
         </state>
       </provider>
@@ -1950,15 +1736,314 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/resources/mapper/base/GroupMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1141" max-vertical-offset="1734">
+          <caret line="85" column="14" selection-start-line="80" selection-start-column="4" selection-end-line="85" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/mapper/IUserMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <caret line="29" column="39" selection-start-line="28" selection-start-column="12" selection-end-line="29" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_log_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.08" vertical-offset="0" max-vertical-offset="663">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/resources/database/baitaner_db.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.12" vertical-offset="1509" max-vertical-offset="2142">
+          <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/UserListResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/MessageListResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="13" column="31" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/history/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1105">
+          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+          <folding>
+            <element signature="e#1069#1070#0" expanded="false" />
+            <element signature="e#1111#1112#0" expanded="false" />
+            <element signature="e#1147#1148#0" expanded="false" />
+            <element signature="e#1187#1188#0" expanded="false" />
+            <element signature="e#1220#1221#0" expanded="false" />
+            <element signature="e#1275#1276#0" expanded="false" />
+            <element signature="e#1319#1320#0" expanded="false" />
+            <element signature="e#1353#1354#0" expanded="false" />
+            <element signature="e#1382#1383#0" expanded="false" />
+            <element signature="e#1427#1428#0" expanded="false" />
+            <element signature="e#1463#1464#0" expanded="false" />
+            <element signature="e#1497#1498#0" expanded="false" />
+            <element signature="e#1527#1528#0" expanded="false" />
+            <element signature="e#1573#1574#0" expanded="false" />
+            <element signature="e#1611#1612#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/enums/UserEnums.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="833">
+          <caret line="39" column="38" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/MessageListResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/UserResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/IndentResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/MessageResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/result/SyncMessageResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ConstConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="26" max-vertical-offset="918">
+          <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/response/AuthResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="281" max-vertical-offset="1054">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+          <folding>
+            <element signature="e#834#835#0" expanded="true" />
+            <element signature="e#863#864#0" expanded="true" />
+            <element signature="e#905#906#0" expanded="true" />
+            <element signature="e#941#942#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/EditUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/VerifyBind.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/utils/CacheKeyUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="557" max-vertical-offset="1309">
+          <caret line="42" column="48" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="48" />
+          <folding>
+            <element signature="e#195#196#0" expanded="true" />
+            <element signature="e#231#232#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#794#795#0" expanded="true" />
+            <element signature="e#844#845#0" expanded="true" />
+            <element signature="e#1020#1021#0" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
+            <element signature="e#1216#1217#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+            <element signature="e#1425#1426#0" expanded="true" />
+            <element signature="e#1464#1465#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/BindGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="782">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+          <folding>
+            <element signature="e#573#574#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/ServerErrorCodeConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/ICacheService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="298" max-vertical-offset="1037">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/CacheServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1373" max-vertical-offset="4046">
+          <caret line="103" column="50" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/constant/UserErrorCodeConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="9" max-vertical-offset="510">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/domain/request/user/UserLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/IUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="230" max-vertical-offset="714">
+          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/server/httpserver/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4106" max-vertical-offset="7106">
+          <caret line="410" column="12" selection-start-line="410" selection-start-column="12" selection-end-line="410" selection-end-column="12" />
+          <folding>
+            <element signature="e#7312#7313#0" expanded="true" />
+            <element signature="e#7385#7386#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GroupServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="818" max-vertical-offset="2040">
+          <caret line="84" column="10" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5364" max-vertical-offset="6358">
+          <caret line="347" column="10" selection-start-line="347" selection-start-column="10" selection-end-line="347" selection-end-column="10" />
+          <folding>
+            <element signature="e#13355#13356#0" expanded="true" />
+            <element signature="e#13414#13415#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/GoodsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1556" max-vertical-offset="5576">
+          <caret line="74" column="68" selection-start-line="74" selection-start-column="68" selection-end-line="74" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/IndentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8155922" vertical-offset="3328" max-vertical-offset="4658">
-          <caret line="293" column="0" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="4692">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
-            <element signature="e#7175#7191#0" expanded="true" />
-            <element signature="e#8578#8594#0" expanded="true" />
-            <element signature="e#10099#10115#0" expanded="true" />
+            <element signature="e#7280#7296#0" expanded="true" />
+            <element signature="e#8683#8699#0" expanded="true" />
+            <element signature="e#10204#10220#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MailServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="2465">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HttpServer/src/main/java/com/baitaner/common/service/impl/MyAuthenticator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56726456" vertical-offset="53" max-vertical-offset="544">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

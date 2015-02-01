@@ -16,6 +16,7 @@ import com.baitaner.common.mapper.IGoodsPhotoMapper;
 import com.baitaner.common.mapper.IIndentMapper;
 import com.baitaner.common.mapper.IUserMapper;
 import com.baitaner.common.service.ICacheService;
+import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IIndentService;
 import com.baitaner.common.utils.ResultUtils;
 import org.apache.log4j.Logger;
@@ -35,6 +36,8 @@ public class IndentServiceImpl implements IIndentService {
 
     @Autowired
     private ICacheService cacheService;
+    @Autowired
+    private IGoodsService goodsService;
 
     @Autowired
     private IIndentMapper indentMapper;
@@ -102,8 +105,8 @@ public class IndentServiceImpl implements IIndentService {
         indent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         indentMapper.update(indent);
 
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(indent.getGoodsId());
+        //获取缓存信息
+        Goods goods = goodsService.getGoodsOnly(indent.getGoodsId());
         if(goods!=null){
             goods.setSellCount(goods.getSellCount()-indent.getBuyCount());
             if(goods.getSellCount()<0){
@@ -148,8 +151,8 @@ public class IndentServiceImpl implements IIndentService {
             result.setMsg("NO EXIST INDENT");
             return result;
         }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(indent.getGoodsId());
+        //获取缓存信息
+        Goods goods = goodsService.getGoodsOnly(indent.getGoodsId());
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -196,8 +199,8 @@ public class IndentServiceImpl implements IIndentService {
         List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
         for(Indent i:indentList){
             IndentResponse indentResponse = new IndentResponse();
-            //todo 获取缓存
-            Goods goods = goodsMapper.findById(i.getGoodsId());
+            //获取缓存
+            Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
 
             indentResponse.setGoods(goods);
             indentResponse.setBuyTime(i.getBuyTime());
@@ -234,8 +237,8 @@ public class IndentServiceImpl implements IIndentService {
         List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
         for(Indent i:indentList){
             IndentResponse indentResponse = new IndentResponse();
-            //todo 获取缓存
-            Goods goods = goodsMapper.findById(i.getGoodsId());
+            //获取缓存
+            Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
 
             indentResponse.setGoods(goods);
             indentResponse.setBuyTime(i.getBuyTime());
@@ -275,8 +278,8 @@ public class IndentServiceImpl implements IIndentService {
         List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
         for(Indent i:indentList){
             IndentResponse indentResponse = new IndentResponse();
-            //todo 获取缓存
-            Goods goods = goodsMapper.findById(i.getGoodsId());
+            //获取缓存
+            Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
 
             indentResponse.setGoods(goods);
             indentResponse.setBuyTime(i.getBuyTime());

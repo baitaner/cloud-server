@@ -1,5 +1,6 @@
 package com.baitaner.common.service;
 
+import com.baitaner.common.domain.base.Goods;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateGoods;
 import com.baitaner.common.domain.result.GoodsListResult;
@@ -34,4 +35,6 @@ public interface IGoodsService {
     Result lock(Long goodsId);
 
     Result unlock(Long goodsId);
+
+    Goods getGoodsOnly(Long goodsId);
 }

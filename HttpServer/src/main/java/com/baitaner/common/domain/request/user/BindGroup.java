@@ -10,14 +10,24 @@ public class BindGroup implements Serializable {
     private static final long serialVersionUID = 7678816163661850476L;
 
     private Long groupId;
+    private Long userId;
     private String email;
 
     @Override
     public String toString() {
         return "BindGroup{" +
                 "groupId=" + groupId +
+                ", userId=" + userId +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {

@@ -3,10 +3,7 @@ package com.baitaner.server.httpserver.controller;
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.*;
-import com.baitaner.common.domain.result.Result;
-import com.baitaner.common.domain.result.UserListResult;
-import com.baitaner.common.domain.result.UserLoginResult;
-import com.baitaner.common.domain.result.UserResult;
+import com.baitaner.common.domain.result.*;
 import com.baitaner.common.service.IUserService;
 import com.baitaner.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +81,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            response = userService.logoutUser(SESSION_KEY);
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+            } else {
+                response = userService.logoutUser(SESSION_KEY);
+            }
         }
         return JsonUtil.object2String(response);
     }
@@ -107,8 +110,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
-            response = userService.bind(user,bindGroup);
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            response = userService.bind(userId,bindGroup);
         }
         return JsonUtil.object2String(response);
     }
@@ -131,8 +139,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
-            response = userService.vBind(user, verifyBind);
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            response = userService.vBind(userId, verifyBind);
         }
         return JsonUtil.object2String(response);
     }
@@ -155,8 +168,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
-            response = userService.unbind(user,bindGroup.getGroupId());
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            response = userService.unbind(userId,bindGroup.getGroupId());
         }
         return JsonUtil.object2String(response);
     }
@@ -179,8 +197,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
-            response = userService.update(user.getId(),editUser);
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            response = userService.update(userId,editUser);
         }
         return JsonUtil.object2String(response);
     }
@@ -238,8 +261,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
-            response = userService.updatePassword(user,resetPassword);
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            response = userService.updatePassword(userId,resetPassword);
         }
         return JsonUtil.object2String(response);
     }
@@ -256,8 +284,13 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
-            response = userService.getUser(user.getId());
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            response = userService.getUser(userId);
         }
         return JsonUtil.object2String(response);
     }
@@ -284,8 +317,104 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
             response = userService.findUserFromGroup(groupId,index,limit);
+        }
+        return JsonUtil.object2String(response);
+    }
+    /**
+     * 同步消息
+     * @param SESSION_KEY
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/message/sync/{userId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String syncMessage(
+            @RequestHeader String SESSION_KEY,
+            @RequestParam Long userId
+    ) {
+        SyncMessageResult response = new SyncMessageResult();
+        if(SESSION_KEY==null || userId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            //todo 获取消息通知
+        }
+        return JsonUtil.object2String(response);
+    }
+    /**
+     * 获取消息
+     * @param SESSION_KEY
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/message/{messageId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String getMessage(
+            @RequestHeader String SESSION_KEY,
+            @RequestParam Long messageId
+    ) {
+        MessageResult response = new MessageResult();
+        if(SESSION_KEY==null ||messageId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            //todo  获取某个message
+        }
+        return JsonUtil.object2String(response);
+    }
+    /**
+     * 获取消息
+     * @param SESSION_KEY
+     * @param index
+     * @param limit
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/message/list/{userId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String getMessage(
+            @RequestHeader String SESSION_KEY,
+            @RequestParam Long userId,
+            @RequestParam Integer index,
+            @RequestParam Integer limit
+    ) {
+        MessageListResult response = new MessageListResult();
+        if(SESSION_KEY==null ||limit==null||userId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            //todo 获取message list
         }
         return JsonUtil.object2String(response);
     }

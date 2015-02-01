@@ -15,6 +15,7 @@ public class AuthResponse implements Serializable{
 
     private String serverHost;
     private Integer serverPort;
+    private Long userId;
     private String sessionKey;
     private Long expire;
 
@@ -23,9 +24,18 @@ public class AuthResponse implements Serializable{
         return "AuthResponse{" +
                 "serverHost='" + serverHost + '\'' +
                 ", serverPort=" + serverPort +
+                ", userId=" + userId +
                 ", sessionKey='" + sessionKey + '\'' +
                 ", expire=" + expire +
                 '}';
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getServerHost() {

@@ -16,18 +16,23 @@ public interface IUserService {
     UserLoginResult loginUser(String name, String password);
     Result logoutUser( String session);
 
-    Result bind(User user,BindGroup bindGroup);
+    Result bind(Long userId,BindGroup bindGroup);
 
-    Result vBind(User user, VerifyBind vbind);
+    Result vBind(Long userId, VerifyBind vbind);
 
-    Result unbind(User user,Long groupId);
+    Result unbind(Long userId,Long groupId);
     Result update(Long userId,EditUser user);
 
     PasswordFindCodeResult passwordCode();
+
     Result findPassword(String rcode, String email);
-    Result updatePassword(User user, ResetPassword resetPassword);
+    Result updatePassword(Long userId, ResetPassword resetPassword);
 
     UserResult getUser(Long userId);
 
     UserListResult findUserFromGroup(Long groupId, Integer index,Integer limit);
+
+    Long auth(String session);
+
+    User getUserOnly(Long userId);
 }

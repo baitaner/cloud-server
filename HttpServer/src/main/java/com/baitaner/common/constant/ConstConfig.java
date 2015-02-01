@@ -8,10 +8,12 @@ package com.baitaner.common.constant;
  * To change this template use File | Settings | File Templates.
  */
 public class ConstConfig {
+    public final static int TEMP_TIMEOUT = 300;//5分钟
 
     public final static int AUTH_TIMEOUT = 6000;//100分钟
 
     public final static int GOODS_PHOTO_MAX = 1;
+    public final static int GET_INFO_MAX = 10;
 
     public final static String CONFIG_PATH="/opt/baitaner/conf/server.xml";
     public final static String HOME_DIR = "/opt/baitaner";

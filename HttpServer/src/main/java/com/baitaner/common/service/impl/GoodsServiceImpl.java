@@ -72,6 +72,7 @@ public class GoodsServiceImpl implements IGoodsService {
                 goodsPhotoMapper.insert(photo);
             }
         }
+        cacheService.putPublishList(goods.getGroupId(),goods.getId());
         return ResultUtils.getSuccess();
     }
     @Override
@@ -83,8 +84,8 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 通过缓存获取
-        Goods goods = goodsMapper.findById(goodsId);
+        //通过缓存获取
+        Goods goods = getGoodsOnly(goodsId);
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -127,8 +128,8 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
+        //获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -149,8 +150,8 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
+        // 获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -171,7 +172,8 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 清除缓存
+        // 清除缓存
+        cacheService.deleteGoods(goodsId);
         goodsPhotoMapper.deleteByGoodsId(goodsId);
         goodsMapper.delete(goodsId);
         return ResultUtils.getSuccess();
@@ -186,8 +188,8 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
+        //获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -208,8 +210,8 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        //todo 获取缓存信息
-        Goods goods = goodsMapper.findById(goodsId);
+        //获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -306,6 +308,15 @@ public class GoodsServiceImpl implements IGoodsService {
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
         result.setMsg("OK");
         return result;
+    }
+
+    @Override
+    public Goods getGoodsOnly(Long goodsId){
+        Goods goods = cacheService.getGoods(goodsId);
+        if(goods==null){
+            goods = goodsMapper.findById(goodsId);
+        }
+        return goods;
     }
 
 }

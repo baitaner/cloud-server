@@ -1,95 +1,73 @@
 package com.baitaner.common.utils;
 
 public class CacheKeyUtil {
+	//缓存用户key
+	// 内容User对象
+	// user_{userId}:User
 	private static String USER_NAME = "user";
-	private static String USER_LINES = "user_lines_only";
-
-	private static String USER_UPDATE_EMAIL = "user_update_email";
-	private static String USER_UPDATE_EMAIL_RCODE = "user_update_email_rcode";
-
-	private static String USER_SESSION = "user_session";
-	private static String USER_SESSION_LIST = "user_session_list";
-	private static String USER_RESET_PASSWORD = "user_rp";  //重置密码功能
-
-
-	private static String PANEL_NAME = "panel";
-	private static String PANEL_STATUS = "panel_status";
-	private static String PANEL_SESSION = "panel_session";
-    private static String BIND_PANEL = "bc_panel";  //key: bindCode, value: panelId
-	private static String PANEL_HEART_BEAT = "panel_hb_map";
-
-    //app端和panel端消息传递的队列
-	private static String QUEUE_PANEL_STATUS_KEY = "queue_panel_curr_status_key";
-	private static String QUEUE_PANEL_SETTING_KEY = "queue_panel_setting_key";
-	private static String QUEUE_USER_CTRL_KEY = "queue_user_ctrl_key";
-	private static String QUEUE_MANAGER_MSG_KEY = "queue_manager_msg_key";
-
-
-	public static String getUserUpdateEmail(long id){
-		return createId(USER_UPDATE_EMAIL,id);
-	}
-	public static String getUserUpdateEmailRcode(String rcode){
-		return  createId(USER_UPDATE_EMAIL_RCODE,rcode);
-	}
-
-	
 	public static String getUserKey(long id){
 		return createId(USER_NAME,id);
 	}
-	
-	public static String getUserRPKey(String rcode){
-		return createId(USER_RESET_PASSWORD,rcode);
-	}
 
+	//物品缓存key
+	// 物品Goods对象
+	// goods_{goodsId}:Goods
+	private static String GOODS_NAME = "goods";
+	public static String getGoodsKey(long id){
+		return createId(GOODS_NAME,id);
+	}
+	/*
+	   session多点登录
+         session_{session}: userId
+	 */
+	private static String USER_SESSION = "session";
 	public static String getUserSessionKey(String session){
 		return createId(USER_SESSION,session);
 	}
+	/*
+	公司最新的已经发布的未锁定的前十条
+         publish_{groupId}:[goodsId,….]
 
-    public static String getUserSessionListKey(long id){
-        return createId(USER_SESSION_LIST,id);
-    }
-    public static String getUserlinesKey(){
-        return USER_LINES;
-    }
-
-	public static String getPanelKey(long id){
-		return createId(PANEL_NAME,id);
-	}
-	public static String getPanelStatusKey(long id){
-		return createId(PANEL_STATUS,id);
+	 */
+	private static String GOODS_PUBLISH_LIST = "publish";
+	public static String getPublishKey(Long groupId){
+		return createId(GOODS_PUBLISH_LIST,groupId);
 	}
 
-    public static String getPanelSessionKey(long id){
-		return createId(PANEL_SESSION,id);
-    }
+	/*
+	找回密码，临时密码，有效期10分钟
+          tpassword_{userId}:password;
 
-    public static String getBindPanelKey(String bindCode){
-        return createId(BIND_PANEL,bindCode);
-    }
-    public static String getPanelHBKey(){
-		return PANEL_HEART_BEAT;
+	 */
+	private static String TEMP_PASSWORD = "tpassword";
+	public static String getTempPasswordKey(Long userId){
+		return createId(TEMP_PASSWORD,userId);
 	}
+	/*
+	公司认证：10分钟有效期
+          gauth_{rcode}:userId
+	 */
+	private static String GROUP_AUTH = "gauth";
+	public static String getGroupAuthKey(String rcode){
+		return createId(GROUP_AUTH,rcode);
+	}
+
+	/*
+	  找回密码前有个验证码，也许其他地方也会用到
+          check_code{rcode}:userId
+	 */
+	private static String CHECK_CODE = "check_code";
+	public static String getCheckCode(String code){
+		return createId(CHECK_CODE,code);
+	}
+
 	private static String createId(String type,long id){
 		if(type!=null && !"".equals(type.trim())){
-			return type+":" + id;
+			return type+"_" + id;
 		}
 		return ""+id;
 	}
 	private static String createId(String type,String name){
-		return type+":" + name;
-	}
-
-    public static String getQueueUserCtrlKey(long id){
-        return createId(QUEUE_USER_CTRL_KEY,id);
-    }
-    public static String getQueuePanelStatus(long id,String session){
-        return createId(QUEUE_PANEL_STATUS_KEY,id+"_"+session);
-    }
-    public static String getQueuePanelSetting(long id,String session){
-        return createId(QUEUE_PANEL_SETTING_KEY,id+"_"+session);
-    }
-
-	public static String getManagerMSG(String sn){
-		return createId(QUEUE_MANAGER_MSG_KEY,sn);
+		return type+"_" + name;
 	}
 }
