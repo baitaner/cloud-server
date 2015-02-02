@@ -1,7 +1,9 @@
 package com.baitaner.common.service.impl;
 
+import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.Goods;
+import com.baitaner.common.domain.base.GoodsPhoto;
 import com.baitaner.common.domain.base.Indent;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateIndent;
@@ -169,6 +171,7 @@ public class IndentServiceImpl implements IIndentService {
         ir.setBuyTime(indent.getBuyTime());
         ir.setGoods(goods);
         ir.setIndentId(indentId);
+        ir.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(),0,ConstConfig.GOODS_PHOTO_MAX));
 
         ir.setUser(user);
 
@@ -201,7 +204,7 @@ public class IndentServiceImpl implements IIndentService {
             IndentResponse indentResponse = new IndentResponse();
             //获取缓存
             Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
-
+            indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(),0,ConstConfig.GOODS_PHOTO_MAX));
             indentResponse.setGoods(goods);
             indentResponse.setBuyTime(i.getBuyTime());
             indentResponse.setBuyCount(i.getBuyCount());
@@ -240,6 +243,7 @@ public class IndentServiceImpl implements IIndentService {
             //获取缓存
             Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
 
+            indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(),0,ConstConfig.GOODS_PHOTO_MAX));
             indentResponse.setGoods(goods);
             indentResponse.setBuyTime(i.getBuyTime());
             indentResponse.setBuyCount(i.getBuyCount());
@@ -280,7 +284,9 @@ public class IndentServiceImpl implements IIndentService {
             IndentResponse indentResponse = new IndentResponse();
             //获取缓存
             Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
+            List<GoodsPhoto> photoList = goodsPhotoMapper.findByGoodsId(i.getGoodsId(),0, ConstConfig.GOODS_PHOTO_MAX);
 
+            indentResponse.setPhotoList(photoList);
             indentResponse.setGoods(goods);
             indentResponse.setBuyTime(i.getBuyTime());
             indentResponse.setBuyCount(i.getBuyCount());
@@ -293,5 +299,10 @@ public class IndentServiceImpl implements IIndentService {
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
         result.setPayload(ilr);
         return result;
+    }
+
+    @Override
+    public Indent getIndentOnly(Long indentId){
+        return indentMapper.findById(indentId);
     }
 }

@@ -1,5 +1,6 @@
 package com.baitaner.common.service;
 
+import com.baitaner.common.domain.base.Indent;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateIndent;
 import com.baitaner.common.domain.result.IndentListResult;
@@ -24,4 +25,6 @@ public interface IIndentService {
     IndentListResult findIndentByUser(Long userId,Integer index,Integer limit);
     IndentListResult findIndentByGoods(Long goodsId,Integer index,Integer limit);
     IndentListResult findIndentByGroupAndStatus(Long goodsId,Integer status,Integer index,Integer limit);
+
+    Indent getIndentOnly(Long indentId);
 }

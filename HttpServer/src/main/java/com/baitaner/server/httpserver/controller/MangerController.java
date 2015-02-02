@@ -1,10 +1,12 @@
 package com.baitaner.server.httpserver.controller;
 
 import com.baitaner.common.constant.ErrorCodeConfig;
+import com.baitaner.common.domain.base.Goods;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.result.GoodsListResult;
 import com.baitaner.common.domain.result.IndentListResult;
 import com.baitaner.common.domain.result.Result;
+import com.baitaner.common.enums.UserEnums;
 import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IIndentService;
 import com.baitaner.common.service.IUserService;
@@ -48,6 +50,22 @@ public class MangerController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Goods goods = goodsService.getGoodsOnly(goodsId);
+            if((!goods.getGroupId().equals(user.getGroupId())
+                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
+
             response = goodsService.lock(goodsId);
         }
         return JsonUtil.object2String(response);
@@ -72,6 +90,21 @@ public class MangerController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Goods goods = goodsService.getGoodsOnly(goodsId);
+            if((!goods.getGroupId().equals(user.getGroupId())
+                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = goodsService.unlock(goodsId);
         }
         return JsonUtil.object2String(response);
@@ -103,7 +136,20 @@ public class MangerController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            if((!groupId.equals(user.getGroupId())
+                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = goodsService.findGoodsFromGroup(groupId, null, isLock, index,limit);
         }
         return JsonUtil.object2String(response);
@@ -133,8 +179,67 @@ public class MangerController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            if((!groupId.equals(user.getGroupId())
+                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = indentService.findIndentByGroupAndStatus(groupId, status,index, limit);
+        }
+        return JsonUtil.object2String(response);
+    }
+
+    /**
+     * 获取公司的信息， 根据不同状态，和锁状态获取
+     * @param SESSION_KEY
+     * @param groupId
+     * @param limit
+     * @param status
+     * @param isLock
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,
+            value = "/goods/{groupId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String getFromGroup(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long groupId,
+            @RequestParam Integer index,
+            @RequestParam Integer limit,
+            @RequestParam Integer status,
+            @RequestParam Integer isLock
+    ) {
+        GoodsListResult response = new GoodsListResult();
+        if(SESSION_KEY==null ||limit==null || status==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            if((!groupId.equals(user.getGroupId())
+                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
+            response = goodsService.findGoodsFromGroup(groupId, status, isLock,index, limit);
         }
         return JsonUtil.object2String(response);
     }

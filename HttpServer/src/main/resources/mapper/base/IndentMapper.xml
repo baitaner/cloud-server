@@ -72,7 +72,7 @@ CREATE TABLE `bt_indent` (
 		select
 		*
 		from
-		bt_indent where user_id = ${userId} limit  ${index},${limit}
+		bt_indent where user_id = ${userId} order by id desc limit ${index},${limit}
 	</select>
 	<select id="findByUserIdSize" resultType="long" useCache="false">
 		select
@@ -84,7 +84,7 @@ CREATE TABLE `bt_indent` (
 		select
 		*
 		from
-		bt_indent where goods_id = ${goodsId} limit ${index},${limit}
+		bt_indent where goods_id = ${goodsId} order by id desc limit ${index},${limit}
 	</select>
 	<select id="findByGoodsSize" resultType="long" useCache="false">
 		select
@@ -96,7 +96,7 @@ CREATE TABLE `bt_indent` (
 		select
 		*
 		from
-		bt_indent where goods_id = ${goodsId} AND status=${status} limit ${index},${limit}
+		bt_indent where goods_id = ${goodsId} AND status=${status} order by id desc limit ${index},${limit}
 	</select>
 	<select id="findByGoodsAndStatusSize" resultType="long" useCache="false">
 		select

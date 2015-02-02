@@ -6,6 +6,7 @@ import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.result.GroupListResult;
 import com.baitaner.common.domain.result.GroupResult;
 import com.baitaner.common.domain.result.Result;
+import com.baitaner.common.enums.UserEnums;
 import com.baitaner.common.service.IGroupService;
 import com.baitaner.common.service.IUserService;
 import com.baitaner.common.utils.JsonUtil;
@@ -41,7 +42,20 @@ public class GroupController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            if(user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = groupService.saveGroup(group);
+
         }
         return JsonUtil.object2String(response);
     }
@@ -68,6 +82,18 @@ public class GroupController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            if(user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = groupService.updateGroup(groupId, group);
         }
         return JsonUtil.object2String(response);
@@ -93,7 +119,12 @@ public class GroupController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
             response = groupService.getGroup(groupId);
         }
         return JsonUtil.object2String(response);
@@ -120,7 +151,18 @@ public class GroupController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            if(user.getRole()!= UserEnums.ROLE.ADMIN) {
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = groupService.find(index,limit);
         }
         return JsonUtil.object2String(response);

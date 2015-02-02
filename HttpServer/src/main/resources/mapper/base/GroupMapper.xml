@@ -76,7 +76,7 @@ CREATE TABLE `bt_group` (
 		select
 		*
 		from
-		bt_group limit #{index},#{limit};
+		bt_group order by id desc limit #{index},#{limit};
 	</select>
 	<select id="findSize" resultType="long" useCache="false">
 		select

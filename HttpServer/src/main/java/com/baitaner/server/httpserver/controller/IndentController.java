@@ -1,11 +1,15 @@
 package com.baitaner.server.httpserver.controller;
 
 import com.baitaner.common.constant.ErrorCodeConfig;
+import com.baitaner.common.domain.base.Goods;
+import com.baitaner.common.domain.base.Indent;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateIndent;
 import com.baitaner.common.domain.result.IndentListResult;
 import com.baitaner.common.domain.result.IndentResult;
 import com.baitaner.common.domain.result.Result;
+import com.baitaner.common.enums.UserEnums;
+import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IIndentService;
 import com.baitaner.common.service.IUserService;
 import com.baitaner.common.utils.JsonUtil;
@@ -25,6 +29,8 @@ public class IndentController {
     private IUserService userService;
     @Autowired
     private IIndentService indentService;
+    @Autowired
+    private IGoodsService goodsService;
 
 
     @RequestMapping(method = RequestMethod.POST,
@@ -41,7 +47,21 @@ public class IndentController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Goods goods = goodsService.getGoodsOnly(createIndent.getGoodsId());
+            if(!goods.getGroupId().equals(user.getGroupId())
+                    && user.getRole()!= UserEnums.ROLE.ADMIN
+                    ){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = indentService.saveIndent(user, createIndent);
         }
         return JsonUtil.object2String(response);
@@ -68,7 +88,22 @@ public class IndentController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Indent indent = indentService.getIndentOnly(indentId);
+            if(!indent.getUserId().equals(userId)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN
+                    ){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
+
             response = indentService.cancelIndent(indentId);
         }
         return JsonUtil.object2String(response);
@@ -88,7 +123,21 @@ public class IndentController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Indent indent = indentService.getIndentOnly(indentId);
+            if(!indent.getUserId().equals(userId)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN
+                    ){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = indentService.confirmIndent(indentId);
         }
         return JsonUtil.object2String(response);
@@ -102,7 +151,7 @@ public class IndentController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET,
-            value = "/{indentId}",
+            value = "/get/{indentId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
@@ -115,7 +164,24 @@ public class IndentController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Indent indent = indentService.getIndentOnly(indentId);
+            Goods goods = goodsService.getGoodsOnly(indent.getGoodsId());
+
+            if(!indent.getUserId().equals(userId)
+                    && !goods.getUserId().equals(userId)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN
+                    ){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = indentService.getIndent(indentId);
         }
         return JsonUtil.object2String(response);
@@ -144,7 +210,12 @@ public class IndentController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long loginId = userService.auth(SESSION_KEY);
+            if(loginId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
             response = indentService.findIndentByUser(userId,index, limit);
         }
         return JsonUtil.object2String(response);
@@ -173,7 +244,21 @@ public class IndentController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(userId);
+            Goods goods = goodsService.getGoodsOnly(goodsId);
+            if(!goods.getUserId().equals(userId)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN
+                    ){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
             response = indentService.findIndentByGoods(goodsId,index, limit);
         }
         return JsonUtil.object2String(response);

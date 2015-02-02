@@ -238,7 +238,6 @@ public class DateUtil {
 			try {
 				format.format(format.parse(date));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				return false;
 			}
 			return true;
@@ -346,7 +345,6 @@ public class DateUtil {
 		try {
 			date = dateFormat.parse(dateString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// java.sql.Timestamp dateTime = new java.sql.Timestamp(date.getTime());
@@ -368,7 +366,6 @@ public class DateUtil {
 		try {
 			date = dateFormat.parse(dateString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// java.sql.Date dateTime = new java.sql.Date(date.getTime());// sql类型
@@ -423,7 +420,6 @@ public class DateUtil {
 			date = dateFormat.parse(dateString);
 			// System.out.println("<> " + date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// java.sql.Timestamp dateTime = new java.sql.Timestamp(date.getTime());

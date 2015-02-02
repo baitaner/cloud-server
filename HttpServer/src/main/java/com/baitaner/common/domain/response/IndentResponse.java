@@ -1,10 +1,12 @@
 package com.baitaner.common.domain.response;
 
 import com.baitaner.common.domain.base.Goods;
+import com.baitaner.common.domain.base.GoodsPhoto;
 import com.baitaner.common.domain.base.User;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by zliu on 15/1/28.
@@ -13,6 +15,7 @@ public class IndentResponse implements Serializable{
     private static final long serialVersionUID = 1236362875090649995L;
     private Long indentId;
     private Goods goods;
+    private List<GoodsPhoto> photoList;
     private User user;
     private Integer buyCount;
     private Timestamp buyTime;
@@ -22,10 +25,19 @@ public class IndentResponse implements Serializable{
         return "IndentResponse{" +
                 "indentId=" + indentId +
                 ", goods=" + goods +
+                ", photoList=" + photoList +
                 ", user=" + user +
                 ", buyCount=" + buyCount +
                 ", buyTime=" + buyTime +
                 '}';
+    }
+
+    public List<GoodsPhoto> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<GoodsPhoto> photoList) {
+        this.photoList = photoList;
     }
 
     public Long getIndentId() {

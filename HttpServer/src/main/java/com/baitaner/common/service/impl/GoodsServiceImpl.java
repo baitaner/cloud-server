@@ -45,18 +45,18 @@ public class GoodsServiceImpl implements IGoodsService {
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result save(User user, RequestCreateGoods createGoods){
+    public Result save(Long userId,Long groupId, RequestCreateGoods createGoods){
         //判断user是否为空，以及id是否存在
         Result result = new Result();
-        if(user==null || user.getId()==null||createGoods==null||user.getGroupId()==null){
+        if(userId==null||createGoods==null||groupId==null){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
             return result;
         }
         Goods goods = new Goods();
         goods.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        goods.setGroupId(user.getGroupId());
-        goods.setUserId(user.getId());
+        goods.setGroupId(groupId);
+        goods.setUserId(userId);
         goods.setTotal(createGoods.getTotal());
         goods.setTitle(createGoods.getTitle());
         goods.setStatus(GoodsEnums.STATUS.UN_PUBLISHED);

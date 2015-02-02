@@ -2,6 +2,7 @@ package com.baitaner.common.service.impl;
 
 import com.baitaner.common.constant.DateConstant;
 import com.baitaner.common.constant.ErrorCodeConfig;
+import com.baitaner.common.domain.MailInfo;
 import com.baitaner.common.domain.base.Group;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.*;
@@ -12,7 +13,7 @@ import com.baitaner.common.enums.UserEnums;
 import com.baitaner.common.mapper.IGroupMapper;
 import com.baitaner.common.mapper.IUserMapper;
 import com.baitaner.common.service.ICacheService;
-import com.baitaner.common.service.IGroupService;
+import com.baitaner.common.service.IMailService;
 import com.baitaner.common.service.IUserService;
 import com.baitaner.common.utils.ResultUtils;
 import com.baitaner.common.utils.SessionUtil;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -43,10 +46,10 @@ public class UserServiceImpl implements IUserService {
     private IUserMapper userMapper;
 
     @Autowired
-    private IGroupService groupService;
+    private IGroupMapper groupMapper;
 
     @Autowired
-    private IGroupMapper groupMapper;
+    private IMailService mailService;
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -209,7 +212,8 @@ public class UserServiceImpl implements IUserService {
         bindGroup.setUserId(user.getId());
         String rcode = SessionUtil.getBindCode();
         cacheService.putGroupAuth(bindGroup,rcode);
-        //todo 发送邮件
+        // 发送邮件
+        sendCodeEmail(bindGroup.getEmail(), rcode);
         return ResultUtils.getSuccess();
     }
 
@@ -345,7 +349,14 @@ public class UserServiceImpl implements IUserService {
             return result;
         }
         cacheService.putTempPassword(user.getId(),password);
-        //todo 把临时密码发送邮箱
+        // 把临时密码发送邮箱
+        String mail = null;
+        if(user.getEmail()==null||"".equals(user.getEmail())){
+            mail = user.getGroupEmail();
+        } else{
+            mail = user.getEmail();
+        }
+        sendCodeEmail(mail,password);
         return ResultUtils.getSuccess();
 
     }
@@ -387,5 +398,77 @@ public class UserServiceImpl implements IUserService {
 
         }
         return null;
+    }
+
+    //发送邮件通知用户
+    private boolean sendCodeEmail(String email, String rcode) {
+        //根据rcode生成链接
+        String subject = "Welcome Baitaner Register Test System";
+        MailInfo mailInfo = this.getMailInfo(subject);
+        if(mailInfo==null){
+            return false;
+        }
+
+        String htmlhead = "\n" +
+                "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+                "<title>Register Page</title>" +
+                "<body style='font-family:\"Microsoft YaHei\",微软雅黑,\"Microsoft JhengHei\",华文细黑,STHeiti,MingLiu}'>" +
+                "<div> Bind code:"+rcode+"</div><br/><br/><br/>" +
+                "</body>" +
+                "</html>";
+        mailInfo.setContent(htmlhead);
+        mailInfo.setToAddress(email);
+        //发送邮件到email
+        try {
+            return mailService.sendHtmlMail(mailInfo);
+        } catch (MessagingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return false;
+        }
+    }
+    //发送邮件通知用户
+    private boolean sendTempPasswordEmail(String email, String password) {
+        //根据rcode生成链接
+        String subject = "Welcome Baitaner Register Test System";
+        MailInfo mailInfo = this.getMailInfo(subject);
+        if(mailInfo==null){
+            return false;
+        }
+
+        String htmlhead = "\n" +
+                "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+                "<title>Register Page</title>" +
+                "<body style='font-family:\"Microsoft YaHei\",微软雅黑,\"Microsoft JhengHei\",华文细黑,STHeiti,MingLiu}'>" +
+                "<div> Temp password: "+password+" </div><br/><br/><br/>" +
+                "</body>" +
+                "</html>";
+        mailInfo.setContent(htmlhead);
+        mailInfo.setToAddress(email);
+        //发送邮件到email
+        try {
+            return mailService.sendHtmlMail(mailInfo);
+        } catch (MessagingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return false;
+        }
+    }
+
+    private MailInfo getMailInfo(String subject){
+        MailInfo mailInfo = new MailInfo();
+        mailInfo.setMailServerHost("smtp.126.com");
+        mailInfo.setFromAddress("loganlz@126.com");
+        mailInfo.setUserName("loganlz");
+        mailInfo.setPassword("wangyanan@841216");
+
+        sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
+        try {
+            mailInfo.setSubject("=?GB2312?B?" + enc.encode(subject.getBytes("GB2312")) + "?=");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return null;
+        }
+        return mailInfo;
     }
 }

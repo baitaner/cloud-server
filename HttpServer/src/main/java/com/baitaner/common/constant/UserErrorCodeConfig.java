@@ -22,5 +22,6 @@ public interface UserErrorCodeConfig {
 
 	int GROUP_EMAIL_ERROR = 300006;
 	int TEMP_CODE_TIMEOUT = 300007;
+	int NO_PERMISSION = 300008;
 
 }

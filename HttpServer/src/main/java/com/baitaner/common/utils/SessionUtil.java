@@ -53,7 +53,6 @@ public class SessionUtil {
             bytes = md.digest(bytes); // 取摘要,默认是"MD5"算法
 
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }

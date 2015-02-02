@@ -61,7 +61,7 @@ CREATE TABLE `bt_info_goods_photo` (
 		select
 		*
 		from
-		bt_info_goods_photo where goods_id = ${goodsId} limit  #{index},${limit}
+		bt_info_goods_photo where goods_id = ${goodsId} order by id desc limit #{index},${limit}
 	</select>
 	<select id="findByGoodsIdSize" resultType="long" useCache="false">
 		select

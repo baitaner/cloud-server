@@ -1,7 +1,6 @@
 package com.baitaner.common.service;
 
 import com.baitaner.common.domain.base.Goods;
-import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateGoods;
 import com.baitaner.common.domain.result.GoodsListResult;
 import com.baitaner.common.domain.result.GoodsResult;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface IGoodsService {
 
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    Result save(User user,RequestCreateGoods createGoods);
+    Result save(Long userId,Long groupId,RequestCreateGoods createGoods);
 
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     Result update(Long goodsId, RequestCreateGoods createGoods);

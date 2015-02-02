@@ -109,7 +109,7 @@ CREATE TABLE `bt_user` (
 		select
 		*
 		from
-		bt_user where group_id = #{groupId} and status=2 limit ${index},${limit}
+		bt_user where group_id = #{groupId} and status=2 order by id desc limit ${index},${limit}
 	</select>
 	<select id="findByGroupSize" parameterType="long" resultType="long" useCache="false">
 		select
