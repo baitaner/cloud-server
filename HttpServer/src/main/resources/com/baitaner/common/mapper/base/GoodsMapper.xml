@@ -137,11 +137,11 @@ CREATE TABLE `bt_goods` (
 		,create_time=#{createTime}
         ,expire_time=#{expireTime}
 		,update_time=#{updateTime}
-		,publish_time=#{publicTime}
+		,publish_time=#{publishTime}
 		where id = #{id};
 	</update>
 	<delete id="delete" parameterType="long">
-		DELETE bt_goods
+		DELETE FROM bt_goods
 		where id = #{id};
 	</delete>
 </mapper>

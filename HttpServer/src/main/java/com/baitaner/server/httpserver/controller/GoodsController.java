@@ -6,6 +6,7 @@ import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateGoods;
 import com.baitaner.common.domain.result.GoodsListResult;
 import com.baitaner.common.domain.result.GoodsResult;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.enums.GoodsEnums;
 import com.baitaner.common.enums.UserEnums;
@@ -57,7 +58,7 @@ public class GoodsController {
             @RequestHeader String SESSION_KEY,
             @RequestBody RequestCreateGoods createGoods
     ) {
-        Result response = new Result();
+        IDResult response = new IDResult();
         if(SESSION_KEY==null ||createGoods==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
@@ -104,6 +105,11 @@ public class GoodsController {
                 return JsonUtil.object2String(response);
             }
             Goods goods= goodsService.getGoodsOnly(goodsId);
+            if(goods==null){
+                response.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+                response.setMsg("No Goods");
+                return JsonUtil.object2String(response);
+            }
             User user = userService.getUserOnly(userId);
             if(!goods.getUserId().equals(userId) && user.getRole()!= UserEnums.ROLE.ADMIN){
                 response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
@@ -155,6 +161,47 @@ public class GoodsController {
         }
         return JsonUtil.object2String(response);
     }
+
+    /**
+     * 发布某个信息
+     * @param SESSION_KEY
+     * @param goodsId
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/complete/{goodsId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody
+    String complete(
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long goodsId
+    ) {
+        Result response = new Result();
+        if(SESSION_KEY==null||goodsId==null){
+            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            response.setMsg("Invalid params");
+        }else{
+            Long userId = userService.auth(SESSION_KEY);
+            if(userId==null){
+                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+                response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            Goods goods= goodsService.getGoodsOnly(goodsId);
+            User user = userService.getUserOnly(userId);
+            if(!goods.getUserId().equals(userId)
+                    && user.getRole()!= UserEnums.ROLE.ADMIN
+                    ){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
+                return JsonUtil.object2String(response);
+            }
+            response = goodsService.complete(goodsId);
+        }
+        return JsonUtil.object2String(response);
+    }
+
 
     /**
      * 取消某个信息
@@ -276,8 +323,8 @@ public class GoodsController {
     String getFromUser(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long userId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit,
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit,
             @RequestParam Integer status,
             @RequestParam Integer isLock
     ) {
@@ -292,7 +339,7 @@ public class GoodsController {
                 response.setMsg("User no login");
                 return JsonUtil.object2String(response);
             }
-            User user = userService.getUserOnly(userId);
+            User user = userService.getUserOnly(loginId);
             if(!loginId.equals(userId)
                     && user.getRole()!= UserEnums.ROLE.ADMIN
                     ){
@@ -320,8 +367,8 @@ public class GoodsController {
     String getGroupPublish(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long groupId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         GoodsListResult response = new GoodsListResult();
         if(SESSION_KEY==null ||limit==null){

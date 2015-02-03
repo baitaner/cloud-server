@@ -9,6 +9,7 @@ import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateIndent;
 import com.baitaner.common.domain.response.IndentListResponse;
 import com.baitaner.common.domain.response.IndentResponse;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.IndentListResult;
 import com.baitaner.common.domain.result.IndentResult;
 import com.baitaner.common.domain.result.Result;
@@ -55,9 +56,9 @@ public class IndentServiceImpl implements IIndentService {
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result saveIndent(User user,RequestCreateIndent createIndent){
+    public IDResult saveIndent(User user,RequestCreateIndent createIndent){
 //判断user是否为空，以及id是否存在
-        Result result = new Result();
+        IDResult result = new IDResult();
         if(user==null || user.getId()==null||createIndent==null||user.getGroupId()==null){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
@@ -87,7 +88,7 @@ public class IndentServiceImpl implements IIndentService {
         goods.setSellCount(goods.getSellCount()+createIndent.getBuyCount());
         goodsMapper.update(goods);
         cacheService.putGoods(goods);
-        return ResultUtils.getSuccess();
+        return ResultUtils.getIDSuccess(goods.getId());
     }
 
     @Override
@@ -129,15 +130,21 @@ public class IndentServiceImpl implements IIndentService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        Indent indent = indentMapper.findById(indentId);
+        Indent indent = getIndentOnly(indentId);
         if(indent==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST INDENT");
             return result;
         }
-        indent.setStatus(IndentEnums.STATUS.COMPLETED);
-        indent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        indentMapper.update(indent);
+        if(!indent.getStatus().equals(IndentEnums.STATUS.NEW)) {
+            indent.setStatus(IndentEnums.STATUS.COMPLETED);
+            indent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            indentMapper.update(indent);
+        } else{
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("indent status error");
+            return result;
+        }
         return ResultUtils.getSuccess();
     }
 
@@ -172,6 +179,7 @@ public class IndentServiceImpl implements IIndentService {
         ir.setBuyCount(indent.getBuyCount());
         ir.setBuyTime(indent.getBuyTime());
         ir.setGoods(goods);
+        ir.setStatus(indent.getStatus());
         ir.setIndentId(indentId);
         ir.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(),0,ConstConfig.GOODS_PHOTO_MAX));
 
@@ -209,6 +217,7 @@ public class IndentServiceImpl implements IIndentService {
                 Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
                 indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(), 0, ConstConfig.GOODS_PHOTO_MAX));
                 indentResponse.setGoods(goods);
+                indentResponse.setStatus(i.getStatus());
                 indentResponse.setBuyTime(i.getBuyTime());
                 indentResponse.setBuyCount(i.getBuyCount());
                 indentResponse.setIndentId(i.getId());
@@ -250,6 +259,7 @@ public class IndentServiceImpl implements IIndentService {
 
                 indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(), 0, ConstConfig.GOODS_PHOTO_MAX));
                 indentResponse.setGoods(goods);
+                indentResponse.setStatus(i.getStatus());
                 indentResponse.setBuyTime(i.getBuyTime());
                 indentResponse.setBuyCount(i.getBuyCount());
                 indentResponse.setIndentId(i.getId());
@@ -295,6 +305,7 @@ public class IndentServiceImpl implements IIndentService {
 
                 indentResponse.setPhotoList(photoList);
                 indentResponse.setGoods(goods);
+                indentResponse.setStatus(i.getStatus());
                 indentResponse.setBuyTime(i.getBuyTime());
                 indentResponse.setBuyCount(i.getBuyCount());
                 indentResponse.setIndentId(i.getId());

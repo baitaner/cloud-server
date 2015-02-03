@@ -1,5 +1,6 @@
 package com.baitaner.common.service.impl;
 
+import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.constant.DateConstant;
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.MailInfo;
@@ -367,16 +368,22 @@ public class UserServiceImpl implements IUserService {
     public UserListResult findUserFromGroup(Long groupId,Integer index, Integer limit) {
         UserListResult result = new UserListResult();
         if(groupId==null
-                ||index==null
-                ||limit==null
                 ){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        List<User> userList = userMapper.findByGroup(groupId,index,limit);
+        if(index==null){
+            index = 0;
+        }
+        if(limit==null){
+            limit= ConstConfig.GET_INFO_MAX;
+        }
         UserListResponse userListResponse = new UserListResponse();
-        userListResponse.setUserList(userList);
+        if(limit>0) {
+            List<User> userList = userMapper.findByGroup(groupId, index, limit);
+            userListResponse.setUserList(userList);
+        }
         userListResponse.setTotal(userMapper.findByGroupSize(groupId));
         result.setPayload(userListResponse);
         result.setErrorCode(ErrorCodeConfig.SUCCESS);

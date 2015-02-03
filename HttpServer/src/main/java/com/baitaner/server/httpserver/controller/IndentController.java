@@ -5,6 +5,7 @@ import com.baitaner.common.domain.base.Goods;
 import com.baitaner.common.domain.base.Indent;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateIndent;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.IndentListResult;
 import com.baitaner.common.domain.result.IndentResult;
 import com.baitaner.common.domain.result.Result;
@@ -42,7 +43,7 @@ public class IndentController {
             @RequestHeader String SESSION_KEY,
             @RequestBody RequestCreateIndent createIndent
     ) {
-        Result response = new Result();
+        IDResult response = new IDResult();
         if(SESSION_KEY==null ||createIndent==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
@@ -155,7 +156,7 @@ public class IndentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
-    String getFromUser(
+    String getIndent(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long indentId
     ) {
@@ -202,8 +203,8 @@ public class IndentController {
     String getFromUser(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long userId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         IndentListResult response = new IndentListResult();
         if(SESSION_KEY==null ||limit==null){
@@ -233,11 +234,11 @@ public class IndentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public @ResponseBody
-    String getFromInfo(
+    String getFromGoods(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long goodsId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         IndentListResult response = new IndentListResult();
         if(SESSION_KEY==null ||limit==null){

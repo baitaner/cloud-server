@@ -318,8 +318,8 @@ public class UserController {
     String userOfGroup(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long groupId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         UserListResult response = new UserListResult();
         if(SESSION_KEY==null ||limit==null||groupId==null){
@@ -409,8 +409,8 @@ public class UserController {
     String getMessage(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long userId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         MessageListResult response = new MessageListResult();
         if(SESSION_KEY==null ||limit==null||userId==null){

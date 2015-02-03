@@ -53,7 +53,7 @@ CREATE TABLE `bt_indent` (
   			,update_time
   		) values (
   			#{goodsId}
-  			#{userId}
+  			,#{userId}
   			,#{status}
   			,#{buyCount}
   			,#{buyTime}
@@ -107,12 +107,12 @@ CREATE TABLE `bt_indent` (
 	<update id="update" parameterType="Indent">
 		UPDATE bt_indent
 		SET
-		,status=#{status}
+		status=#{status}
 		,update_time=#{updateTime}
 		where id = #{id};
 	</update>
-	<delete id="delete" parameterType="long">
-		DELETE bt_indent
+	<delete  id="delete" parameterType="long">
+		DELETE FROM bt_indent
 		where id = #{id};
 	</delete>
 </mapper>

@@ -6,6 +6,7 @@ import com.baitaner.common.domain.base.Group;
 import com.baitaner.common.domain.response.GroupListResponse;
 import com.baitaner.common.domain.result.GroupListResult;
 import com.baitaner.common.domain.result.GroupResult;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.mapper.base.GroupMapper;
 import com.baitaner.common.mapper.base.UserMapper;
@@ -88,8 +89,8 @@ public class GroupServiceImpl implements IGroupService {
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result saveGroup(Group group){
-        Result result = new Result();
+    public IDResult saveGroup(Group group){
+        IDResult result = new IDResult();
         if(group==null
                 || group.getCity()==null
                 || group.getName()==null
@@ -109,7 +110,7 @@ public class GroupServiceImpl implements IGroupService {
         group.setCreateTime(new Timestamp(System.currentTimeMillis()));
         groupMapper.insert(group);
 
-        return ResultUtils.getSuccess();
+        return ResultUtils.getIDSuccess(group.getId());
     }
 
     @Override

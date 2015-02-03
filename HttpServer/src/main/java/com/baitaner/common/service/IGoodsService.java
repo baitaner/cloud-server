@@ -4,6 +4,7 @@ import com.baitaner.common.domain.base.Goods;
 import com.baitaner.common.domain.request.goods.RequestCreateGoods;
 import com.baitaner.common.domain.result.GoodsListResult;
 import com.baitaner.common.domain.result.GoodsResult;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.Result;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface IGoodsService {
 
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    Result save(Long userId,Long groupId,RequestCreateGoods createGoods);
+    IDResult save(Long userId,Long groupId,RequestCreateGoods createGoods);
 
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     Result update(Long goodsId, RequestCreateGoods createGoods);
@@ -27,7 +28,13 @@ public interface IGoodsService {
 
     Result publish(Long goodsId);
 
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    Result complete(Long goodsId);
+
     Result cancel(Long goodsId);
+
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    Result end(Long goodsId);
 
     Result delete(Long goodsId);
 

@@ -17,6 +17,7 @@ public class IndentResponse implements Serializable{
     private Goods goods;
     private List<GoodsPhoto> photoList;
     private User user;
+    private Integer status;
     private Integer buyCount;
     private Timestamp buyTime;
 
@@ -27,9 +28,18 @@ public class IndentResponse implements Serializable{
                 ", goods=" + goods +
                 ", photoList=" + photoList +
                 ", user=" + user +
+                ", status=" + status +
                 ", buyCount=" + buyCount +
                 ", buyTime=" + buyTime +
                 '}';
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public List<GoodsPhoto> getPhotoList() {

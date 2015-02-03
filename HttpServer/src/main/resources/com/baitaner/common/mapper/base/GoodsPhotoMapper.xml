@@ -15,7 +15,7 @@
        limitations under the License.
 
 
-CREATE TABLE `bt_info_goods_photo` (
+CREATE TABLE `bt_goods_photo` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `goods_id` bigint(20) NOT NULL,
   `photo_url` varchar(255) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `bt_info_goods_photo` (
 	</resultMap>
 	
   	<insert id="insert" parameterType="GoodsPhoto" useGeneratedKeys="true" keyProperty="id">
-  		INSERT INTO bt_info_goods_photo(
+  		INSERT INTO bt_goods_photo(
   			goods_id
   			,photo_url
   			,create_time
@@ -54,23 +54,23 @@ CREATE TABLE `bt_info_goods_photo` (
 		select
 		*
 		from
-		bt_info_goods_photo where id = #{id}
+		bt_goods_photo where id = #{id}
 	</select>
 
 	<select id="findByGoodsId" parameterType="long" resultMap="goodsPhotoResultMapper" useCache="false">
 		select
 		*
 		from
-		bt_info_goods_photo where goods_id = ${goodsId} order by id desc limit #{index},${limit}
+		bt_goods_photo where goods_id = ${goodsId} order by id desc limit #{index},${limit}
 	</select>
 	<select id="findByGoodsIdSize" resultType="long" useCache="false">
 		select
 		count(id)
 		from
-		bt_info_goods_photo
+		bt_goods_photo
 	</select>
 	<update id="update" parameterType="GoodsPhoto">
-		UPDATE bt_info_goods_photo
+		UPDATE bt_goods_photo
 		SET
 		goods_id=#{goodsId}
 		,photo_url=#{photoUrl}
@@ -78,11 +78,11 @@ CREATE TABLE `bt_info_goods_photo` (
 		where id = #{id};
 	</update>
 	<delete id="delete" parameterType="long">
-		DELETE bt_info_goods_photo
+		DELETE FROM bt_goods_photo
 		where id = #{id};
 	</delete>
 	<delete id="deleteByGoodsId" parameterType="long">
-		DELETE bt_info_goods_photo
+		DELETE FROM bt_goods_photo
 		where goods_id = #{goodsId};
 	</delete>
 

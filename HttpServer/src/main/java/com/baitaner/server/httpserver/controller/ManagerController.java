@@ -129,8 +129,8 @@ public class ManagerController {
             @PathVariable Long groupId,
             @RequestParam Integer status,
             @RequestParam Integer isLock,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         GoodsListResult response = new GoodsListResult();
         if(SESSION_KEY==null ||limit==null||groupId==null){
@@ -172,8 +172,8 @@ public class ManagerController {
             @RequestHeader String SESSION_KEY,
             @PathVariable Long groupId,
             @RequestParam Integer status,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         IndentListResult response = new IndentListResult();
         if(SESSION_KEY==null ||limit==null||groupId==null){

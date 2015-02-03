@@ -3,6 +3,7 @@ package com.baitaner.common.service;
 import com.baitaner.common.domain.base.Indent;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateIndent;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.IndentListResult;
 import com.baitaner.common.domain.result.IndentResult;
 import com.baitaner.common.domain.result.Result;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface IIndentService {
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    Result saveIndent(User user,RequestCreateIndent createIndent);
+    IDResult saveIndent(User user,RequestCreateIndent createIndent);
 
     Result cancelIndent(Long indentId);
 

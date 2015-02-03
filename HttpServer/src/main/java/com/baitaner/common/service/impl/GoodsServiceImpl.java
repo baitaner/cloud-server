@@ -9,6 +9,7 @@ import com.baitaner.common.domain.response.GoodsListResponse;
 import com.baitaner.common.domain.response.GoodsResponse;
 import com.baitaner.common.domain.result.GoodsListResult;
 import com.baitaner.common.domain.result.GoodsResult;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.enums.GoodsEnums;
 import com.baitaner.common.mapper.base.GoodsMapper;
@@ -44,9 +45,9 @@ public class GoodsServiceImpl implements IGoodsService {
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result save(Long userId,Long groupId, RequestCreateGoods createGoods){
+    public IDResult save(Long userId,Long groupId, RequestCreateGoods createGoods){
         //判断user是否为空，以及id是否存在
-        Result result = new Result();
+        IDResult result = new IDResult();
         if(userId==null||createGoods==null||groupId==null){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             result.setMsg("INVALID_PARAMS");
@@ -74,7 +75,7 @@ public class GoodsServiceImpl implements IGoodsService {
             }
         }
         cacheService.putPublishList(goods.getGroupId(),goods.getId());
-        return ResultUtils.getSuccess();
+        return ResultUtils.getIDSuccess(goods.getId());
     }
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -92,7 +93,7 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("NO EXIST GOODS");
             return result;
         }
-        if(createGoods.getPhotoList()!=null ){
+        if(createGoods.getPhotoList()!=null && createGoods.getPhotoList().size()>0){
             goodsPhotoMapper.deleteByGoodsId(goods.getId());
             for(GoodsPhoto photo:createGoods.getPhotoList()){
                 photo.setGoodsId(goods.getId());
@@ -136,11 +137,55 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("NO EXIST GOODS");
             return result;
         }
-        goods.setStatus(GoodsEnums.STATUS.PUBLISHED);
-        goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
-        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        goodsMapper.update(goods);
-        cacheService.putGoods(goods);
+        Long publishSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.PUBLISHED,GoodsEnums.IS_LOCK.UN_LOCK);
+        //判断允许发布的最大的数量
+        if(publishSize<ConstConfig.PUBLISH_MAX){
+            if(goods.getStatus().equals(GoodsEnums.STATUS.UN_PUBLISHED)){
+                goods.setStatus(GoodsEnums.STATUS.PUBLISHED);
+                goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
+                goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+                goodsMapper.update(goods);
+                cacheService.putGoods(goods);
+            } else{
+                result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+                result.setMsg("Goods status error!");
+                return result;
+            }
+        } else{
+            result.setErrorCode(ErrorCodeConfig.BEYOND_MAX_VALUE);
+            result.setMsg("User publish goods beyond max value");
+            return result;
+        }
+        return ResultUtils.getSuccess();
+    }
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result complete(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        if(goods.getStatus().equals(GoodsEnums.STATUS.PUBLISHED)){
+            //todo 需要检查订单状态
+            goods.setStatus(GoodsEnums.STATUS.COMPLETED);
+            goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
+            goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            goodsMapper.update(goods);
+            cacheService.putGoods(goods);
+        } else{
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("Goods status error!");
+            return result;
+        }
         return ResultUtils.getSuccess();
     }
     @Override
@@ -159,10 +204,47 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("NO EXIST GOODS");
             return result;
         }
-        goods.setStatus(GoodsEnums.STATUS.CANCELED);
-        goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        goodsMapper.update(goods);
-        cacheService.putGoods(goods);
+        if(goods.getStatus().equals(GoodsEnums.STATUS.PUBLISHED) || goods.getStatus().equals(GoodsEnums.STATUS.UN_PUBLISHED)){
+            //todo 需要检查订单状态
+            goods.setStatus(GoodsEnums.STATUS.CANCELED);
+            goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            goodsMapper.update(goods);
+            cacheService.putGoods(goods);
+        } else{
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("Goods status error!");
+            return result;
+        }
+        return ResultUtils.getSuccess();
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result end(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        // 获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        if(goods.getStatus().equals(GoodsEnums.STATUS.COMPLETED) || goods.getStatus().equals(GoodsEnums.STATUS.CANCELED)){
+            //todo 需要检查订单状态
+            goods.setStatus(GoodsEnums.STATUS.TERMINATE);
+            goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            goodsMapper.update(goods);
+            cacheService.putGoods(goods);
+        } else{
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("Goods status error!");
+            return result;
+        }
         return ResultUtils.getSuccess();
     }
 
@@ -175,10 +257,18 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        // 清除缓存
-        cacheService.deleteGoods(goodsId);
-        goodsPhotoMapper.deleteByGoodsId(goodsId);
-        goodsMapper.delete(goodsId);
+        Goods goods = getGoodsOnly(goodsId);
+        if(goods.getStatus().equals(GoodsEnums.STATUS.TERMINATE)
+                ) {
+            // 清除缓存
+            cacheService.deleteGoods(goodsId);
+            goodsPhotoMapper.deleteByGoodsId(goodsId);
+            goodsMapper.delete(goodsId);
+        }else{
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("Goods status error!");
+            return result;
+        }
         return ResultUtils.getSuccess();
     }
 

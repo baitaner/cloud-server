@@ -14,6 +14,7 @@ public class ConstConfig {
 
     public final static int GOODS_PHOTO_MAX = 1;
     public final static int GET_INFO_MAX = 10;
+    public final static int PUBLISH_MAX = 1;
 
     public final static String CONFIG_PATH="/opt/baitaner/conf/server.xml";
     public final static String HOME_DIR = "/opt/baitaner";

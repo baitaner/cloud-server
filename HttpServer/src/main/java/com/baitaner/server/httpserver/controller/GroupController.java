@@ -5,6 +5,7 @@ import com.baitaner.common.domain.base.Group;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.result.GroupListResult;
 import com.baitaner.common.domain.result.GroupResult;
+import com.baitaner.common.domain.result.IDResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.enums.UserEnums;
 import com.baitaner.common.service.IGroupService;
@@ -37,7 +38,7 @@ public class GroupController {
             @RequestHeader String SESSION_KEY,
             @RequestBody Group group
     ) {
-        Result response = new Result();
+        IDResult response = new IDResult();
         if(SESSION_KEY==null ||group==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
@@ -143,8 +144,8 @@ public class GroupController {
     public @ResponseBody
     String list(
             @RequestHeader String SESSION_KEY,
-            @RequestParam Integer index,
-            @RequestParam Integer limit
+            @RequestParam(defaultValue = "0") Integer index,
+            @RequestParam(defaultValue = "0") Integer limit
     ) {
         GroupListResult response = new GroupListResult();
         if(SESSION_KEY==null ||limit==null){
