@@ -17,6 +17,7 @@ public class IndentResponse implements Serializable{
     private Goods goods;
     private List<GoodsPhoto> photoList;
     private User user;
+    private String description;
     private Integer status;
     private Integer buyCount;
     private Timestamp buyTime;
@@ -28,10 +29,19 @@ public class IndentResponse implements Serializable{
                 ", goods=" + goods +
                 ", photoList=" + photoList +
                 ", user=" + user +
+                ", description=" + description +
                 ", status=" + status +
                 ", buyCount=" + buyCount +
                 ", buyTime=" + buyTime +
                 '}';
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getStatus() {

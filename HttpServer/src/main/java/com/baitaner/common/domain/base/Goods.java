@@ -39,6 +39,7 @@ public class Goods extends BasePojo {
     private Integer status;
     private Integer previousStatus;
     private Integer isLock;
+    private Float price;
     private Integer total;
     private Integer sellCount;
     private Timestamp expireTime;
@@ -46,7 +47,15 @@ public class Goods extends BasePojo {
     private Timestamp updateTime;
     private Timestamp publishTime;
 
-	public Integer getTotal() {
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public Integer getTotal() {
 		return total;
 	}
 

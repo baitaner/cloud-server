@@ -71,6 +71,7 @@ CREATE TABLE `bt_goods` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未发布（新建）2：发布 3：取消 4：完成 5：结束',
   `previous_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未发布（新建）2：发布 3：取消 4：完成 5：结束',
   `is_lock` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: 未锁定  2：锁定',
+  `price` float(11,2) NOT NULL DEFAULT '0',
   `total` int(11) NOT NULL DEFAULT '0',
   `sell_count` int(11) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
@@ -110,6 +111,7 @@ CREATE TABLE `bt_indent` (
   `user_id` bigint(20) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：新增订单  正在进行交易 2：取消订单 3：订单结束 交易完成',
   `buy_count` int(11) NOT NULL DEFAULT '0',
+  `description` TEXT DEFAULT NULL,
   `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
   `update_time` timestamp,
   PRIMARY KEY (`id`)

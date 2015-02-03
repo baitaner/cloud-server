@@ -53,13 +53,23 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
+        Long publishSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.PUBLISHED,GoodsEnums.IS_LOCK.UN_LOCK);
+        Long cancelSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.CANCELED,GoodsEnums.IS_LOCK.UN_LOCK);
+        Long completeSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.COMPLETED,GoodsEnums.IS_LOCK.UN_LOCK);
+        if(publishSize>=ConstConfig.PUBLISH_MAX || cancelSize>=ConstConfig.PUBLISH_MAX || completeSize>=ConstConfig.PUBLISH_MAX){
+            result.setErrorCode(ErrorCodeConfig.BEYOND_MAX_VALUE);
+            result.setMsg("User publish goods beyond max value");
+            return result;
+        }
         Goods goods = new Goods();
         goods.setCreateTime(new Timestamp(System.currentTimeMillis()));
         goods.setGroupId(groupId);
         goods.setUserId(userId);
+        goods.setPrice(createGoods.getPrice());
         goods.setTotal(createGoods.getTotal());
         goods.setTitle(createGoods.getTitle());
-        goods.setStatus(GoodsEnums.STATUS.UN_PUBLISHED);
+        //暂时直接发布，以后有需要再改
+        goods.setStatus(GoodsEnums.STATUS.PUBLISHED);
         goods.setDescription(createGoods.getDescription());
         goods.setExpireTime(new Timestamp(System.currentTimeMillis()+createGoods.getExpireTime()*1000));
         goods.setIsLock(GoodsEnums.IS_LOCK.UN_LOCK);
@@ -93,6 +103,11 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("NO EXIST GOODS");
             return result;
         }
+        if(!goods.getStatus().equals(GoodsEnums.STATUS.UN_PUBLISHED)){
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("Goods status error!");
+            return result;
+        }
         if(createGoods.getPhotoList()!=null && createGoods.getPhotoList().size()>0){
             goodsPhotoMapper.deleteByGoodsId(goods.getId());
             for(GoodsPhoto photo:createGoods.getPhotoList()){
@@ -112,6 +127,9 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         if(createGoods.getTotal()!=null){
             goods.setTotal(createGoods.getTotal());
+        }
+        if(createGoods.getPrice()!=null){
+            goods.setPrice(createGoods.getPrice());
         }
         goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
@@ -138,7 +156,13 @@ public class GoodsServiceImpl implements IGoodsService {
             return result;
         }
         Long publishSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.PUBLISHED,GoodsEnums.IS_LOCK.UN_LOCK);
-        //判断允许发布的最大的数量
+        Long cancelSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.CANCELED,GoodsEnums.IS_LOCK.UN_LOCK);
+        Long completeSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.COMPLETED,GoodsEnums.IS_LOCK.UN_LOCK);
+        if(publishSize>=ConstConfig.PUBLISH_MAX || cancelSize>=ConstConfig.PUBLISH_MAX || completeSize>=ConstConfig.PUBLISH_MAX){
+            result.setErrorCode(ErrorCodeConfig.BEYOND_MAX_VALUE);
+            result.setMsg("User publish goods beyond max value");
+            return result;
+        }        //判断允许发布的最大的数量
         if(publishSize<ConstConfig.PUBLISH_MAX){
             if(goods.getStatus().equals(GoodsEnums.STATUS.UN_PUBLISHED)){
                 goods.setStatus(GoodsEnums.STATUS.PUBLISHED);

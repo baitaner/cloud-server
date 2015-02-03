@@ -8,14 +8,24 @@ import java.io.Serializable;
 public class RequestCreateIndent implements Serializable{
     private static final long serialVersionUID = -1789516973758342964L;
     private Long goodsId;
+    private String description;
     private Integer buyCount;
 
     @Override
     public String toString() {
         return "RequestCreateIndent{" +
                 "goodsId=" + goodsId +
+                ", description=" + description +
                 ", buyCount=" + buyCount +
                 '}';
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getGoodsId() {

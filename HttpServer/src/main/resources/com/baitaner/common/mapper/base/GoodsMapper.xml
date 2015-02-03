@@ -51,6 +51,7 @@ CREATE TABLE `bt_goods` (
 		<result property="status" column="status" />
 		<result property="previousStatus" column="previous_status" />
 		<result property="isLock" column="is_lock" />
+		<result property="price" column="price" />
 		<result property="total" column="total" />
 		<result property="sellCount" column="sell_count" />
 		<result property="expireTime" column="expire_time" />
@@ -68,6 +69,7 @@ CREATE TABLE `bt_goods` (
   			,status
   			,previous_status
   			,is_lock
+  			,price
   			,total
   			,sell_count
   			,create_time
@@ -82,6 +84,7 @@ CREATE TABLE `bt_goods` (
   			,#{status}
   			,#{previousStatus}
   			,#{isLock}
+  			,#{price}
   			,#{total}
   			,#{sellCount}
   			,#{createTime}
@@ -132,6 +135,7 @@ CREATE TABLE `bt_goods` (
 		,status=#{status}
 		,previous_status=#{previousStatus}
 		,is_lock=#{isLock}
+		,price=#{price}
 		,total=#{total}
 		,sell_count=#{sellCount}
 		,create_time=#{createTime}

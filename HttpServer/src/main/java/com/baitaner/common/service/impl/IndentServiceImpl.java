@@ -73,6 +73,7 @@ public class IndentServiceImpl implements IIndentService {
         //产生订单
         Indent indent = new Indent();
         indent.setBuyTime(new Timestamp(System.currentTimeMillis()));
+        indent.setDescription(createIndent.getDescription());
         indent.setGoodsId(createIndent.getGoodsId());
         indent.setUserId(user.getId());
         indent.setBuyCount(createIndent.getBuyCount());
@@ -178,6 +179,7 @@ public class IndentServiceImpl implements IIndentService {
         IndentResponse ir = new IndentResponse();
         ir.setBuyCount(indent.getBuyCount());
         ir.setBuyTime(indent.getBuyTime());
+        ir.setDescription(indent.getDescription());
         ir.setGoods(goods);
         ir.setStatus(indent.getStatus());
         ir.setIndentId(indentId);
@@ -219,6 +221,7 @@ public class IndentServiceImpl implements IIndentService {
                 indentResponse.setGoods(goods);
                 indentResponse.setStatus(i.getStatus());
                 indentResponse.setBuyTime(i.getBuyTime());
+                indentResponse.setDescription(i.getDescription());
                 indentResponse.setBuyCount(i.getBuyCount());
                 indentResponse.setIndentId(i.getId());
                 indentResponseList.add(indentResponse);
@@ -261,6 +264,8 @@ public class IndentServiceImpl implements IIndentService {
                 indentResponse.setGoods(goods);
                 indentResponse.setStatus(i.getStatus());
                 indentResponse.setBuyTime(i.getBuyTime());
+                indentResponse.setDescription(i.getDescription());
+
                 indentResponse.setBuyCount(i.getBuyCount());
                 indentResponse.setIndentId(i.getId());
                 indentResponseList.add(indentResponse);
@@ -307,6 +312,8 @@ public class IndentServiceImpl implements IIndentService {
                 indentResponse.setGoods(goods);
                 indentResponse.setStatus(i.getStatus());
                 indentResponse.setBuyTime(i.getBuyTime());
+                indentResponse.setDescription(i.getDescription());
+
                 indentResponse.setBuyCount(i.getBuyCount());
                 indentResponse.setIndentId(i.getId());
                 indentResponseList.add(indentResponse);

@@ -13,6 +13,7 @@ public class RequestCreateGoods implements Serializable{
     private Long goodsId;
     private String title;
     private String description;
+    private Float price;
     private Integer total;
     private Long expireTime;  //秒
     private List<GoodsPhoto> photoList;
@@ -23,10 +24,19 @@ public class RequestCreateGoods implements Serializable{
                 "goodsId=" + goodsId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", price=" + price +
                 ", total=" + total +
                 ", expireTime=" + expireTime +
                 ", photoList=" + photoList +
                 '}';
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public Long getGoodsId() {

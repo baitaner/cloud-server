@@ -49,6 +49,7 @@ CREATE TABLE `bt_indent` (
   			,user_id
   			,status
   			,buy_count
+  			,description
   			,buy_time
   			,update_time
   		) values (
@@ -56,6 +57,7 @@ CREATE TABLE `bt_indent` (
   			,#{userId}
   			,#{status}
   			,#{buyCount}
+  			,#{description}
   			,#{buyTime}
   			,#{updateTime}
   		)
@@ -107,6 +109,7 @@ CREATE TABLE `bt_indent` (
 	<update id="update" parameterType="Indent">
 		UPDATE bt_indent
 		SET
+		description=#{description}
 		status=#{status}
 		,update_time=#{updateTime}
 		where id = #{id};

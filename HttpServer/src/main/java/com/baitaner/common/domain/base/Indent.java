@@ -30,10 +30,19 @@ public class Indent extends BasePojo {
     private Long userId;
     private Integer status;
     private Integer buyCount;
+    private String description;
     private Timestamp buyTime;
     private Timestamp updateTime;
 
-	public Long getGoodsId() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getGoodsId() {
 		return goodsId;
 	}
 
