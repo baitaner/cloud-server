@@ -13,10 +13,10 @@ import com.baitaner.common.domain.result.IndentListResult;
 import com.baitaner.common.domain.result.IndentResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.enums.IndentEnums;
-import com.baitaner.common.mapper.IGoodsMapper;
-import com.baitaner.common.mapper.IGoodsPhotoMapper;
-import com.baitaner.common.mapper.IIndentMapper;
-import com.baitaner.common.mapper.IUserMapper;
+import com.baitaner.common.mapper.base.GoodsMapper;
+import com.baitaner.common.mapper.base.GoodsPhotoMapper;
+import com.baitaner.common.mapper.base.IndentMapper;
+import com.baitaner.common.mapper.base.UserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IIndentService;
@@ -42,16 +42,16 @@ public class IndentServiceImpl implements IIndentService {
     private IGoodsService goodsService;
 
     @Autowired
-    private IIndentMapper indentMapper;
+    private IndentMapper indentMapper;
 
     @Autowired
-    private IGoodsMapper goodsMapper;
+    private GoodsMapper goodsMapper;
 
     @Autowired
-    private IGoodsPhotoMapper goodsPhotoMapper;
+    private GoodsPhotoMapper goodsPhotoMapper;
 
     @Autowired
-    private IUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -86,6 +86,7 @@ public class IndentServiceImpl implements IIndentService {
         }
         goods.setSellCount(goods.getSellCount()+createIndent.getBuyCount());
         goodsMapper.update(goods);
+        cacheService.putGoods(goods);
         return ResultUtils.getSuccess();
     }
 
@@ -115,6 +116,7 @@ public class IndentServiceImpl implements IIndentService {
                 goods.setSellCount(0);
             }
             goodsMapper.update(goods);
+            cacheService.putGoods(goods);
         }
 
         return ResultUtils.getSuccess();
@@ -198,20 +200,22 @@ public class IndentServiceImpl implements IIndentService {
             limit=5;
         }
         IndentListResponse ilr = new IndentListResponse();
-        List<Indent> indentList = indentMapper.findByUserId(userId,index,limit);
-        List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
-        for(Indent i:indentList){
-            IndentResponse indentResponse = new IndentResponse();
-            //获取缓存
-            Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
-            indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(),0,ConstConfig.GOODS_PHOTO_MAX));
-            indentResponse.setGoods(goods);
-            indentResponse.setBuyTime(i.getBuyTime());
-            indentResponse.setBuyCount(i.getBuyCount());
-            indentResponse.setIndentId(i.getId());
-            indentResponseList.add(indentResponse);
+        if(limit>0) {
+            List<Indent> indentList = indentMapper.findByUserId(userId, index, limit);
+            List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
+            for (Indent i : indentList) {
+                IndentResponse indentResponse = new IndentResponse();
+                //获取缓存
+                Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
+                indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(), 0, ConstConfig.GOODS_PHOTO_MAX));
+                indentResponse.setGoods(goods);
+                indentResponse.setBuyTime(i.getBuyTime());
+                indentResponse.setBuyCount(i.getBuyCount());
+                indentResponse.setIndentId(i.getId());
+                indentResponseList.add(indentResponse);
+            }
+            ilr.setIndentList(indentResponseList);
         }
-        ilr.setIndentList(indentResponseList);
         ilr.setTotal(indentMapper.findByUserIdSize(userId));
         result.setMsg("OK");
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
@@ -236,21 +240,23 @@ public class IndentServiceImpl implements IIndentService {
             limit=5;
         }
         IndentListResponse ilr = new IndentListResponse();
-        List<Indent> indentList = indentMapper.findByGoods(goodsId, index, limit);
-        List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
-        for(Indent i:indentList){
-            IndentResponse indentResponse = new IndentResponse();
-            //获取缓存
-            Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
+        if(limit>0) {
+            List<Indent> indentList = indentMapper.findByGoods(goodsId, index, limit);
+            List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
+            for (Indent i : indentList) {
+                IndentResponse indentResponse = new IndentResponse();
+                //获取缓存
+                Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
 
-            indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(),0,ConstConfig.GOODS_PHOTO_MAX));
-            indentResponse.setGoods(goods);
-            indentResponse.setBuyTime(i.getBuyTime());
-            indentResponse.setBuyCount(i.getBuyCount());
-            indentResponse.setIndentId(i.getId());
-            indentResponseList.add(indentResponse);
+                indentResponse.setPhotoList(goodsPhotoMapper.findByGoodsId(goods.getId(), 0, ConstConfig.GOODS_PHOTO_MAX));
+                indentResponse.setGoods(goods);
+                indentResponse.setBuyTime(i.getBuyTime());
+                indentResponse.setBuyCount(i.getBuyCount());
+                indentResponse.setIndentId(i.getId());
+                indentResponseList.add(indentResponse);
+            }
+            ilr.setIndentList(indentResponseList);
         }
-        ilr.setIndentList(indentResponseList);
         ilr.setTotal(indentMapper.findByGoodsSize(goodsId));
         result.setMsg("OK");
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
@@ -278,22 +284,24 @@ public class IndentServiceImpl implements IIndentService {
             status=IndentEnums.STATUS.NEW;
         }
         IndentListResponse ilr = new IndentListResponse();
-        List<Indent> indentList = indentMapper.findByGoodsAndStatus(goodsId,status,index,limit);
-        List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
-        for(Indent i:indentList){
-            IndentResponse indentResponse = new IndentResponse();
-            //获取缓存
-            Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
-            List<GoodsPhoto> photoList = goodsPhotoMapper.findByGoodsId(i.getGoodsId(),0, ConstConfig.GOODS_PHOTO_MAX);
+        if(limit>0) {
+            List<Indent> indentList = indentMapper.findByGoodsAndStatus(goodsId, status, index, limit);
+            List<IndentResponse> indentResponseList = new ArrayList<IndentResponse>();
+            for (Indent i : indentList) {
+                IndentResponse indentResponse = new IndentResponse();
+                //获取缓存
+                Goods goods = goodsService.getGoodsOnly(i.getGoodsId());
+                List<GoodsPhoto> photoList = goodsPhotoMapper.findByGoodsId(i.getGoodsId(), 0, ConstConfig.GOODS_PHOTO_MAX);
 
-            indentResponse.setPhotoList(photoList);
-            indentResponse.setGoods(goods);
-            indentResponse.setBuyTime(i.getBuyTime());
-            indentResponse.setBuyCount(i.getBuyCount());
-            indentResponse.setIndentId(i.getId());
-            indentResponseList.add(indentResponse);
+                indentResponse.setPhotoList(photoList);
+                indentResponse.setGoods(goods);
+                indentResponse.setBuyTime(i.getBuyTime());
+                indentResponse.setBuyCount(i.getBuyCount());
+                indentResponse.setIndentId(i.getId());
+                indentResponseList.add(indentResponse);
+            }
+            ilr.setIndentList(indentResponseList);
         }
-        ilr.setIndentList(indentResponseList);
         ilr.setTotal(indentMapper.findByGoodsAndStatusSize(goodsId,status));
         result.setMsg("OK");
         result.setErrorCode(ErrorCodeConfig.SUCCESS);

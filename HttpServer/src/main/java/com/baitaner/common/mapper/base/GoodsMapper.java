@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baitaner.common.mapper;
+package com.baitaner.common.mapper.base;
 
 import com.baitaner.common.domain.base.Goods;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +15,7 @@ import java.util.List;
 
  *
  */
-public interface IGoodsMapper {
+public interface GoodsMapper {
 	Integer delete(Long id);
 	Integer insert(Goods goods);
 

@@ -10,8 +10,8 @@ import com.baitaner.common.domain.response.AuthResponse;
 import com.baitaner.common.domain.response.UserListResponse;
 import com.baitaner.common.domain.result.*;
 import com.baitaner.common.enums.UserEnums;
-import com.baitaner.common.mapper.IGroupMapper;
-import com.baitaner.common.mapper.IUserMapper;
+import com.baitaner.common.mapper.base.GroupMapper;
+import com.baitaner.common.mapper.base.UserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IMailService;
 import com.baitaner.common.service.IUserService;
@@ -43,10 +43,10 @@ public class UserServiceImpl implements IUserService {
     private ICacheService cacheService;
 
     @Autowired
-    private IUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    private IGroupMapper groupMapper;
+    private GroupMapper groupMapper;
 
     @Autowired
     private IMailService mailService;
@@ -125,6 +125,7 @@ public class UserServiceImpl implements IUserService {
         } else{
             userResult.setErrorCode(ErrorCodeConfig.SUCCESS);
             userResult.setMsg("ok");
+            user.setPassword(null);
             userResult.setPayload(user);
         }
         return userResult;
@@ -158,6 +159,7 @@ public class UserServiceImpl implements IUserService {
         }else {
             //对比临时缓存密码对不对
             if(cacheService.getTempPassword(user.getId()).equals(password)){
+                cacheService.deleteTempPassword(user.getId());
                 result.setErrorCode(ErrorCodeConfig.SUCCESS);
                 result.setMsg("ok");
                 AuthResponse authResponse = new AuthResponse();
@@ -339,6 +341,7 @@ public class UserServiceImpl implements IUserService {
             result.setMsg("rcode invalid");
             return result;
         }
+        cacheService.deleteCheckCode(rcode);
         //获取临时密码
         String password = SessionUtil.getTmpPassword();
         // 临时密码写入缓存（有效期）
@@ -392,6 +395,9 @@ public class UserServiceImpl implements IUserService {
             User user = cacheService.getUser(userId);
             if (user == null) {
                 user = userMapper.findById(userId);
+                if(user!=null){
+                    cacheService.putUser(user);
+                }
             }
             return user;
         }catch (Exception ex){

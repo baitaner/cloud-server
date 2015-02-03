@@ -30,7 +30,7 @@ CREATE TABLE `bt_group` (
 
 
 
-<mapper namespace="com.baitaner.common.mapper.IGroupMapper">
+<mapper namespace="com.baitaner.common.mapper.base.GroupMapper">
   	<cache />
 	<resultMap id="groupResultMapper" type="Group">
 		<id property="id" column="id" />

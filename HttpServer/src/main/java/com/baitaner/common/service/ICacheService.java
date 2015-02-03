@@ -20,7 +20,7 @@ public interface ICacheService {
 
 	void deleteGoods(long goodsId);
 
-	void putUser(Goods goods);
+	void putGoods(Goods goods);
 
 	/**
 	 * 用户session 缓存 【master 分配】 //user_session:#userid#={value}

@@ -1,7 +1,7 @@
 package com.baitaner.server.httpserver.init;
 
 import com.baitaner.common.constant.ConstConfig;
-import com.baitaner.common.mapper.IGroupMapper;
+import com.baitaner.common.mapper.base.GroupMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IIndentService;
 import com.baitaner.common.service.IGoodsService;
@@ -28,7 +28,7 @@ public class ClassLoad {
     private ICacheService cacheService;
 
     @Autowired
-    private IGroupMapper groupMapper;
+    private GroupMapper groupMapper;
     @Autowired
     private IGoodsService infoService;
     @Autowired

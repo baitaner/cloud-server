@@ -32,8 +32,8 @@ CREATE TABLE `bt_user` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：未认证，或未加入任何公司  2：加入某个公司',
   `role` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：普通用户 2：公司管理员 3：后台管理员',
   `group_id` bigint(20) DEFAULT NULL,
-  `register_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `login_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `register_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `login_time` TIMESTAMP ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -50,7 +50,7 @@ CREATE TABLE `bt_group` (
   `name` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `email_postfix` varchar(100) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -73,10 +73,10 @@ CREATE TABLE `bt_goods` (
   `is_lock` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: 未锁定  2：锁定',
   `total` int(11) NOT NULL DEFAULT '0',
   `sell_count` int(11) NOT NULL DEFAULT '0',
-  `expire_time` timestamp NULL DEFAULT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `publish_time` timestamp NULL DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  `expire_time` timestamp NOT NULL,
+  `update_time` timestamp,
+  `publish_time` timestamp,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -92,8 +92,8 @@ CREATE TABLE `bt_goods_photo` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `goods_id` bigint(20) NOT NULL,
   `photo_url` varchar(255) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
-  PRIMARY KEY (`id`,`sid`)
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -110,8 +110,8 @@ CREATE TABLE `bt_indent` (
   `user_id` bigint(20) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：新增订单  正在进行交易 2：取消订单 3：订单结束 交易完成',
   `buy_count` int(11) NOT NULL DEFAULT '0',
-  `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `buy_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_TIMESTAMP',
+  `update_time` timestamp,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

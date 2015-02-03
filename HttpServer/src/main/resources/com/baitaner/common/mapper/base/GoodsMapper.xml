@@ -40,7 +40,7 @@ CREATE TABLE `bt_goods` (
 
 
 
-<mapper namespace="com.baitaner.common.mapper.IGoodsMapper">
+<mapper namespace="com.baitaner.common.mapper.base.GoodsMapper">
   	<cache />
 	<resultMap id="goodsResultMapper" type="Goods">
 		<id property="id" column="id" />
@@ -70,8 +70,8 @@ CREATE TABLE `bt_goods` (
   			,is_lock
   			,total
   			,sell_count
-  			,expire_time
   			,create_time
+            ,expire_time
   			,update_time
   			,publish_time
   		) values (
@@ -84,8 +84,8 @@ CREATE TABLE `bt_goods` (
   			,#{isLock}
   			,#{total}
   			,#{sellCount}
-  			,#{expireTime}
   			,#{createTime}
+  			,#{expireTime}
   			,#{updateTime}
   			,#{publishTime}
   		)
@@ -134,8 +134,8 @@ CREATE TABLE `bt_goods` (
 		,is_lock=#{isLock}
 		,total=#{total}
 		,sell_count=#{sellCount}
-		,expire_time=#{expireTime}
 		,create_time=#{createTime}
+        ,expire_time=#{expireTime}
 		,update_time=#{updateTime}
 		,publish_time=#{publicTime}
 		where id = #{id};

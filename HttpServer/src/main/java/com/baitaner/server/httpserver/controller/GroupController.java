@@ -112,7 +112,7 @@ public class GroupController {
     public @ResponseBody
     String get(
             @RequestHeader String SESSION_KEY,
-            @RequestParam Long groupId
+            @PathVariable Long groupId
     ) {
         GroupResult response = new GroupResult();
         if(SESSION_KEY==null ||groupId==null){
@@ -155,12 +155,6 @@ public class GroupController {
             if(userId==null){
                 response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
                 response.setMsg("User no login");
-                return JsonUtil.object2String(response);
-            }
-            User user = userService.getUserOnly(userId);
-            if(user.getRole()!= UserEnums.ROLE.ADMIN) {
-                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
-                response.setMsg("No permission");
                 return JsonUtil.object2String(response);
             }
             response = groupService.find(index,limit);

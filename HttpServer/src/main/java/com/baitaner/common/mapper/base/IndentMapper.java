@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baitaner.common.mapper;
+package com.baitaner.common.mapper.base;
 
 import com.baitaner.common.domain.base.Indent;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author jerry
  *
  */
-public interface IIndentMapper {
+public interface IndentMapper {
 	Integer delete(Long id);
 	Integer insert(Indent indent);
 	Integer update(Indent indent);

@@ -29,7 +29,7 @@ CREATE TABLE `bt_info_goods_photo` (
 
 
 
-<mapper namespace="com.baitaner.common.mapper.IGoodsPhotoMapper">
+<mapper namespace="com.baitaner.common.mapper.base.GoodsPhotoMapper">
   	<cache />
 	<resultMap id="goodsPhotoResultMapper" type="GoodsPhoto">
 		<id property="id" column="id" />

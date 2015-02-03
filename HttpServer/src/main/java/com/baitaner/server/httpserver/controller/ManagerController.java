@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(value = "/manager")
-public class MangerController {
-    private static final String TAG = MangerController.class.getSimpleName();
+public class ManagerController {
+    private static final String TAG = ManagerController.class.getSimpleName();
 	@Autowired
 	private IUserService userService;
 
@@ -38,7 +38,7 @@ public class MangerController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/goods/lock/{goodsId}",
+            value = "/lock/goods/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     String lockGoods(
@@ -78,7 +78,7 @@ public class MangerController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/goods/unlock/{goodsId}",
+            value = "/unlock/goods/{goodsId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     String unlockGoods(
@@ -127,6 +127,7 @@ public class MangerController {
     String goodsFromGroupAndLock(
             @RequestHeader String SESSION_KEY,
             @PathVariable Long groupId,
+            @RequestParam Integer status,
             @RequestParam Integer isLock,
             @RequestParam Integer index,
             @RequestParam Integer limit
@@ -150,7 +151,7 @@ public class MangerController {
                 response.setMsg("No permission");
                 return JsonUtil.object2String(response);
             }
-            response = goodsService.findGoodsFromGroup(groupId, null, isLock, index,limit);
+            response = goodsService.findGoodsFromGroup(groupId, status, isLock,index, limit);
         }
         return JsonUtil.object2String(response);
     }
@@ -194,52 +195,6 @@ public class MangerController {
                 return JsonUtil.object2String(response);
             }
             response = indentService.findIndentByGroupAndStatus(groupId, status,index, limit);
-        }
-        return JsonUtil.object2String(response);
-    }
-
-    /**
-     * 获取公司的信息， 根据不同状态，和锁状态获取
-     * @param SESSION_KEY
-     * @param groupId
-     * @param limit
-     * @param status
-     * @param isLock
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/goods/{groupId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
-    public @ResponseBody
-    String getFromGroup(
-            @RequestHeader String SESSION_KEY,
-            @PathVariable Long groupId,
-            @RequestParam Integer index,
-            @RequestParam Integer limit,
-            @RequestParam Integer status,
-            @RequestParam Integer isLock
-    ) {
-        GoodsListResult response = new GoodsListResult();
-        if(SESSION_KEY==null ||limit==null || status==null){
-            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            response.setMsg("Invalid params");
-        }else{
-            Long userId = userService.auth(SESSION_KEY);
-            if(userId==null){
-                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
-                response.setMsg("User no login");
-                return JsonUtil.object2String(response);
-            }
-            User user = userService.getUserOnly(userId);
-            if((!groupId.equals(user.getGroupId())
-                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
-                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
-                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
-                response.setMsg("No permission");
-                return JsonUtil.object2String(response);
-            }
-            response = goodsService.findGoodsFromGroup(groupId, status, isLock,index, limit);
         }
         return JsonUtil.object2String(response);
     }

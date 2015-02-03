@@ -4,7 +4,6 @@ import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.Goods;
 import com.baitaner.common.domain.base.GoodsPhoto;
-import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.goods.RequestCreateGoods;
 import com.baitaner.common.domain.response.GoodsListResponse;
 import com.baitaner.common.domain.response.GoodsResponse;
@@ -12,9 +11,9 @@ import com.baitaner.common.domain.result.GoodsListResult;
 import com.baitaner.common.domain.result.GoodsResult;
 import com.baitaner.common.domain.result.Result;
 import com.baitaner.common.enums.GoodsEnums;
-import com.baitaner.common.mapper.IGoodsMapper;
-import com.baitaner.common.mapper.IGoodsPhotoMapper;
-import com.baitaner.common.mapper.IUserMapper;
+import com.baitaner.common.mapper.base.GoodsMapper;
+import com.baitaner.common.mapper.base.GoodsPhotoMapper;
+import com.baitaner.common.mapper.base.UserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.utils.ResultUtils;
@@ -35,13 +34,13 @@ public class GoodsServiceImpl implements IGoodsService {
     @Autowired
     private ICacheService cacheService;
     @Autowired
-    private IGoodsMapper goodsMapper;
+    private GoodsMapper goodsMapper;
 
     @Autowired
-    private IGoodsPhotoMapper goodsPhotoMapper;
+    private GoodsPhotoMapper goodsPhotoMapper;
 
     @Autowired
-    private IUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -67,9 +66,11 @@ public class GoodsServiceImpl implements IGoodsService {
         goods.setSellCount(0);
         int count =goodsMapper.insert(goods);
         if(count>0){
-            for(GoodsPhoto photo:createGoods.getPhotoList()){
-                photo.setGoodsId(goods.getId());
-                goodsPhotoMapper.insert(photo);
+            if(createGoods.getPhotoList()!=null && createGoods.getPhotoList().size()>0) {
+                for (GoodsPhoto photo : createGoods.getPhotoList()) {
+                    photo.setGoodsId(goods.getId());
+                    goodsPhotoMapper.insert(photo);
+                }
             }
         }
         cacheService.putPublishList(goods.getGroupId(),goods.getId());
@@ -113,7 +114,7 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
-
+        cacheService.putGoods(goods);
         return ResultUtils.getSuccess();
     }
 
@@ -139,6 +140,7 @@ public class GoodsServiceImpl implements IGoodsService {
         goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
         goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
+        cacheService.putGoods(goods);
         return ResultUtils.getSuccess();
     }
     @Override
@@ -160,6 +162,7 @@ public class GoodsServiceImpl implements IGoodsService {
         goods.setStatus(GoodsEnums.STATUS.CANCELED);
         goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
+        cacheService.putGoods(goods);
         return ResultUtils.getSuccess();
     }
 
@@ -198,6 +201,8 @@ public class GoodsServiceImpl implements IGoodsService {
         goods.setIsLock(GoodsEnums.IS_LOCK.LOCK);
         goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
+        cacheService.putGoods(goods);
+
         return ResultUtils.getSuccess();
     }
 
@@ -220,6 +225,7 @@ public class GoodsServiceImpl implements IGoodsService {
         goods.setIsLock(GoodsEnums.IS_LOCK.UN_LOCK);
         goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         goodsMapper.update(goods);
+        cacheService.putGoods(goods);
         return ResultUtils.getSuccess();
     }
 
@@ -231,7 +237,7 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("INVALID_PARAMS");
             return result;
         }
-        Goods goods = goodsMapper.findById(goodsId);
+        Goods goods = getGoodsOnly(goodsId);
         if(goods==null){
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NO EXIST GOODS");
@@ -270,8 +276,10 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         GoodsListResponse glr = new GoodsListResponse();
         //todo 取缓存的的数据
-        List<Goods> goodsList = goodsMapper.findByUserIdAndStatusAndLock(userId,status,isLock,index,limit);
-        glr.setGoodsList(goodsList);
+        if(limit>0) {
+            List<Goods> goodsList = goodsMapper.findByUserIdAndStatusAndLock(userId, status, isLock, index, limit);
+            glr.setGoodsList(goodsList);
+        }
         glr.setTotal(goodsMapper.findByUserIdAndStatusAndLockSize(userId,status,isLock));
         result.setPayload(glr);
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
@@ -301,8 +309,10 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         GoodsListResponse glr = new GoodsListResponse();
         //todo 取缓存的的数据
-        List<Goods> goodsList = goodsMapper.findByGroupIdAndStatusAndLock(groupId,status,isLock,index,limit);
-        glr.setGoodsList(goodsList);
+        if(limit>0) {
+            List<Goods> goodsList = goodsMapper.findByGroupIdAndStatusAndLock(groupId, status, isLock, index, limit);
+            glr.setGoodsList(goodsList);
+        }
         glr.setTotal(goodsMapper.findByGroupIdAndStatusAndLockSize(groupId, status, isLock));
         result.setPayload(glr);
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
@@ -315,6 +325,9 @@ public class GoodsServiceImpl implements IGoodsService {
         Goods goods = cacheService.getGoods(goodsId);
         if(goods==null){
             goods = goodsMapper.findById(goodsId);
+            if(goods!=null){
+                cacheService.putGoods(goods);
+            }
         }
         return goods;
     }

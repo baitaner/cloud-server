@@ -36,7 +36,7 @@ CREATE TABLE `bt_user` (
 
 
 
-<mapper namespace="com.baitaner.common.mapper.IUserMapper">
+<mapper namespace="com.baitaner.common.mapper.base.UserMapper">
   	<cache />
 	<resultMap id="userResultMapper" type="User">
 		<id property="id" column="id" />
@@ -93,7 +93,7 @@ CREATE TABLE `bt_user` (
 		from
 		bt_user where id = #{id}
 	</select>
-	<select id="findByLoginName" parameterType="long" resultMap="userResultMapper" useCache="false">
+	<select id="findByLoginName" parameterType="string" resultMap="userResultMapper" useCache="false">
 		select
 		*
 		from
@@ -103,9 +103,9 @@ CREATE TABLE `bt_user` (
 		select
 		*
 		from
-		bt_user where email = #{email}
+		bt_user where email = #{email} OR group_email=#{email}
 	</select>
-	<select id="findByGroup" parameterType="long" resultMap="userResultMapper" useCache="false">
+	<select id="findByGroup" resultMap="userResultMapper" useCache="false">
 		select
 		*
 		from
@@ -132,7 +132,7 @@ CREATE TABLE `bt_user` (
   		  role=#{role},
   		  group_id=#{groupId},
   		  register_time=#{registerTime},
-  		  login_time=loginTime
+  		  login_time=#{loginTime}
 		where id = #{id};
 	</update>
 

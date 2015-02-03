@@ -4,6 +4,7 @@ import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.*;
 import com.baitaner.common.domain.result.*;
+import com.baitaner.common.enums.UserEnums;
 import com.baitaner.common.service.IUserService;
 import com.baitaner.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,10 +129,10 @@ public class UserController {
      * @return   Result
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/bind",
+            value = "/bind/verify",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    String bind(
+    String verifyBind(
             @RequestHeader String SESSION_KEY,
             @RequestBody VerifyBind verifyBind) {
         Result response = new Result();
@@ -186,21 +187,29 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST,
-            value = "/edit",
+            value = "/edit/{userId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     String edit(
             @RequestHeader String SESSION_KEY,
-            @RequestBody EditUser editUser) {
+            @PathVariable Long userId,
+            @RequestBody EditUser editUser
+    ) {
         Result response = new Result();
         if(SESSION_KEY==null || editUser==null){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            Long userId = userService.auth(SESSION_KEY);
-            if(userId==null){
+            Long loginId = userService.auth(SESSION_KEY);
+            if(loginId==null){
                 response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
                 response.setMsg("User no login");
+                return JsonUtil.object2String(response);
+            }
+            User user = userService.getUserOnly(loginId);
+            if(!loginId.equals(userId) && !user.getRole().equals(UserEnums.ROLE.ADMIN)){
+                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+                response.setMsg("No permission");
                 return JsonUtil.object2String(response);
             }
             response = userService.update(userId,editUser);
@@ -237,7 +246,6 @@ public class UserController {
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            User user = new User();
             response = userService.findPassword(find.getFindCode(),find.getEmail());
         }
         return JsonUtil.object2String(response);
@@ -273,19 +281,20 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET,
-            value = "/get",
+            value = "/get/{userId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     String getUser(
-            @RequestHeader String SESSION_KEY
+            @RequestHeader String SESSION_KEY,
+            @PathVariable Long userId
     ) {
         UserResult response = new UserResult();
         if(SESSION_KEY==null ){
             response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
             response.setMsg("Invalid params");
         }else{
-            Long userId = userService.auth(SESSION_KEY);
-            if(userId==null){
+            Long loginId = userService.auth(SESSION_KEY);
+            if(loginId==null){
                 response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
                 response.setMsg("User no login");
                 return JsonUtil.object2String(response);
@@ -308,7 +317,7 @@ public class UserController {
     public @ResponseBody
     String userOfGroup(
             @RequestHeader String SESSION_KEY,
-            @RequestParam Long groupId,
+            @PathVariable Long groupId,
             @RequestParam Integer index,
             @RequestParam Integer limit
     ) {
@@ -339,7 +348,7 @@ public class UserController {
     public @ResponseBody
     String syncMessage(
             @RequestHeader String SESSION_KEY,
-            @RequestParam Long userId
+            @PathVariable Long userId
     ) {
         SyncMessageResult response = new SyncMessageResult();
         if(SESSION_KEY==null || userId==null){
@@ -368,7 +377,7 @@ public class UserController {
     public @ResponseBody
     String getMessage(
             @RequestHeader String SESSION_KEY,
-            @RequestParam Long messageId
+            @PathVariable Long messageId
     ) {
         MessageResult response = new MessageResult();
         if(SESSION_KEY==null ||messageId==null){
@@ -399,7 +408,7 @@ public class UserController {
     public @ResponseBody
     String getMessage(
             @RequestHeader String SESSION_KEY,
-            @RequestParam Long userId,
+            @PathVariable Long userId,
             @RequestParam Integer index,
             @RequestParam Integer limit
     ) {

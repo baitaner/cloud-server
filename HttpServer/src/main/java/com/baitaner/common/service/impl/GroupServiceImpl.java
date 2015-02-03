@@ -1,13 +1,14 @@
 package com.baitaner.common.service.impl;
 
+import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.constant.ErrorCodeConfig;
 import com.baitaner.common.domain.base.Group;
 import com.baitaner.common.domain.response.GroupListResponse;
 import com.baitaner.common.domain.result.GroupListResult;
 import com.baitaner.common.domain.result.GroupResult;
 import com.baitaner.common.domain.result.Result;
-import com.baitaner.common.mapper.IGroupMapper;
-import com.baitaner.common.mapper.IUserMapper;
+import com.baitaner.common.mapper.base.GroupMapper;
+import com.baitaner.common.mapper.base.UserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IGroupService;
 import com.baitaner.common.utils.ResultUtils;
@@ -35,10 +36,10 @@ public class GroupServiceImpl implements IGroupService {
     private ICacheService cacheService;
 
     @Autowired
-    private IUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    private IGroupMapper groupMapper;
+    private GroupMapper groupMapper;
 
 
     @Override
@@ -69,6 +70,7 @@ public class GroupServiceImpl implements IGroupService {
         if(localGroup==null) {
             result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
             result.setMsg("NOT EXIST Group");
+            return result;
         }
 
         if(group.getEmailPostfix()!=null){
@@ -80,7 +82,7 @@ public class GroupServiceImpl implements IGroupService {
         if(group.getCity()!=null){
             localGroup.setCity(group.getCity());
         }
-        groupMapper.update(group);
+        groupMapper.update(localGroup);
         return ResultUtils.getSuccess();
     }
 
@@ -101,6 +103,7 @@ public class GroupServiceImpl implements IGroupService {
         if(localGroup!=null) {
             result.setErrorCode(ErrorCodeConfig.ALREADY_EXISTS);
             result.setMsg("Already EXIST Group");
+            return result;
         }
 
         group.setCreateTime(new Timestamp(System.currentTimeMillis()));
@@ -112,21 +115,21 @@ public class GroupServiceImpl implements IGroupService {
     @Override
     public GroupListResult find(Integer index, Integer limit){
         GroupListResult result = new GroupListResult();
-        if(index==null
-                || limit==null
-                ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
+        if(index==null){
+            index=0;
         }
-
-        List<Group> groupList = groupMapper.find(index,limit);
+        if(limit==null){
+            limit = ConstConfig.GET_INFO_MAX;
+        }
         GroupListResponse groupListResponse = new GroupListResponse();
-        groupListResponse.setGroupList(groupList);
-
+        if(limit>0) {
+            List<Group> groupList = groupMapper.find(index, limit);
+            groupListResponse.setGroupList(groupList);
+        }
         groupListResponse.setTotal(groupMapper.findSize());
         result.setErrorCode(ErrorCodeConfig.SUCCESS);
         result.setMsg("ok");
+        result.setPayload(groupListResponse);
         return result;
     }
 }

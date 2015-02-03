@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baitaner.common.mapper;
+package com.baitaner.common.mapper.base;
 
 import com.baitaner.common.domain.base.User;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +15,7 @@ import java.util.List;
 
  *
  */
-public interface IUserMapper {
+public interface UserMapper {
 
 	Integer insert(User user);
 	

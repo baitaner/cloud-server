@@ -31,7 +31,7 @@ CREATE TABLE `bt_indent` (
 
 
 
-<mapper namespace="com.baitaner.common.mapper.IIndentMapper">
+<mapper namespace="com.baitaner.common.mapper.base.IndentMapper">
   	<cache />
 	<resultMap id="indentResultMapper" type="Indent">
 		<id property="id" column="id" />

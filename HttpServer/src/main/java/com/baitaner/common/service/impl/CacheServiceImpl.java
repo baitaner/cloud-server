@@ -5,7 +5,7 @@ import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.domain.base.Goods;
 import com.baitaner.common.domain.base.User;
 import com.baitaner.common.domain.request.user.BindGroup;
-import com.baitaner.common.mapper.IUserMapper;
+import com.baitaner.common.mapper.base.UserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.utils.CacheKeyUtil;
 import com.baitaner.common.utils.JsonUtil;
@@ -20,7 +20,7 @@ public class CacheServiceImpl implements ICacheService {
     private final int BIND_TIME_OUT = 5 * 60;//sec
 
     @Autowired
-    private IUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Autowired
     private ICache cache;
@@ -52,7 +52,7 @@ public class CacheServiceImpl implements ICacheService {
     }
 
     /* (non-Javadoc)
-     * @see com.baitaner.common.service.ICacheService#putUser(com.baitaner.common.domain.base.User)
+     * @see com.baitaner.common.service.ICacheService#putGoods(com.baitaner.common.domain.base.User)
      */
     @Override
     public void putUser(User user) {
@@ -87,7 +87,7 @@ public class CacheServiceImpl implements ICacheService {
     }
 
     @Override
-    public void putUser(Goods goods) {
+    public void putGoods(Goods goods) {
         try {
             String goodsKey = CacheKeyUtil.getGoodsKey(goods.getId());
             cache.put(goodsKey, JsonUtil.object2String(goods));
