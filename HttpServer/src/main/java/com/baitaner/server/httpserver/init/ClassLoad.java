@@ -3,9 +3,9 @@ package com.baitaner.server.httpserver.init;
 import com.baitaner.common.constant.ConstConfig;
 import com.baitaner.common.mapper.base.GroupMapper;
 import com.baitaner.common.service.ICacheService;
-import com.baitaner.common.service.IIndentService;
 import com.baitaner.common.service.IGoodsService;
 import com.baitaner.common.service.IUserService;
+import com.baitaner.common.thread.GoodsTimerThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,13 +32,14 @@ public class ClassLoad {
     @Autowired
     private IGoodsService infoService;
     @Autowired
-    private IIndentService indentService;
+    private GoodsTimerThread goodsTimerThread;
 
     @PostConstruct
     public void init(){
         System.out.println("Start init....");
         initDir();
         initDate();
+        goodsTimerThread.monitor();
     }
 
     private void initDate(){

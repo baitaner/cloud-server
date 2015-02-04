@@ -70,6 +70,7 @@ public class IndentController {
 
 
     /**
+     * 取消订单 由卖家来做。确认订单 由买家来做
      * 取消某个订单
      * @param SESSION_KEY
      * @param indentId
@@ -97,7 +98,8 @@ public class IndentController {
             }
             User user = userService.getUserOnly(userId);
             Indent indent = indentService.getIndentOnly(indentId);
-            if(!indent.getUserId().equals(userId)
+            Goods goods = goodsService.getGoodsOnly(indent.getGoodsId());
+            if(!goods.getUserId().equals(userId)
                     && user.getRole()!= UserEnums.ROLE.ADMIN
                     ){
                 response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
@@ -110,6 +112,12 @@ public class IndentController {
         return JsonUtil.object2String(response);
     }
 
+    /**
+     * 取消订单 由卖家来做。确认订单 由买家来做
+     * @param SESSION_KEY
+     * @param indentId
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST,
             value = "/confirm/{indentId}",
             produces = MediaType.APPLICATION_JSON_VALUE)

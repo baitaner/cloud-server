@@ -19,13 +19,13 @@ public interface GoodsEnums {
          1：未发布（新建）
          2：发布
          3：取消
-         4：完成
-         5：结束
+         4：结束
+         5：完成
          */
         public final static int UN_PUBLISHED = 1;
         public final static int PUBLISHED = 2;
         public final static int CANCELED = 3;
-        public final static int COMPLETED = 4;
-        public final static int TERMINATE = 5;
+        public final static int TERMINATE = 4;
+        public final static int COMPLETE = 5;
     }
 }

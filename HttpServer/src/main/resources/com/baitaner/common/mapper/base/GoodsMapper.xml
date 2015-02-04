@@ -100,6 +100,19 @@ CREATE TABLE `bt_goods` (
 		from
 		bt_goods where id = #{id}
 	</select>
+    <select id="findByStatusAndLock" resultMap="goodsResultMapper" useCache="false">
+        select
+        *
+        from
+        bt_goods where status=#{status} and is_lock=${isLock} order by id desc limit #{index},#{limit}
+    </select>
+    <select id="findByStatusAndLockSize" resultType="long" useCache="false">
+        select
+        count(id)
+        from
+        bt_goods where status=#{status} and is_lock=${isLock}
+    </select>
+
 
 	<select id="findByUserIdAndStatusAndLock" resultMap="goodsResultMapper" useCache="false">
 		select

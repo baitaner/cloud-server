@@ -33,8 +33,12 @@ public interface IGoodsService {
 
     Result cancel(Long goodsId);
 
+    Result rollbackGoods(Long goodsId, Integer count);
+
+    Result sell(Long goodsId, Integer count);
+
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    Result end(Long goodsId);
+    Result terminate(Long goodsId);
 
     Result delete(Long goodsId);
 

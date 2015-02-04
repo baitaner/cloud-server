@@ -156,46 +156,4 @@ public class ManagerController {
         return JsonUtil.object2String(response);
     }
 
-    /**
-     获取某个用户的所有订单，用户根据SessionKey 来区分用户，并区分是否有权限获取（只有公司管理员和管理员能看到）     * @param SESSION_KEY
-     * @param groupId
-     * @param status
-     * @param limit
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET,
-            value = "/indent/{groupId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
-    public @ResponseBody
-    String indentFromGroupAndStatus(
-            @RequestHeader String SESSION_KEY,
-            @PathVariable Long groupId,
-            @RequestParam Integer status,
-            @RequestParam(defaultValue = "0") Integer index,
-            @RequestParam(defaultValue = "0") Integer limit
-    ) {
-        IndentListResult response = new IndentListResult();
-        if(SESSION_KEY==null ||limit==null||groupId==null){
-            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            response.setMsg("Invalid params");
-        }else{
-            Long userId = userService.auth(SESSION_KEY);
-            if(userId==null){
-                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
-                response.setMsg("User no login");
-                return JsonUtil.object2String(response);
-            }
-            User user = userService.getUserOnly(userId);
-            if((!groupId.equals(user.getGroupId())
-                    || user.getRole()!= UserEnums.ROLE.GROUP_ADMIN)
-                    && user.getRole()!= UserEnums.ROLE.ADMIN) {
-                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
-                response.setMsg("No permission");
-                return JsonUtil.object2String(response);
-            }
-            response = indentService.findIndentByGroupAndStatus(groupId, status,index, limit);
-        }
-        return JsonUtil.object2String(response);
-    }
 }

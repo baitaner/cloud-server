@@ -80,15 +80,12 @@ public class IndentServiceImpl implements IIndentService {
         indent.setStatus(IndentEnums.STATUS.NEW);
         indentMapper.insert(indent);
         //修改goods中的售出数量
-        Integer sellCount=goods.getSellCount()+createIndent.getBuyCount();
-        if(sellCount>goods.getTotal()){
+        if(goods.getSellCount()+createIndent.getBuyCount()>goods.getTotal()){
             result.setErrorCode(ErrorCodeConfig.BEYOND_MAX_VALUE);
             result.setMsg("Beyond the maximum");
             return result;
         }
-        goods.setSellCount(goods.getSellCount()+createIndent.getBuyCount());
-        goodsMapper.update(goods);
-        cacheService.putGoods(goods);
+        goodsService.sell(indent.getGoodsId(),createIndent.getBuyCount());
         return ResultUtils.getIDSuccess(goods.getId());
     }
 
@@ -109,18 +106,7 @@ public class IndentServiceImpl implements IIndentService {
         indent.setStatus(IndentEnums.STATUS.CANCELED);
         indent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         indentMapper.update(indent);
-
-        //获取缓存信息
-        Goods goods = goodsService.getGoodsOnly(indent.getGoodsId());
-        if(goods!=null){
-            goods.setSellCount(goods.getSellCount()-indent.getBuyCount());
-            if(goods.getSellCount()<0){
-                goods.setSellCount(0);
-            }
-            goodsMapper.update(goods);
-            cacheService.putGoods(goods);
-        }
-
+        goodsService.rollbackGoods(indent.getGoodsId(),indent.getBuyCount());
         return ResultUtils.getSuccess();
     }
     @Override
@@ -141,6 +127,7 @@ public class IndentServiceImpl implements IIndentService {
             indent.setStatus(IndentEnums.STATUS.COMPLETED);
             indent.setUpdateTime(new Timestamp(System.currentTimeMillis()));
             indentMapper.update(indent);
+            goodsService.complete(indent.getGoodsId());
         } else{
             result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
             result.setMsg("indent status error");
@@ -281,7 +268,7 @@ public class IndentServiceImpl implements IIndentService {
     }
 
     @Override
-    public IndentListResult findIndentByGroupAndStatus(Long goodsId, Integer status,Integer index, Integer limit) {
+    public IndentListResult findIndentByGoodsAndStatus(Long goodsId, Integer status,Integer index, Integer limit) {
         IndentListResult result = new IndentListResult();
         if(goodsId==null
                 ){

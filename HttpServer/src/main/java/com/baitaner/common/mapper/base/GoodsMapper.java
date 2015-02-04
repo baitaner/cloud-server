@@ -22,7 +22,16 @@ public interface GoodsMapper {
 	Goods findById(Long id);
 
 	Integer update(Goods goods);
-
+    List<Goods> findByStatusAndLock(
+            @Param("status") int status,
+            @Param("isLock") int isLock,
+            @Param("index") int index,
+            @Param("limit") int limit
+    );
+    Long findByStatusAndLockSize(
+            @Param("status") int status,
+            @Param("isLock") int isLock
+    );
 	List<Goods> findByUserIdAndStatusAndLock(
 			@Param("userId") Long userId,
 			@Param("status") int status,

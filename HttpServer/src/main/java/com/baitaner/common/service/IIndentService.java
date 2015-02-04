@@ -25,7 +25,7 @@ public interface IIndentService {
 
     IndentListResult findIndentByUser(Long userId,Integer index,Integer limit);
     IndentListResult findIndentByGoods(Long goodsId,Integer index,Integer limit);
-    IndentListResult findIndentByGroupAndStatus(Long goodsId,Integer status,Integer index,Integer limit);
+    IndentListResult findIndentByGoodsAndStatus(Long goodsId,Integer status,Integer index,Integer limit);
 
     Indent getIndentOnly(Long indentId);
 }

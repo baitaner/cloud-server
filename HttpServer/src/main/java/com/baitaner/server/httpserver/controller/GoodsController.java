@@ -163,44 +163,44 @@ public class GoodsController {
     }
 
     /**
-     * 发布某个信息
+     * 完成某个信息
      * @param SESSION_KEY
      * @param goodsId
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST,
-            value = "/complete/{goodsId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
-    public @ResponseBody
-    String complete(
-            @RequestHeader String SESSION_KEY,
-            @PathVariable Long goodsId
-    ) {
-        Result response = new Result();
-        if(SESSION_KEY==null||goodsId==null){
-            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            response.setMsg("Invalid params");
-        }else{
-            Long userId = userService.auth(SESSION_KEY);
-            if(userId==null){
-                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
-                response.setMsg("User no login");
-                return JsonUtil.object2String(response);
-            }
-            Goods goods= goodsService.getGoodsOnly(goodsId);
-            User user = userService.getUserOnly(userId);
-            if(!goods.getUserId().equals(userId)
-                    && user.getRole()!= UserEnums.ROLE.ADMIN
-                    ){
-                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
-                response.setMsg("No permission");
-                return JsonUtil.object2String(response);
-            }
-            response = goodsService.complete(goodsId);
-        }
-        return JsonUtil.object2String(response);
-    }
+//    @RequestMapping(method = RequestMethod.POST,
+//            value = "/complete/{goodsId}",
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//
+//    public @ResponseBody
+//    String complete(
+//            @RequestHeader String SESSION_KEY,
+//            @PathVariable Long goodsId
+//    ) {
+//        Result response = new Result();
+//        if(SESSION_KEY==null||goodsId==null){
+//            response.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+//            response.setMsg("Invalid params");
+//        }else{
+//            Long userId = userService.auth(SESSION_KEY);
+//            if(userId==null){
+//                response.setErrorCode(ErrorCodeConfig.USER_NOT_AUTHORIZED);
+//                response.setMsg("User no login");
+//                return JsonUtil.object2String(response);
+//            }
+//            Goods goods= goodsService.getGoodsOnly(goodsId);
+//            User user = userService.getUserOnly(userId);
+//            if(!goods.getUserId().equals(userId)
+//                    && user.getRole()!= UserEnums.ROLE.ADMIN
+//                    ){
+//                response.setErrorCode(ErrorCodeConfig.NO_PERMISSION);
+//                response.setMsg("No permission");
+//                return JsonUtil.object2String(response);
+//            }
+//            response = goodsService.complete(goodsId);
+//        }
+//        return JsonUtil.object2String(response);
+//    }
 
 
     /**

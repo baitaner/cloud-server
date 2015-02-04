@@ -7,16 +7,14 @@ import com.baitaner.common.domain.base.GoodsPhoto;
 import com.baitaner.common.domain.request.goods.RequestCreateGoods;
 import com.baitaner.common.domain.response.GoodsListResponse;
 import com.baitaner.common.domain.response.GoodsResponse;
-import com.baitaner.common.domain.result.GoodsListResult;
-import com.baitaner.common.domain.result.GoodsResult;
-import com.baitaner.common.domain.result.IDResult;
-import com.baitaner.common.domain.result.Result;
+import com.baitaner.common.domain.result.*;
 import com.baitaner.common.enums.GoodsEnums;
+import com.baitaner.common.enums.IndentEnums;
 import com.baitaner.common.mapper.base.GoodsMapper;
 import com.baitaner.common.mapper.base.GoodsPhotoMapper;
-import com.baitaner.common.mapper.base.UserMapper;
 import com.baitaner.common.service.ICacheService;
 import com.baitaner.common.service.IGoodsService;
+import com.baitaner.common.service.IIndentService;
 import com.baitaner.common.utils.ResultUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +39,7 @@ public class GoodsServiceImpl implements IGoodsService {
     private GoodsPhotoMapper goodsPhotoMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private IIndentService indentService;
 
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -55,7 +53,7 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         Long publishSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.PUBLISHED,GoodsEnums.IS_LOCK.UN_LOCK);
         Long cancelSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.CANCELED,GoodsEnums.IS_LOCK.UN_LOCK);
-        Long completeSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.COMPLETED,GoodsEnums.IS_LOCK.UN_LOCK);
+        Long completeSize = goodsMapper.findByUserIdAndStatusAndLockSize(userId,GoodsEnums.STATUS.TERMINATE,GoodsEnums.IS_LOCK.UN_LOCK);
         if(publishSize>=ConstConfig.PUBLISH_MAX || cancelSize>=ConstConfig.PUBLISH_MAX || completeSize>=ConstConfig.PUBLISH_MAX){
             result.setErrorCode(ErrorCodeConfig.BEYOND_MAX_VALUE);
             result.setMsg("User publish goods beyond max value");
@@ -157,14 +155,15 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         Long publishSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.PUBLISHED,GoodsEnums.IS_LOCK.UN_LOCK);
         Long cancelSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.CANCELED,GoodsEnums.IS_LOCK.UN_LOCK);
-        Long completeSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.COMPLETED,GoodsEnums.IS_LOCK.UN_LOCK);
-        if(publishSize>=ConstConfig.PUBLISH_MAX || cancelSize>=ConstConfig.PUBLISH_MAX || completeSize>=ConstConfig.PUBLISH_MAX){
+        Long terminateSize = goodsMapper.findByUserIdAndStatusAndLockSize(goods.getUserId(),GoodsEnums.STATUS.TERMINATE,GoodsEnums.IS_LOCK.UN_LOCK);
+        if(publishSize>=ConstConfig.PUBLISH_MAX || cancelSize>=ConstConfig.PUBLISH_MAX || terminateSize>=ConstConfig.PUBLISH_MAX){
             result.setErrorCode(ErrorCodeConfig.BEYOND_MAX_VALUE);
             result.setMsg("User publish goods beyond max value");
             return result;
         }        //判断允许发布的最大的数量
         if(publishSize<ConstConfig.PUBLISH_MAX){
             if(goods.getStatus().equals(GoodsEnums.STATUS.UN_PUBLISHED)){
+                goods.setPreviousStatus(goods.getStatus());
                 goods.setStatus(GoodsEnums.STATUS.PUBLISHED);
                 goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
                 goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
@@ -182,36 +181,8 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         return ResultUtils.getSuccess();
     }
-    @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result complete(Long goodsId){
-        Result result = new Result();
-        if(goodsId==null ){
-            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
-            result.setMsg("INVALID_PARAMS");
-            return result;
-        }
-        //获取缓存信息
-        Goods goods = getGoodsOnly(goodsId);
-        if(goods==null){
-            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
-            result.setMsg("NO EXIST GOODS");
-            return result;
-        }
-        if(goods.getStatus().equals(GoodsEnums.STATUS.PUBLISHED)){
-            //todo 需要检查订单状态
-            goods.setStatus(GoodsEnums.STATUS.COMPLETED);
-            goods.setPublishTime(new Timestamp(System.currentTimeMillis()));
-            goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-            goodsMapper.update(goods);
-            cacheService.putGoods(goods);
-        } else{
-            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
-            result.setMsg("Goods status error!");
-            return result;
-        }
-        return ResultUtils.getSuccess();
-    }
+
+
     @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Result cancel(Long goodsId){
@@ -229,11 +200,13 @@ public class GoodsServiceImpl implements IGoodsService {
             return result;
         }
         if(goods.getStatus().equals(GoodsEnums.STATUS.PUBLISHED) || goods.getStatus().equals(GoodsEnums.STATUS.UN_PUBLISHED)){
-            //todo 需要检查订单状态
+            goods.setPreviousStatus(goods.getStatus());
             goods.setStatus(GoodsEnums.STATUS.CANCELED);
             goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
             goodsMapper.update(goods);
             cacheService.putGoods(goods);
+            //直接调用完成，里面会做检查
+            complete(goods.getId());
         } else{
             result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
             result.setMsg("Goods status error!");
@@ -243,8 +216,50 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
+    public Result rollbackGoods(Long goodsId, Integer count){
+        Result result = new Result();
+        //获取缓存信息
+        Goods goods = this.getGoodsOnly(goodsId);
+        if(goods!=null){
+            goods.setSellCount(goods.getSellCount()-count);
+            if(goods.getSellCount()<0){
+                goods.setSellCount(0);
+            }
+            goodsMapper.update(goods);
+            cacheService.putGoods(goods);
+            //有可能状态是取消状态
+            complete(goodsId);
+        }
+        result.setErrorCode(ErrorCodeConfig.SUCCESS);
+        result.setMsg("ok");
+        return result;
+    }
+    @Override
+    public Result sell(Long goodsId, Integer count){
+        Result result = new Result();
+        //获取缓存信息
+        Goods goods = this.getGoodsOnly(goodsId);
+        if(goods!=null){
+            goods.setSellCount(goods.getSellCount()+count);
+            goodsMapper.update(goods);
+            cacheService.putGoods(goods);
+            if(goods.getSellCount()>=goods.getTotal()){
+                terminate(goodsId);
+            }
+        }
+        result.setErrorCode(ErrorCodeConfig.SUCCESS);
+        result.setMsg("ok");
+        return result;
+    }
+
+    /**
+     * 时间过期或卖完
+     * @param goodsId
+     * @return
+     */
+    @Override
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Result end(Long goodsId){
+    public Result terminate(Long goodsId){
         Result result = new Result();
         if(goodsId==null ){
             result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
@@ -258,9 +273,54 @@ public class GoodsServiceImpl implements IGoodsService {
             result.setMsg("NO EXIST GOODS");
             return result;
         }
-        if(goods.getStatus().equals(GoodsEnums.STATUS.COMPLETED) || goods.getStatus().equals(GoodsEnums.STATUS.CANCELED)){
-            //todo 需要检查订单状态
+        if(goods.getStatus().equals(GoodsEnums.STATUS.PUBLISHED)){
+            goods.setPreviousStatus(goods.getStatus());
             goods.setStatus(GoodsEnums.STATUS.TERMINATE);
+            goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+            goodsMapper.update(goods);
+            cacheService.putGoods(goods);
+            //直接调用完成，里面会做检查
+            complete(goods.getId());
+        } else{
+            result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+            result.setMsg("Goods status error!");
+            return result;
+        }
+        return ResultUtils.getSuccess();
+    }
+
+    /**
+     * 当信息结束或取消，订单处理完成后归档为完成
+     * @param goodsId
+     * @return
+     */
+    @Override
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result complete(Long goodsId){
+        Result result = new Result();
+        if(goodsId==null ){
+            result.setErrorCode(ErrorCodeConfig.INVALID_PARAMS);
+            result.setMsg("INVALID_PARAMS");
+            return result;
+        }
+        //获取缓存信息
+        Goods goods = getGoodsOnly(goodsId);
+        if(goods==null){
+            result.setErrorCode(ErrorCodeConfig.NO_RECORD_DB);
+            result.setMsg("NO EXIST GOODS");
+            return result;
+        }
+        if(goods.getStatus().equals(GoodsEnums.STATUS.TERMINATE) || goods.getStatus().equals(GoodsEnums.STATUS.CANCELED)){
+            //todo 需要检查订单状态
+            IndentListResult ilresult = indentService.findIndentByGoodsAndStatus(goods.getId(), IndentEnums.STATUS.NEW, 0, 0);
+            //如果有订单没有处理过得订单
+            if(ilresult.getErrorCode()==ErrorCodeConfig.SUCCESS && ilresult.getPayload().getTotal()>0){
+                result.setErrorCode(ErrorCodeConfig.STATUS_ERROR);
+                result.setMsg("Already exist new indent");
+                return result;
+            }
+            goods.setPreviousStatus(goods.getStatus());
+            goods.setStatus(GoodsEnums.STATUS.COMPLETE);
             goods.setUpdateTime(new Timestamp(System.currentTimeMillis()));
             goodsMapper.update(goods);
             cacheService.putGoods(goods);
@@ -282,7 +342,7 @@ public class GoodsServiceImpl implements IGoodsService {
             return result;
         }
         Goods goods = getGoodsOnly(goodsId);
-        if(goods.getStatus().equals(GoodsEnums.STATUS.TERMINATE)
+        if(goods.getStatus().equals(GoodsEnums.STATUS.COMPLETE)
                 ) {
             // 清除缓存
             cacheService.deleteGoods(goodsId);
